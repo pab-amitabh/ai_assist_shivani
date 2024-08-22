@@ -1,6 +1,8 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 
+Project uses Prisma ORM, likely need to run "prisma generate" command before starting server for the first time(check Prisma ORM documentation if prisma generate does not work)
+
 MongoDB Database is under customersuccess@policyadvisor.com email
 Pinecone Vector Database is under customersuccess@policyadvisor.com email
 
