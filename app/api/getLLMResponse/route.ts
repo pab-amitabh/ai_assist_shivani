@@ -28,8 +28,10 @@ import { AIMessage, HumanMessage } from "@langchain/core/messages";
 import { ScoreThresholdRetriever } from "langchain/retrievers/score_threshold";
 import OpenAI from "openai";
 
-export const maxDuration = 60;
-export const dynamic = 'force-dynamic';
+
+// FOR VERCEL DEPLOYMENT, increases API TIMEOUT LIMIT TO 60 SECONDS
+// export const maxDuration = 60;
+// export const dynamic = 'force-dynamic';
 
 
 export async function POST(req: Request) {
