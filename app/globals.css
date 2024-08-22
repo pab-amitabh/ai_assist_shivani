@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+.chat-history {
+	height: 80vh;
+}
+
+.message {
+	width: 74vw;
+}
+
+.icon {
+	max-height: 40px;
+	max-width: 48px;
+}
+.markdown > * {
+    all: revert;
+  }
+
+.markdown a {
+    color: #0000FF;
+    text-decoration: underline;
+  }
+  
+.markdown a:hover {
+    color: #000099;
+  }
+
+.source-links {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+margin-top: 10px;
+}
+
+/* .source-link-box {
+background-color: #f0f0f0;
+border: 1px solid #ddd;
+border-radius: 4px;
+padding: 5px 10px;
+font-size: 0.9em;
+transition: background-color 0.3s ease;
+} */
+
+/* .source-link-box:hover {
+background-color: #e0e0e0;
+}
+
+.source-link-box a {
+color: #0066cc;
+text-decoration: none;
+}
+
+.source-link-box a:hover {
+text-decoration: underline;
+} */
+/* body {
+
+} */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

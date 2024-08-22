@@ -1,0 +1,252 @@
+import "cheerio";
+import { CheerioWebBaseLoader } from "@langchain/community/document_loaders/web/cheerio";
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+import { MemoryVectorStore } from "langchain/vectorstores/memory";
+import { OpenAIEmbeddings, ChatOpenAI } from "@langchain/openai";
+import { pull } from "langchain/hub";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { StringOutputParser } from "@langchain/core/output_parsers";
+import { GoogleVertexAIEmbeddings } from "@langchain/community/embeddings/googlevertexai";
+import { Pinecone } from "@pinecone-database/pinecone";
+import { PineconeStore } from "@langchain/pinecone";
+import * as dotenv from "dotenv";
+import { ChatVertexAI } from "@langchain/google-vertexai";
+import {
+  RunnablePassthrough,
+  RunnableSequence,
+  RunnableMap,
+} from "@langchain/core/runnables";
+import { formatDocumentsAsString } from "langchain/util/document";
+import { NextResponse } from "next/server";
+import { PromptTemplate } from "@langchain/core/prompts";
+import { StreamingTextResponse, LangChainAdapter, createStreamDataTransformer, AWSBedrockAnthropicMessagesStream } from "ai";
+import { HttpResponseOutputParser } from "langchain/output_parsers";
+import {
+    MessagesPlaceholder,
+  } from "@langchain/core/prompts";
+import { AIMessage, HumanMessage } from "@langchain/core/messages";
+import { ScoreThresholdRetriever } from "langchain/retrievers/score_threshold";
+import OpenAI from "openai";
+
+export const maxDuration = 60;
+export const dynamic = 'force-dynamic';
+
+
+export async function POST(req: Request) {
+
+    try {
+
+        const info = await req.json();
+        const { query, chatHistory } = info;
+        // console.log("Chat History in getLLMResponse: ", chatHistory)
+        const pinecone = new Pinecone({ apiKey: process.env.PINECONE_API_KEY! })
+        const pineconeIndex = pinecone.Index(process.env.PINECONE_INDEX!)
+
+        const vectorStore = await PineconeStore.fromExistingIndex(new OpenAIEmbeddings(), { pineconeIndex, namespace: "namespace-test-two"});
+        const retriever = vectorStore.asRetriever({ k: 5, searchType: "similarity"});
+        const scoreRetriever = ScoreThresholdRetriever.fromVectorStore(vectorStore, { minSimilarityScore: 0.7, maxK: 10 });
+            
+        
+        // const retrievedDocs = await retriever.invoke("What is the difference between a group health plan and an individual health plan?")
+        // console.log(retrievedDocs);
+        const customPromptTemplate = ` 
+        Use the following pieces of context to answer the question at the end in detail. 
+        If the answer isn't in the context, say "I don't know.", don't try to make up an answer, however please provide a short explanation on where they may be able to find the answer. 
+        
+
+        You are used to help insurance advisors in Canada sell insurance products to their customers. Provide answers which help them structure the call and explain concepts in layman term to their clients.
+        Where possible use tables and good formatting to help understand the content better.
+
+
+        If you are creating a table, do not use any newline characters, do not add <br> tags under any circumstance.
+        Be as detailed as possible, don't leave out any important information.
+        Do not add HTML formatting, such as <br> tags, to your answer or any other formatting. Especially do NOT add <br> tags in tables, use new line characters.
+        Do not refer to your context as "the context", refer to it as "training data" or a variation of that.
+        {context} 
+        Question: {question}
+        Helpful Answer:`;
+
+//         const customPromptTemplate = `Use the following pieces of context to answer the question at the end. 
+// If the answer is not explicitly stated in the context, use the information provided to infer a reasonable answer.
+// If you are instructed to create a table, create a table in markdown with proper newlines in markdown.
+// Do not refer to your context as "the context", refer to it as "training data" or a variation of that.
+
+// {context}
+
+// Question: {question}
+
+// Helpful Answer:`;
+        const customPrompt = new PromptTemplate({
+            template: customPromptTemplate,
+            inputVariables: ["context", "question"],
+          });
+
+
+        const llm = new ChatOpenAI({
+            model: "gpt-4o-mini",
+            temperature: 0
+            });
+        
+        const secondLLM = new ChatOpenAI({
+            model: "gpt-4o-mini",
+            temperature: 0
+        })
+
+        // console.log(example_messsages);
+        const parser = new StringOutputParser();
+        
+        const ragChainWithSources = RunnableMap.from({
+            context: scoreRetriever,
+            question: new RunnablePassthrough(),
+        }).assign({
+            answer: RunnableSequence.from([
+                (input: any) => {
+                    return {
+                        context: formatDocumentsAsString(input.context),
+                        question: input.question
+                    };
+                },
+                customPrompt,
+                llm,
+                parser
+            ])
+        })
+        
+        const ragChain = RunnableSequence.from([
+            {
+                context: retriever.pipe(formatDocumentsAsString),
+                question: new RunnablePassthrough(),
+            },
+            customPrompt,
+            llm,
+            new StringOutputParser()
+        ])
+
+        // let res = await ragChainWithSources.invoke(query);
+        // console.log("resAnswer Context: ", res)
+        // const resAnswer = res["answer"]
+        // return NextResponse.json({res: resAnswer});
+
+        // No Streaming Code:
+        // let res = await ragChainWithSources.invoke(query);
+        // console.log("resAnswer Context: ", res)
+        // const resAnswer = res["answer"]
+        // return NextResponse.json({res: resAnswer});
+
+        // Streaming Code:
+
+        
+          
+        const contextualizeQSystemPrompt = `Your job is to generate a concise stand alone question. Given a chat history and the latest user question
+        which might reference context in the chat history, formulate a concise standalone question
+        which can be understood without the chat history. Do NOT answer the question. I repeat, do NOT answer the question. Create a concise standalone question. Do NOT ignore the latest question asked, ensure the question asked in the latest question would properly be answered from your reformated question. If the latest question is already a standalone question, return it as is, do not change anything if it is a standalone question.
+        Prioritize the latest messages in the chat history when inferring context.
+        Prioritize the human messages when formulating the standalone question, only use the AI messages as context if needed.
+        just reformulate it if needed and otherwise return it as is. If the latest question asks to reformat information, use the chat history to infer what information and create a standalone question based on that. Do not answer the question and reformat the information. Just create a standalone question.`;
+        
+        const contextualizeQSystemPromptOriginal = `DO NOT ANSWER THE QUESTION! DO NOT ANSWER THE QUESTION! Given a chat history and the latest user question
+            which might reference context in the chat history, formulate a standalone question, if the latest user question is not already a standalone question,
+            which can be understood without the chat history. Do NOT answer the question,
+            just reformulate it if needed and otherwise return it as is. I repeat, you are to reformulate the question IF NEEDED, do NOT answer the question. Do not add any information not already in the chat history or the latest question. Simply create a standalone question. Ensure all information in the latest question is asked in your standalone question.`;
+
+
+        // LANGCHAIN CONTEXTUALIZE QUERY METHOD #################################################################
+
+        const contextualizeQPrompt = ChatPromptTemplate.fromMessages([
+        ["system", contextualizeQSystemPromptOriginal],
+        new MessagesPlaceholder("chat_history"),
+        ["human", "{question}"],
+        ]);
+        const contextualizeQChain = contextualizeQPrompt
+        .pipe(secondLLM)
+        .pipe(new StringOutputParser());
+
+        const properChatHistory = []
+
+        for (let i = 0; i < chatHistory.length; i++) {
+            if (i % 2 == 0 && i != 0) {
+                const currentThread = chatHistory[i].split("Sources:")
+                // console.log("Chat History String: ", currentThread[0])
+                properChatHistory.push(new AIMessage(currentThread[0]))
+                continue
+            } else {
+                properChatHistory.push(new HumanMessage(chatHistory[i]))
+            }
+        }
+
+        const contexualizedQuery = await contextualizeQChain.invoke({ chat_history: properChatHistory, question: query });
+
+        // #############################################################################################################
+
+
+
+        // OPENAI CONTEXTUALIZE QUERY METHOD ###########################################
+        // const openai = new OpenAI();
+        // let openaiMessages = ""
+        // openaiMessages += contextualizeQSystemPrompt
+
+        // for (let i = 0; i < chatHistory.length; i++) {
+        //     if (i % 2 == 0 && i != 0) {
+        //         const currentThread = chatHistory[i].split("Sources:")
+        //         openaiMessages += "role: assistant" + `content: ${currentThread[0]}`
+        //         continue
+        //     } else {
+        //         openaiMessages += "role: user" + `content: ${chatHistory[i]}`
+        //     }
+        // }
+
+        // const completion = await openai.chat.completions.create({
+        //     model: "gpt-4o-mini",
+        //     messages: [{role: "user", content: openaiMessages}]
+        // })
+
+        // const contexualizedQuery = completion.choices[0].message.content
+
+        // #############################################################################
+
+        console.log("Contexualized Query: ", contexualizedQuery)
+        const stream  = await ragChainWithSources.stream(contexualizedQuery);
+        let sourcesArray: string[] = []
+
+        // for await (const chunk of stream) {
+        //     console.log(chunk)
+        // }
+
+        const transformStream = new TransformStream({
+            async transform(chunk, controller) {
+                // console.log("Chunk: ", chunk)
+                if (chunk.answer) {
+                    // console.log("Chunk answer: ", chunk)
+                    controller.enqueue(chunk.answer);
+                } else if (chunk.context) {
+                    let contextString = ""
+                    for (const document of chunk.context) {
+                        let pushMessage = "Source by LLM: "+ "* " + "[" + document.metadata.source.toString() + "  \n" + document.pageContent.toString() + "]"  + `(${document.metadata.source.toString()})`+ " End of Source by LLM  \n"
+                        contextString += pushMessage
+                        // console.log("Chunk Pushed: ", "Source by LLM: "+ "* " + "[" + document.metadata.source.toString() + document.pageContent.toString() + "]"  + `(${document.metadata.source.toString()})`+ " End of Source by LLM  \n")
+                        console.log("document: ", document)
+                    }
+                    // console.log("enqueued contextString: ", contextString)
+                    controller.enqueue(contextString)
+                    
+                }
+            }
+        });
+
+        // Pipe the original stream through our transform stream
+        const readableStream = stream.pipeThrough(transformStream);
+
+        return new NextResponse(readableStream, {
+            headers: {
+                'Content-Type': 'text/plain',
+                'Transfer-Encoding': 'chunked',
+            }
+        });
+        
+    }
+    catch (e) {
+        console.log(e)
+        return NextResponse.json({error: e})
+    }
+    
+}
