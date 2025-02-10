@@ -5,33 +5,40 @@ import prisma from "../../libs/prismadb"
 export async function POST(req: Request) {
 	const res = await req.json()
 	const { email } = res
-
-	
-	const defaultChat = await prisma.chat.create({
-		data: {
-			messages: ["Hello, I am an AI Assitant designed to help you with all things related to Policy Advisor and Insurance"],
-			user: {
-				connect: {
-					email: email
-				}
-			}
-		}
-	})
-
+    
 	let userChats = await prisma.user.findUnique({
 		where: {
 			email: email
 		},
 		include: {
-			chats: true,
+			chats: {
+                include: {
+                    messages: true
+                }
+            }
+		}
+	})
+
+    const defaultChat = await prisma.chat.create({
+		data: {
+			user: {
+				connect: {
+					email: email
+				}
+			},
+            messages: {
+                create: {
+                    content: "Hello, I am PolicyAdvisor AI Assitant. What can I help you with?",
+                    sender: "AI",
+                    messageType: "ANSWER",
+                    isResolved: false,
+                    questionId: null
+                }
+            }
 		}
 	})
 
 	userChats = userChats.chats
-
-
 	return NextResponse.json({userChats})
-
-	
 }
 

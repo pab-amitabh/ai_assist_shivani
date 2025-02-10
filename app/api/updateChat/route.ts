@@ -2,25 +2,29 @@ import { NextResponse } from "next/server";
 import prisma from "../../libs/prismadb";
 
 export async function POST(req: Request) {
-	const res = await req.json();
-	const { chatId, message } = res;
-	// console.log("This is typeof chatID", typeof chatId)
-	// console.log("chatID from API", chatId)
+    const res = await req.json();
+    const { chatId, message, messageType, sender, questionId, isResolved } = res;
 
-	let chat = await prisma.chat.update({
-		where: {
-			id: chatId,
-		},
-		data: {
-			messages: {
-				push: message,
-			}
-		}
+    const messageData: any = {
+        content: message,
+        sender: sender,
+        messageType: messageType,
+        isResolved: isResolved,
+        chat: {
+            connect: { id: chatId }
+        }
+    };
 
-	})
-	return NextResponse.json({})
+    if (questionId) {
+        messageData.question = { connect: { id: questionId } };
+    }
 
+    const newMessage = await prisma.message.create({
+        data: messageData,
+        select: {
+            id: true 
+        }
+    });
 
-
-
+    return NextResponse.json({ question_id: newMessage.id }); 
 }

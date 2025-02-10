@@ -15,7 +15,7 @@ const SourceLink = ({ url, text, index }: { url: string, text:string, index: num
         target="_blank" 
         rel="noopener noreferrer"
       >
-        {index + 1}
+        {index + 1} 
       </a>
       {isHovered && (
         <div className="absolute bottom-full left-full transform -translate-x-1/2 ml-2 p-2 bg-gray-200 text-black text-xs rounded shadow-lg z-[9999] whitespace-normal max-w-[250px] text-pretty break-words">

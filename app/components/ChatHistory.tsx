@@ -4,16 +4,13 @@ import { useEffect, useState } from "react";
 import Login from "./Login";
 import React from "react";
 
-
-
 interface Chat {
 	id: string,
 	messages: string[],
 	userId: string,
 }
 
-
-export default function ChatHistory( { currentChat, setCurrentChat, currChatId, setCurrChatId, chatHistory, setChatHistory } : { currentChat: string[], setCurrentChat: Function, currChatId: string, setCurrChatId: Function, chatHistory: Chat[], setChatHistory: Function }) {
+export default function ChatHistory( { currentChat, setCurrentChat, currChatId, setCurrChatId, chatHistory, setChatHistory } : { currentChat: { message: string; sender: string; messageType: string; messageId: string; rating: number;}[], setCurrentChat: React.Dispatch<React.SetStateAction<{ message: string; sender: string; messageType: string; messageId: string; rating: number;}[]>>, currChatId: string, setCurrChatId: Function, chatHistory: Chat[], setChatHistory: Function }) {
 	
 	const { data: session } = useSession();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -71,13 +68,26 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 	
 				userChatHistory = await response.json();
 			}
-
+            
 			if (!chatHistory || chatHistory.length === 0) {
-				await setCurrentChat(userChatHistory.userChats[0].messages);
+                const messages = userChatHistory.userChats[0].messages;
+                const messageList = messages.map((message: { 
+                    message: string; 
+                    sender: string; 
+                    messageType: string; 
+                    messageId: string; 
+                    rating: number;
+                }) => ({
+                    message: message.content,  
+                    sender: message.sender,    
+                    messageType: message.messageType, 
+                    messageId: message.id,      
+                    rating: message.rating      
+                }));
+				await setCurrentChat(messageList);
 				await setChatHistory(userChatHistory.userChats);
 				await setCurrChatId(userChatHistory.userChats[0].id);
 			}
-			
 			
 		}
 		if (session && session.user && session.user.email) {
@@ -91,7 +101,15 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 		if (chatHistory) {
             console.log("Before Changed Chat: ", currentChat)
             console.log("Changing to: ", chatHistory[index].messages)
-			await setCurrentChat(chatHistory[index].messages);
+            const messages=chatHistory[index].messages
+            const messageList = messages.map(message => ({
+                message: message.content,
+                sender: message.sender,
+                messageType: message.messageType,
+                messageId: message.id,
+                rating: message.rating
+            }));
+			await setCurrentChat(messageList);
 			await setCurrChatId(chatHistory[index].id);
             console.log("Changed Chat: ", currentChat)
 			if (session && session.user && session.user.email) {
@@ -113,16 +131,32 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 					email: session.user.email,
 				})
 			})
+            
 			const updatedChatHistory = await response.json();
-			// console.log(updatedChatHistory)
+			console.log('what am i getting::',updatedChatHistory)
 			// console.log(updatedChatHistory.userChats.length)
-			await setChatHistory(updatedChatHistory.userChats);
-			await setCurrentChat(updatedChatHistory.userChats[updatedChatHistory.userChats.length - 1].messages);
+            const messages=updatedChatHistory.userChats[updatedChatHistory.userChats.length - 1].messages
+            console.log('messages::',messages)
+            const messageList = messages.map(message => ({
+                message: message.content,
+                sender: message.sender,
+                messageType: message.messageType,
+                messageId: message.id,
+                rating: message.rating
+            }));
+			await setCurrentChat(messageList);
 			await setCurrChatId(updatedChatHistory.userChats[updatedChatHistory.userChats.length - 1].id);
-			
+            if (session && session.user && session.user.email) {
+                await updateChatHistory(session.user.email);
+            }
+			// await setChatHistory(updatedChatHistory.userChats);
 			
 		}
 	} 
+
+    useEffect(() => {
+        console.log("Updated Chat: ", currentChat);
+    }, [currentChat]);
 
 	if (!chatHistory) {
 		return (
@@ -173,26 +207,26 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 	}
 	return (
 		<div>
-			<div className="DEKSTOP hidden md:block bg-[rgb(214,225,227)]">
+			<div className="DEKSTOP hidden md:block bg-[rgb(0,182,228)] w-48">
 				<div className="p-2">
 					<button  className="bg-white text-gray-800 font-bold py-2 px-4 rounded shadow hover:bg-gray-200 mb-4 mt-2 w-full" onClick={createChat}>New Chat</button>
 				</div >
-                <div className="font-bold ml-3">History</div>
-				<div className="flex flex-col h-screen max-h-[70vh] overflow-y-auto p-2 pr-2 mb-5 mr-2 ">
+                <div className="font-bold ml-2">My Chats</div>
+				<div className="flex flex-col h-screen max-h-[70vh] overflow-y-auto p-2  mb-5  ">
 				{chatHistory.map((value, index) => (
-					<div key={index} className="flex items-center justify-between my-1 bg-[rgb(233,242,245)]">
+					// <div key={index} className={`flex items-center justify-between my-1 ${currChatId === value.id ? "bg-[rgb(216,22,113)] ": "bg-white"}`}>
 					<button onClick={() => changeChat(index)}
 					key={index}
-					className= {`flex w-36 items-center justify-between m-1 px-3 py-3 space-x-2 rounded-lg` + `${currChatId === value.id ? " bg-gray-300" : " hover:bg-gray-200"}`}  
+					className= {`flex items-center justify-between mb-1.5 px-4 py-2 rounded ` + `${currChatId === value.id ? "bg-[rgb(216,22,113)]" : "bg-white"}`}  
 					>
 					
 			
-					<div className="text-sm text-left font-medium text-gray-900">
+					<div className={`text-sm font-bold text-left font-medium text-gray-900 ${currChatId === value.id ? 'text-white': 'text-black' }`}>
 						Chat {index + 1}
 					</div>
 
                     <svg 
-						className="w-6 h-6 text-gray-500"
+						className={`w-6 h-6 ${currChatId === value.id ? 'text-white': 'text-black'}`}
 						fill="none"
 						stroke="currentColor"
 						viewBox="0 0 24 24"
@@ -207,7 +241,7 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 					</svg>
 					
 					</button>
-					</div>
+					// </div>
 					
 			
 				))}

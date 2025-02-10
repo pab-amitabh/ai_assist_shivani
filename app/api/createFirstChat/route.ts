@@ -17,14 +17,23 @@ export async function POST(req: Request) {
 	if (!userChats || userChats.chats.length === 0) {
 		const defaultChat = await prisma.chat.create({
 			data: {
-				messages: ["Hello, I am an AI Assitant designed to help you with all things related to Policy Advisor and Insurance"],
 				user: {
 					connect: {
 						email: email
 					}
-				}
+				},
+                messages: {
+                    create:{
+                        content: "Hello, I am PolicyAdvisor AI Assitant. What can I help you with?",
+                        sender: "AI",
+                        messageType: "ANSWER",
+                        isResolved: false
+                    }
+                }
 			}
 		})
+
+        
 	}
 	return NextResponse.json({})
 

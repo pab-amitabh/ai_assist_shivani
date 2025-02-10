@@ -10,7 +10,11 @@ export async function POST(req:Request) {
 			email: email
 		},
 		include: {
-			chats: true,
+			chats: {
+                include: {
+                    messages: true
+                }
+            }
 		}
 	})
 
