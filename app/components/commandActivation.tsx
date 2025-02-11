@@ -26,9 +26,18 @@ export default function CommandActivation() {
     // START OF 2022 Code *********************************************************************************************
     interface Chat {
         id: string,
-        messages: string[],
+        messages: Message[],
         userId: string,
     }
+
+    interface Message {
+        content: string;
+        sender: string;
+        messageType: string;
+        id: string;
+        rating: number;
+    } 
+    
 
     const { data : session, status } = useSession();
     const [input, setInput] = useState("");
