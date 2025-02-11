@@ -26,8 +26,7 @@ import {
   } from "@langchain/core/prompts";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
 import { ScoreThresholdRetriever } from "langchain/retrievers/score_threshold";
-import OpenAI from "openai";
-
+import OpenAI from "openai"; 
 
 // FOR VERCEL DEPLOYMENT, increases API TIMEOUT LIMIT TO 60 SECONDS
 // export const maxDuration = 60;
@@ -44,10 +43,11 @@ export async function POST(req: Request) {
         const pinecone = new Pinecone({ apiKey: process.env.PINECONE_API_KEY! })
         const pineconeIndex = pinecone.Index(process.env.PINECONE_INDEX!)
 
+        console.time('Pinecone data')
         const vectorStore = await PineconeStore.fromExistingIndex(new OpenAIEmbeddings(), { pineconeIndex, namespace: "namespace-test-two"});
-        const retriever = vectorStore.asRetriever({ k: 5, searchType: "similarity"});
-        const scoreRetriever = ScoreThresholdRetriever.fromVectorStore(vectorStore, { minSimilarityScore: 0.9, maxK: 10 });
-            
+        console.timeEnd('Pinecone data')
+        // const retriever = vectorStore.asRetriever({ k: 3, searchType: "similarity"});
+        const scoreRetriever = ScoreThresholdRetriever.fromVectorStore(vectorStore, { minSimilarityScore: 0.7, maxK: 5 });
         
         // const retrievedDocs = await retriever.invoke("What is the difference between a group health plan and an individual health plan?")
         // console.log(retrievedDocs);
@@ -85,12 +85,12 @@ export async function POST(req: Request) {
 
 
         const llm = new ChatOpenAI({
-            model: "gpt-4o-mini",
+            model: "gpt-3.5-turbo",
             temperature: 0
             });
         
         const secondLLM = new ChatOpenAI({
-            model: "gpt-4o-mini",
+            model: "gpt-3.5-turbo",
             temperature: 0
         })
 
@@ -114,17 +114,19 @@ export async function POST(req: Request) {
             ])
         })
         
-        const ragChain = RunnableSequence.from([
-            {
-                context: retriever.pipe(formatDocumentsAsString),
-                question: new RunnablePassthrough(),
-            },
-            customPrompt,
-            llm,
-            new StringOutputParser()
-        ])
+        // const ragChain = RunnableSequence.from([
+        //     {
+        //         context: retriever.pipe(formatDocumentsAsString),
+        //         question: new RunnablePassthrough(),
+        //     },
+        //     customPrompt,
+        //     llm,
+        //     new StringOutputParser()
+        // ])
 
+        console.time('AI response generation')
         let res = await ragChainWithSources.invoke(query);
+        console.timeEnd('AI response generation')
         const resAnswer = res["answer"]
         if (resAnswer == "I don't know.") { 
             const openai=new OpenAI({apiKey:process.env.OPENAI_API_KEY})
@@ -162,12 +164,13 @@ export async function POST(req: Request) {
                 }
             });
         
-            return new NextResponse(openaiStream, {
-                headers: {
-                    'Content-Type': 'text/plain',
-                    'Transfer-Encoding': 'chunked',
-                }
-            });
+            // return new NextResponse(openaiStream, {
+            //     headers: {
+            //         'Content-Type': 'text/plain',
+            //         'Transfer-Encoding': 'chunked',
+            //     }
+            // });
+            return new StreamingTextResponse(openaiStream);
         }
         // return NextResponse.json({res: resAnswer});
 
@@ -280,12 +283,13 @@ export async function POST(req: Request) {
 
         // Pipe the original stream through our transform stream
         const readableStream = stream.pipeThrough(transformStream);
-        return new NextResponse(readableStream, {
-            headers: {
-                'Content-Type': 'text/plain',
-                'Transfer-Encoding': 'chunked',
-            }
-        });
+        // return new NextResponse(readableStream, {
+        //     headers: {
+        //         'Content-Type': 'text/plain',
+        //         'Transfer-Encoding': 'chunked',
+        //     }
+        // });
+        return new StreamingTextResponse(readableStream);
         
     }
     catch (e) {
