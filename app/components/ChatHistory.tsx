@@ -6,9 +6,17 @@ import React from "react";
 
 interface Chat {
 	id: string,
-	messages: string[],
+	messages: Message[],
 	userId: string,
 }
+
+interface Message {
+    content: string;
+    sender: string;
+    messageType: string;
+    id: string;
+    rating: number;
+} 
 
 export default function ChatHistory( { currentChat, setCurrentChat, currChatId, setCurrChatId, chatHistory, setChatHistory } : { currentChat: { message: string; sender: string; messageType: string; messageId: string; rating: number;}[], setCurrentChat: React.Dispatch<React.SetStateAction<{ message: string; sender: string; messageType: string; messageId: string; rating: number;}[]>>, currChatId: string, setCurrChatId: Function, chatHistory: Chat[], setChatHistory: Function }) {
 	
@@ -71,13 +79,8 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
             
 			if (!chatHistory || chatHistory.length === 0) {
                 const messages = userChatHistory.userChats[0].messages;
-                const messageList = messages.map((message: { 
-                    message: string; 
-                    sender: string; 
-                    messageType: string; 
-                    messageId: string; 
-                    rating: number;
-                }) => ({
+                console.log('get chat history::',messages);
+                const messageList = messages.map((message: Message) => ({
                     message: message.content,  
                     sender: message.sender,    
                     messageType: message.messageType, 
@@ -100,14 +103,15 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 	const changeChat = async (index: number) => {
 		if (chatHistory) {
             console.log("Before Changed Chat: ", currentChat)
-            console.log("Changing to: ", chatHistory[index].messages)
+            console.log("Changing to: ", chatHistory[index].messages,typeof(chatHistory[index].messages))
+            
             const messages=chatHistory[index].messages
-            const messageList = messages.map(message => ({
-                message: message.content,
-                sender: message.sender,
-                messageType: message.messageType,
-                messageId: message.id,
-                rating: message.rating
+            const messageList = messages.map((message: Message) => ({
+                message: message.content,  
+                sender: message.sender,    
+                messageType: message.messageType, 
+                messageId: message.id,      
+                rating: message.rating      
             }));
 			await setCurrentChat(messageList);
 			await setCurrChatId(chatHistory[index].id);
@@ -133,11 +137,9 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 			})
             
 			const updatedChatHistory = await response.json();
-			console.log('what am i getting::',updatedChatHistory)
 			// console.log(updatedChatHistory.userChats.length)
             const messages=updatedChatHistory.userChats[updatedChatHistory.userChats.length - 1].messages
-            console.log('messages::',messages)
-            const messageList = messages.map(message => ({
+            const messageList = messages.map((message: Message) => ({
                 message: message.content,
                 sender: message.sender,
                 messageType: message.messageType,
