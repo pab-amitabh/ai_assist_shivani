@@ -508,17 +508,14 @@ export default function CommandActivation() {
                         <form onSubmit={getResponse} className='w-full flex flex-row justify-center items-center mt-4'>
                             
                             <div className="relative w-4/5">
-                                {/* Input Field */}
-                                <input 
-                                    type='text' 
+                                <textarea  
                                     value={input} 
                                     onChange={e => setInput(e.target.value)} 
                                     id="textInput" 
-                                    className='w-full px-4 py-2 h-16 rounded-xl focus:outline-none bg-white border-2 border-[rgb(0,182,228)]-500 hover:shadow' 
+                                    className='w-full  px-4 py-2 resize-none h-19 rounded-xl focus:outline-none bg-white border-2 border-[rgb(0,182,228)]-500 hover:shadow' 
                                     placeholder='Ask me anything...'
-                                    autoComplete='off'
+                                    
                                 />
-
                                 {/* Send Button (Right Side) */}
                                 <button 
                                     type="submit" 
