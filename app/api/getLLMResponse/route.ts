@@ -29,8 +29,8 @@ import { ScoreThresholdRetriever } from "langchain/retrievers/score_threshold";
 import OpenAI from "openai"; 
 
 // FOR VERCEL DEPLOYMENT, increases API TIMEOUT LIMIT TO 60 SECONDS
-// export const maxDuration = 60;
-// export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
+export const dynamic = 'force-dynamic';
 
 
 export async function POST(req: Request) {
