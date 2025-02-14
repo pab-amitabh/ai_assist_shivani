@@ -276,9 +276,9 @@ export default function CommandActivation() {
 
     // END OF 2022 CODE ********************************************************************************************    
 
-    useEffect(() => {
-        console.log("isListening Changed", isListening)
-    }, [isListening]) 
+    // useEffect(() => {
+    //     console.log("isListening Changed", isListening)
+    // }, [isListening]) 
     
     const startListening = async () => {
         if (!('webkitSpeechRecognition' in window)) {
@@ -438,6 +438,20 @@ export default function CommandActivation() {
         );
     };
 
+    const handleKeydown = (event: any) => {
+        if (event.key === "Enter"){
+            if (event.shiftKey) {
+                event.preventDefault();
+                setInput((prev)=>prev+'\n')
+            } else {
+                event.preventDefault();
+                if (input.trim() !== "") {
+                    getResponse(event); 
+                }
+            }
+        }
+    }
+
     // bg-[rgb(222,233,235)]
     return (
         <div className="flex">
@@ -449,12 +463,13 @@ export default function CommandActivation() {
                         {/* <ChatLogs/> */}
                     <div className="chat-history overflow-auto overflow-y-auto flex-col justify-center">
                         {/* Loads all chat messages in chatHistory */}
+                        
                         {currentChat.map((message, index) => {
                             const isAIMessage = message.sender === "AI"; // AI messages
                             const sources = extractSources(message.message); // Extract sources
                             const messageWithoutSources = message.message.split("\nSources:")[0];
                             return (
-                                <div key={message.messageId} ref={index === currentChat.length - 1 ? currentChatRef : null} 
+                                <div key={message.messageId || `chat-${index}`}  ref={index === currentChat.length - 1 ? currentChatRef : null} 
                                     className={`flex flex-row rounded-full ${isAIMessage ? 'bg-white w-4/5 mx-auto' : 'bg-[rgb(0,182,228)] text-white w-2/5 ml-auto pl-8 mr-[10%]'}`}>
                                     
                                     {/* User/AI Icon */}
@@ -514,7 +529,7 @@ export default function CommandActivation() {
                                     id="textInput" 
                                     className='w-full  px-4 py-2 resize-none h-19 rounded-xl focus:outline-none bg-white border-2 border-[rgb(0,182,228)]-500 hover:shadow' 
                                     placeholder='Ask me anything...'
-                                    
+                                    onKeyDown={handleKeydown}
                                 />
                                 {/* Send Button (Right Side) */}
                                 <button 

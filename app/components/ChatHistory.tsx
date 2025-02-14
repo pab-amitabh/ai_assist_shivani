@@ -53,7 +53,7 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 			})
 
 			let userChatHistory = await response.json();
-			console.log("chatHistory in the func", userChatHistory);
+			// console.log("chatHistory in the func", userChatHistory);
 
 			if (userChatHistory.userChats.length === 0 && !createdFirstChat) {
                 console.log("Creating first chat in ChatHistory.tsx")
@@ -79,7 +79,7 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
             
 			if (!chatHistory || chatHistory.length === 0) {
                 const messages = userChatHistory.userChats[0].messages;
-                console.log('get chat history::',messages);
+                // console.log('get chat history::',messages);
                 const messageList = messages.map((message: Message) => ({
                     message: message.content,  
                     sender: message.sender,    
@@ -102,10 +102,10 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 
 	const changeChat = async (index: number) => {
 		if (chatHistory) {
-            console.log("Before Changed Chat: ", currentChat)
-            console.log("Changing to: ", chatHistory[index].messages,typeof(chatHistory[index].messages))
-            
+            console.log("Changing from: ", currentChat)
+            console.log("Changing to: ", chatHistory[index].messages)
             const messages=chatHistory[index].messages
+
             const messageList = messages.map((message: Message) => ({
                 message: message.content,  
                 sender: message.sender,    
@@ -166,9 +166,9 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
         })
     }
 
-    useEffect(() => {
-        console.log("Updated Chat: ", currentChat);
-    }, [currentChat]);
+    // useEffect(() => {
+    //     console.log("Updated Chat: ", currentChat);
+    // }, [currentChat]);
 
 	if (!chatHistory) {
 		return (
