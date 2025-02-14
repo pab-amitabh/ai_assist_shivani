@@ -156,6 +156,16 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 		}
 	} 
 
+    const handleDelete = async(ChatId: String) => {
+        const response=await fetch('/api/deleteChat',{
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({chatId: ChatId})
+        })
+    }
+
     useEffect(() => {
         console.log("Updated Chat: ", currentChat);
     }, [currentChat]);
@@ -207,6 +217,7 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 			
 		)
 	}
+    
 	return (
 		<div>
 			<div className="DEKSTOP hidden md:block bg-[rgb(0,182,228)] w-48">
@@ -214,41 +225,41 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 					<button  className="bg-white text-gray-800 font-bold py-2 px-4 rounded shadow hover:bg-gray-200 mb-4 mt-2 w-full" onClick={createChat}>New Chat</button>
 				</div >
                 <div className="font-bold ml-2">My Chats</div>
-				<div className="flex flex-col h-screen max-h-[70vh] overflow-y-auto p-2  mb-5  ">
-				{chatHistory.map((value, index) => (
-					// <div key={index} className={`flex items-center justify-between my-1 ${currChatId === value.id ? "bg-[rgb(216,22,113)] ": "bg-white"}`}>
-					<button onClick={() => changeChat(index)}
-					key={index}
-					className= {`flex items-center justify-between mb-1.5 px-4 py-2 rounded ` + `${currChatId === value.id ? "bg-[rgb(216,22,113)]" : "bg-white"}`}  
-					>
-					
-			
-					<div className={`text-sm font-bold text-left font-medium text-gray-900 ${currChatId === value.id ? 'text-white': 'text-black' }`}>
-						Chat {index + 1}
-					</div>
+				<div className="flex flex-col h-screen max-h-[70vh] overflow-y-auto p-2 mb-5">
+                        {chatHistory.map((value, index) => (
+                            <div key={index} className="flex items-center w-full space-x-1">
+                                {/* Chat Button (Takes 2/3 of width) */}
+                                <button
+                                    onClick={() => changeChat(index)}
+                                    className={`w-2/3 flex items-center justify-between mb-1.5 px-8 py-2 rounded transition-colors 
+                                        ${currChatId === value.id ? "bg-[rgb(216,22,113)] text-white" : "bg-white text-black border border-gray-300"}`}
+                                >
+                                    <div className="text-sm font-bold">
+                                        Chat {index + 1}
+                                    </div>
+                                </button>
 
-                    <svg 
-						className={`w-6 h-6 ${currChatId === value.id ? 'text-white': 'text-black'}`}
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-						strokeLinecap="round" 
-						strokeLinejoin="round"
-						strokeWidth={2}
-						d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-						/>
-					</svg>
-					
-					</button>
-					// </div>
-					
-			
-				))}
-			
-				</div>
+                                {/* Delete Button (Takes 1/3 of width) */}
+                                <button
+                                    onClick={() => handleDelete(value.id)}
+                                    className={`w-1/3 flex items-center justify-center mb-1.5 px-1 py-2 rounded transition-colors 
+                                        ${currChatId === value.id ? "bg-[rgb(216,22,113)]" : "bg-white border border-gray-300"}`}
+                                >
+                                    <svg
+                                        className={`w-6 h-5 ${currChatId === value.id ? "text-white" : "text-black"}`}
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="30"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 448 512"
+                                    >
+                                        <path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.7 23.7 0 0 0 -21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0 -16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+
 				<Login/>
 			</div>
 
