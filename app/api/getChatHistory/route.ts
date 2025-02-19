@@ -11,6 +11,9 @@ export async function POST(req:Request) {
 		},
 		include: {
 			chats: {
+                where: {
+                    archieve: false 
+                },
                 include: {
                     messages: true
                 }
@@ -19,6 +22,5 @@ export async function POST(req:Request) {
 	})
 
 	userChats = userChats.chats
-
 	return NextResponse.json({userChats})
 }

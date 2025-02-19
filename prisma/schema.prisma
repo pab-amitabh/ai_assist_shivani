@@ -62,6 +62,7 @@ model Chat {
   messages Message[]
   userId   String    @db.ObjectId
   user     User      @relation(fields: [userId], references: [id])
+  archieve Boolean @default(false)
 }
 
 model Message {
@@ -76,6 +77,8 @@ model Message {
 
   isResolved Boolean @default(false) // Indicates if the question was AI generated
   rating     Int? // Rating for the answer
+  reviewComments String?
+  commentAddedAt DateTime?
 
   questionId String?  @db.ObjectId
   question   Message? @relation("QuestionAnswer", fields: [questionId], references: [id], onDelete: NoAction, onUpdate: NoAction)

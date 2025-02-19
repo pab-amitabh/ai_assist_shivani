@@ -36,6 +36,8 @@ export default function CommandActivation() {
         messageType: string;
         id: string;
         rating: number;
+        reviewComments: string;
+        commentAddedAt?: Date | null
     } 
     
 
@@ -48,13 +50,16 @@ export default function CommandActivation() {
         messageType: string;
         messageId: string;
         rating: number;
-    }[]>([{ message: "Hello, I am PolicyAdvisor AI Assistant. What can I help you with?", sender: "AI", messageType: "ANSWER", messageId: "", rating: -1 }]);
+        reviewComments: string;
+        commentAddedAt?: Date | null
+    }[]>([{ message: "Hello, I am PolicyAdvisor AI Assistant. What can I help you with?", sender: "AI", messageType: "ANSWER", messageId: "", rating: -1, reviewComments: "", commentAddedAt: null }]);
     
     
     const [loading, setLoading] = useState<boolean>(false);
     const [chatHistory, setChatHistory] = useState<Chat[]>([]);
     const [currChatId, setCurrChatId] = useState<string>("");
     const [llmDone, setLlmDone] = useState<boolean>(false);
+    const [commentMessage,setCommentMessage] = useState<{[key:string]:string}>({})
     let loadingVar = false;
     const currentChatRef = useRef<HTMLDivElement | null>(null);
 
@@ -155,7 +160,9 @@ export default function CommandActivation() {
                 sender: "USER",
                 messageType: "QUESTION",
                 messageId: "",
-                rating: -1
+                rating: -1,
+                reviewComments: "",
+                commentAddedAt: null
             }
         ]);
         
@@ -223,7 +230,7 @@ export default function CommandActivation() {
                 if (first) {
                     setCurrentChat((state) => [
                         ...state,
-                        { message: "", sender: "AI", messageType: "ANSWER", messageId: '', rating:-1 } // Temporary ID
+                        { message: "", sender: "AI", messageType: "ANSWER", messageId: '', rating:-1, reviewComments: "", commentAddedAt: null } // Temporary ID
                     ]);
                     first = false;
                 }
@@ -452,6 +459,46 @@ export default function CommandActivation() {
         }
     }
 
+    const handleComment = (message_id:string,e:any) => {
+        setCommentMessage((prev)=>({
+            ...prev,
+            [message_id]: e.target.value
+        }))
+    }
+
+    const openCommentBox = async(message_id:string) => {
+        const message_value=commentMessage[message_id]
+        if (message_value !== ""){
+            const response=await fetch('/api/saveComment',{
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json"
+                },
+                body: JSON.stringify({message_value, message_id})
+            }) 
+            const res=await response.json()
+            if (res){
+                setCommentMessage((prev)=>({
+                    ...prev,
+                    [message_id]:res.commentMessage
+                }))
+            }
+
+        }
+    }
+
+    const isComment24hours=(commentAddedAt:Date|string|null)=>{
+        if(!commentAddedAt){
+            return false;
+        }
+        const commentDate=new Date(commentAddedAt)
+        const now=new Date()
+        const diff_time=now.getTime() - commentDate.getTime();
+        const diffInHours=diff_time/(1000*60*60);
+        return diffInHours > 24;
+
+    }
+
     // bg-[rgb(222,233,235)]
     return (
         <div className="flex">
@@ -468,6 +515,8 @@ export default function CommandActivation() {
                             const isAIMessage = message.sender === "AI"; // AI messages
                             const sources = extractSources(message.message); // Extract sources
                             const messageWithoutSources = message.message.split("\nSources:")[0];
+                            const comment_date=message.commentAddedAt || null;
+                            const comment_hrs=isComment24hours(comment_date)
                             return (
                                 <div key={message.messageId || `chat-${index}`}  ref={index === currentChat.length - 1 ? currentChatRef : null} 
                                     className={`flex flex-row rounded-full ${isAIMessage ? 'bg-white w-4/5 mx-auto' : 'bg-[rgb(0,182,228)] text-white w-2/5 ml-auto pl-8 mr-[10%]'}`}>
@@ -495,16 +544,27 @@ export default function CommandActivation() {
 
                                         {/* Thumbs Up / Down Buttons (Only for AI Responses) */}
                                         {isAIMessage && index != 0 && (
-                                            <div className='flex mt-6'>
-                                                <button className={`py-1.5 px-3 mr-3 hover:text-green-600 hover:scale-105 hover:shadow border ${message.rating === 5? 'text-white bg-[rgb(216,22,113)]':'border-gray-300'} rounded-md h-8 text-sm flex items-center gap-1`}
+                                            <div className='relative flex mt-6'>
+                                                <button className={`py-1.5 px-3 mr-2 hover:text-green-600 hover:scale-105 hover:shadow border ${message.rating === 5? 'text-white bg-[rgb(216,22,113)]':'border-gray-300'} rounded-md h-8 text-sm flex items-center gap-1`}
                                                     data-id={`thumbs_up_${message.messageId}`} onClick={()=>updateRating(message.messageId,5)} disabled={message.rating === 5? true:false }>
                                                     <img src="/thumbsUp.svg" className='w-4' />
                                                 </button>
 
-                                                <button className={`py-1.5 px-3 hover:text-red-600 hover:scale-105 hover:shadow border ${message.rating === 0? 'text-white bg-[rgb(216,22,113)]':'border-gray-300'} rounded-md h-8 text-sm flex items-center gap-1`}
+                                                <button className={`py-1.5 px-3 mr-2 hover:text-red-600 hover:scale-105 hover:shadow border ${message.rating === 0? 'bg-[rgb(216,22,113)]':'border-gray-300'} rounded-md h-8 text-sm flex items-center gap-1`}
                                                     data-id={`thumbs_down_${message.messageId}`} onClick={()=>updateRating(message.messageId,0)} disabled={message.rating === 0? true:false }>
                                                     <img src="/thumbsDown.svg" className='w-4' />
                                                 </button>
+                                                {message.rating === 0 && <><input type="text" value={commentMessage[message.messageId] || message.reviewComments} onChange={(e) => handleComment(message.messageId,e)} id={`textInput_${index}`} className={`w-full px-3  resize-none rounded-md focus:outline-none bg-white border-2 border-[rgb(0,182,228)]-500 ${!comment_hrs? 'hover:shadow' : '' }`} placeholder='Help us improve by adding your review...'  autoComplete='off' disabled={comment_hrs ? true: false}/>
+                                                {!comment_hrs && <button className={`absolute right-0 py-1.5 px-3 bg-[rgb(0,182,228)] hover:scale-105 hover:shadow border rounded-md h-8 text-sm flex items-center gap-1 text-white`}
+                                                    data-id={`comment_${message.messageId}`} onClick={()=>openCommentBox(message.messageId)}>
+                                                    <svg className="w-5 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" >
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+                                                    </svg>
+                                                </button>}
+                                                </>
+                                                }
+                                                
+                                                
                                             </div>
                                         )}
                                     </div>
@@ -527,7 +587,7 @@ export default function CommandActivation() {
                                     value={input} 
                                     onChange={e => setInput(e.target.value)} 
                                     id="textInput" 
-                                    className='w-full  px-4 py-2 resize-none h-19 rounded-xl focus:outline-none bg-white border-2 border-[rgb(0,182,228)]-500 hover:shadow' 
+                                    className='w-full px-4 py-3 resize-none h-19 rounded-xl focus:outline-none bg-white border-2 border-[rgb(0,182,228)]-500 hover:shadow' 
                                     placeholder='Ask me anything...'
                                     onKeyDown={handleKeydown}
                                 />
