@@ -130,7 +130,7 @@ export async function POST(req: Request) {
                     {role:"user",content:query}
             ]
             const completion = await openai.chat.completions.create({
-                model:'gpt-3.5-turbo',
+                model:'chatgpt-4o-latest',
                 messages,
                 stream: true
             })
