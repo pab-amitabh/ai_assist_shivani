@@ -16,9 +16,11 @@ interface Message {
     messageType: string;
     id: string;
     rating: number;
+    reviewComments: string;
+    commentAddedAt?: Date | null;
 } 
 
-export default function ChatHistory( { currentChat, setCurrentChat, currChatId, setCurrChatId, chatHistory, setChatHistory } : { currentChat: { message: string; sender: string; messageType: string; messageId: string; rating: number;}[], setCurrentChat: React.Dispatch<React.SetStateAction<{ message: string; sender: string; messageType: string; messageId: string; rating: number;}[]>>, currChatId: string, setCurrChatId: Function, chatHistory: Chat[], setChatHistory: Function }) {
+export default function ChatHistory( { currentChat, setCurrentChat, currChatId, setCurrChatId, chatHistory, setChatHistory } : { currentChat: { message: string; sender: string; messageType: string; messageId: string; rating: number;reviewComments: string;commentAddedAt?: Date | null;}[], setCurrentChat: React.Dispatch<React.SetStateAction<{ message: string; sender: string; messageType: string; messageId: string; rating: number;reviewComments: string;commentAddedAt?: Date | null;}[]>>, currChatId: string, setCurrChatId: Function, chatHistory: Chat[], setChatHistory: Function }) {
 	
 	const { data: session } = useSession();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -85,7 +87,9 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
                     sender: message.sender,    
                     messageType: message.messageType, 
                     messageId: message.id,      
-                    rating: message.rating      
+                    rating: message.rating,
+                    reviewComments: message.reviewComments,
+                    commentAddedAt: message.commentAddedAt
                 }));
 				await setCurrentChat(messageList);
 				await setChatHistory(userChatHistory.userChats);
@@ -111,7 +115,9 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
                 sender: message.sender,    
                 messageType: message.messageType, 
                 messageId: message.id,      
-                rating: message.rating      
+                rating: message.rating,
+                reviewComments: message.reviewComments,
+                commentAddedAt: message.commentAddedAt
             }));
 			await setCurrentChat(messageList);
 			await setCurrChatId(chatHistory[index].id);
@@ -144,7 +150,9 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
                 sender: message.sender,
                 messageType: message.messageType,
                 messageId: message.id,
-                rating: message.rating
+                rating: message.rating,
+                reviewComments: message.reviewComments,
+                commentAddedAt: message.commentAddedAt
             }));
 			await setCurrentChat(messageList);
 			await setCurrChatId(updatedChatHistory.userChats[updatedChatHistory.userChats.length - 1].id);
@@ -163,6 +171,16 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({chatId: ChatId})
+        })
+    }
+
+    const handleArchive = async(chatId: String) => {
+        const response=await fetch('/api/handleArchive',{
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({chatId: chatId})
         })
     }
 
@@ -231,20 +249,31 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
                                 {/* Chat Button (Takes 2/3 of width) */}
                                 <button
                                     onClick={() => changeChat(index)}
-                                    className={`w-2/3 flex items-center justify-between mb-1.5 px-8 py-2 rounded transition-colors 
+                                    className={`w-3/5 flex items-center justify-between mb-1.5 px-8 py-2 rounded transition-colors 
                                         ${currChatId === value.id ? "bg-[rgb(216,22,113)] text-white" : "bg-white text-black border border-gray-300"}`}
                                 >
                                     <div className="text-sm font-bold">
-                                        Chat {index + 1}
+                                        Chat{index + 1}
                                     </div>
                                 </button>
 
+                                <button
+                                    onClick={() => handleArchive(value.id)}
+                                    className={`w-1/5 flex items-center justify-center mb-1.5 px-1 py-2 rounded transition-colors 
+                                        ${currChatId === value.id ? "bg-[rgb(216,22,113)]" : "bg-white border border-gray-300"}`}
+                                        title="Archive">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className={`w-6 h-5 ${currChatId === value.id ? "text-white" : "text-black"}`} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" >
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0-3-3m3 3 3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                                    </svg>
+
+                                </button>
+                                
                                 {/* Delete Button (Takes 1/3 of width) */}
                                 <button
                                     onClick={() => handleDelete(value.id)}
-                                    className={`w-1/3 flex items-center justify-center mb-1.5 px-1 py-2 rounded transition-colors 
+                                    className={`w-1/5 flex items-center justify-center mb-1.5 px-1 py-2 rounded transition-colors 
                                         ${currChatId === value.id ? "bg-[rgb(216,22,113)]" : "bg-white border border-gray-300"}`}
-                                >
+                                title="Delete">
                                     <svg
                                         className={`w-6 h-5 ${currChatId === value.id ? "text-white" : "text-black"}`}
                                         fill="none"
@@ -256,7 +285,13 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
                                         <path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.7 23.7 0 0 0 -21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0 -16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/>
                                     </svg>
                                 </button>
+
+                                
+                                
                             </div>
+
+
+
                         ))}
                     </div>
 
