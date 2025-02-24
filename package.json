@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.4.1",
+    "@ionic/react": "^8.4.3",
     "@langchain/community": "^0.2.20",
     "@langchain/google-vertexai": "^0.0.19",
     "@langchain/mongodb": "^0.0.4",
@@ -27,7 +28,9 @@
     "ai": "^3.2.37",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.4.5",
+    "ionicons": "^7.4.0",
     "langchain": "^0.2.9",
+    "llamaindex": "^0.8.37",
     "mongodb": "^6.8.0",
     "next": "14.2.4",
     "next-auth": "^4.24.7",
