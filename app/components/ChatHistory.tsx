@@ -172,6 +172,9 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
             },
             body: JSON.stringify({chatId: ChatId})
         })
+        if (session && session.user && session.user.email) {
+            await updateChatHistory(session.user.email);
+        }
     }
 
     const handleArchive = async(chatId: String) => {
@@ -182,6 +185,9 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
             },
             body: JSON.stringify({chatId: chatId})
         })
+        if (session && session.user && session.user.email) {
+            await updateChatHistory(session.user.email);
+        }
     }
 
     // useEffect(() => {

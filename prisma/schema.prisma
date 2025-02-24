@@ -84,4 +84,8 @@ model Message {
   question   Message? @relation("QuestionAnswer", fields: [questionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   answers    Message[] @relation("QuestionAnswer")
+
+  reviewAdvisorComments String?
+  reviewAdvisorCommentedOn DateTime?
+  reviewerAction String?
 }
