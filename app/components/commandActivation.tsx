@@ -11,6 +11,7 @@ import remarkGfm from 'remark-gfm'
 import { decode } from 'punycode';
 import { stringify } from 'querystring';
 import SourceLink from './SourceLink';
+import { title } from 'process';
 export default function CommandActivation() {
     const [isListening, setIsListening] = useState(false);
     const [message, setMessage] = useState(false);
@@ -21,6 +22,7 @@ export default function CommandActivation() {
     const [sendDisabled,setSendDisabled] = useState(false);
     const [rating,setRating] = useState(null);
     const [AIResponse,setAIResponse] = useState(false)
+    const [pendingElaboration,setPendingElaboration]=useState<{message_id: string, event: any} | null>(null)
 
 
     // START OF 2022 Code *********************************************************************************************
@@ -277,7 +279,9 @@ export default function CommandActivation() {
 
     async function getResponse(event:any) {
 		// console.log(input);
-		event.preventDefault();
+        if (!input.endsWith('? Please elaborate in detail.')){
+            event.preventDefault();
+        }
         callLLM(input);
 	}
 
@@ -496,7 +500,32 @@ export default function CommandActivation() {
         const diff_time=now.getTime() - commentDate.getTime();
         const diffInHours=diff_time/(1000*60*60);
         return diffInHours > 24;
+    }
 
+    useEffect(()=>{
+        if(pendingElaboration?.message_id && input){
+            getResponse(input);
+            setPendingElaboration(null);
+        }
+    },[input])
+
+    const elaborateMessage = async(message_id: string,event:any) => {
+        const response = await fetch('/api/getMessageDetails',{
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({message_id: message_id})
+        })
+        const result=await response.json();
+        let question_content= result.response.question.content;
+        if (question_content.endsWith("?")){
+            question_content = question_content.replace("?","? Please elaborate in detail.")
+        } else {
+            question_content = question_content + '? Please elaborate in detail.'
+        }
+        setInput(question_content);
+        setPendingElaboration({message_id,event})
     }
 
     // bg-[rgb(222,233,235)]
@@ -554,6 +583,15 @@ export default function CommandActivation() {
                                                     data-id={`thumbs_down_${message.messageId}`} onClick={()=>updateRating(message.messageId,0)} disabled={message.rating === 0? true:false }>
                                                     <img src="/thumbsDown.svg" className='w-4' />
                                                 </button>
+
+                                                <button className={`py-1.5 px-3 mr-2 hover:text-gray-600 hover:scale-105 hover:shadow border rounded-md h-8 text-sm flex items-center gap-1`}
+                                                    data-id={`thumbs_down_${message.messageId}`} onClick={(event)=>elaborateMessage(message.messageId,event)} title="Elaborate">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                                                    </svg>
+
+                                                </button>
+
                                                 {message.rating === 0 && <><input type="text" value={commentMessage[message.messageId] || message.reviewComments} onChange={(e) => handleComment(message.messageId,e)} id={`textInput_${index}`} className={`w-full px-3  resize-none rounded-md focus:outline-none bg-white border-2 border-[rgb(0,182,228)]-500 ${!comment_hrs? 'hover:shadow' : '' }`} placeholder='Help us improve by adding your review...'  autoComplete='off' disabled={comment_hrs ? true: false}/>
                                                 {!comment_hrs && <button className={`absolute right-0 py-1.5 px-3 bg-[rgb(0,182,228)] hover:scale-105 hover:shadow border rounded-md h-8 text-sm flex items-center gap-1 text-white`}
                                                     data-id={`comment_${message.messageId}`} onClick={()=>openCommentBox(message.messageId)}>
