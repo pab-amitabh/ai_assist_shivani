@@ -7,35 +7,45 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { IonIcon } from '@ionic/react';
 import { checkmarkCircleOutline } from 'ionicons/icons';
+import SourceLink from "./SourceLink";
+import { pages } from "next/dist/build/templates/app-page";
 
 export default function ReviewMessages() {
     const { data: session } = useSession();
     const [userMessages, setUserMessages] = useState<
-        {id:string; content: string; isResolved: boolean; reviewComments: string; createdAt: string; reviewAdvisorComments: string; reviewerAction: string; reviewAdvisorCommentedOn: string; question: {content: string} }[]
+        {id:string; content: string; isResolved: boolean; reviewComments: string; createdAt: string; reviewAdvisorComments: string; reviewerAction: string; reviewAdvisorCommentedOn: string; question: {content: string};chat: {user : {name: string}} }[]
     >([]);
     const [reviewerComments,setReviewerComments] = useState<{[key:string]:string}>({});
     const [reviewerAction,setReviewerAction] = useState<{[key:string]:string}>({});
+    const [pageCount,setPageCount]=useState(1);
     let count=0
     const currentDate=new Date();
     const allowed_emails=["amitabh.bhatia@gmail.com", "jitenpuri@gmail.com", "anushae.hassan@gmail.com", "ulkeshak23@gmail.com", "heenabanka@gmail.com","shivani.lpu71096@gmail.com","pollardryan525@gmail.com"]
-
+    const per_page=10
+    let start_from=0
+    let page_count=0
+    let userMessagesDB=()=>{};
     useEffect(() => {
         if (session && session.user && session.user.email) {
-            const userMessagesDB = async () => {
-                const response = await fetch('/api/userMessages', {
+            if(pageCount > 1){
+                start_from=((pageCount-1) * per_page);
+            }
+            userMessagesDB = async () => {
+                const response = await fetch(`/api/userMessages?per_page=${per_page}&start_from=${start_from}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"
-                    }
+                    },
                 });
                 const res = await response.json();
                 const result = res['messages'];
+                const result_count=result.length;
                 setUserMessages(result);
             };
 
             userMessagesDB();
         }
-    }, [session]);
+    }, [session,pageCount]);
 
     const saveReviewerComments = async(message_id: string) => {
         if (reviewerComments[message_id]) {
@@ -78,15 +88,25 @@ export default function ReviewMessages() {
         }))
         updateReviewerAction(message_id,selectedValue)
     }
+
+    const previousData = () => {
+        setPageCount((prev)=>prev-1);
+    }
+    
+    const nextData = () => {
+        setPageCount((prev)=>prev+1);
+    }
  
     return (
-        <div className="rounded-xl  m-auto w-full overflow-x-auto ">
+        <div className="rounded-xl m-auto w-full overflow-x-auto pb-2">
             {session && session.user && allowed_emails?.includes(session.user.email || "") ?
+                <>
                 <table className="table-auto w-full border-collapse border border-gray-300">
                     <thead className="bg-[rgb(0,182,228)]">
                         <tr className="text-left text-white">
                             <th className="border px-4 py-2">S.No</th>
-                            <th className="border px-4 py-2">Created On</th>
+                            <th className="border px-4 py-2">Queried On</th>
+                            <th className="border px-4 py-2">Queried By</th>
                             <th className="border px-4 py-2">Question</th>
                             <th className="border px-4 py-2">Answer</th>
                             <th className="border px-4 py-2">Sources</th>
@@ -94,6 +114,7 @@ export default function ReviewMessages() {
                             <th className="border px-4 py-2">User Comments</th>
                             <th className="border px-4 py-2">Reviewer Action</th>
                             <th className="border px-4 py-2">Reviewer Comments</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -101,6 +122,7 @@ export default function ReviewMessages() {
                             const ignoreMessage = "I'm here and ready to assist you! How can I help you today?";
                             if (each_message.content.includes(ignoreMessage)) return null;
                             let message = each_message.content;
+                            const user_name=each_message.chat.user.name;
                             let sources = "";
                             let all_sources = [];
                             const urls_data = {} as { [key: string]: any };
@@ -122,9 +144,10 @@ export default function ReviewMessages() {
                                 }
                             }
                             return (
-                                <tr key={index} className="border-b">
+                                <tr key={index} className={`border-b ${index % 2 !== 0 ? 'bg-gray-100':''}`}>
                                     <td className="border px-4 py-2">{count}</td>
                                     <td className="border px-4 py-2">{new Date(each_message.createdAt).toLocaleString()}</td>
+                                    <td className="border px-4 py-2">{user_name}</td>
                                     <td className="border px-4 py-2">{each_message.question.content}</td>
                                     <td className="border px-4 py-2">
                                         <div className="h-40 max-h-40 overflow-y-auto">
@@ -167,13 +190,19 @@ export default function ReviewMessages() {
                             );
                         })}
                     </tbody>
-                </table> :
+                </table>
+                {userMessages &&  <div className="source-links flex justify-center">
+                    <button type="button" className={`text-white bg-[rgb(0,182,228)] rounded-lg font-medium text-sm px-5 py-2.5 me-2`} onClick={previousData} disabled={pageCount === 1 ? true: false}>Previous</button>
+                    <button type="button" onClick={nextData} className="text-white bg-[rgb(0,182,228)] rounded-lg font-medium text-sm px-5 py-2.5 me-2">Next</button>
+                </div>}
+                </> :
                 <div className="flex flex-inline w-1/2 m-auto border-1 bg-gray font-bold align-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
                 </svg><span className="ml-3">Sorry!!! You have insufficient permissions...</span>
                 </div>
             }
+            
         </div>
     );
 }
