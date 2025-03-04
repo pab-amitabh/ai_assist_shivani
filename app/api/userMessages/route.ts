@@ -1,9 +1,14 @@
 import { NextResponse } from "next/server";
 import prisma from "../../libs/prismadb";
-import { Messages } from "openai/resources/beta/threads/messages.mjs";
+import { skip } from "node:test";
 
 export async function GET(req:Request){
+    const {searchParams}=new URL(req.url);
+    const per_page=parseInt(searchParams.get("per_page") || "10")
+    const start_from=parseInt(searchParams.get("start_from") || "0")
     const getMessages=await prisma.message.findMany({
+        skip:start_from,
+        take:per_page,
         where:{
             rating: 0,
             sender: 'AI',
@@ -14,6 +19,7 @@ export async function GET(req:Request){
         },
         select: {
             id: true,
+            chatId: true,
             content: true,
             isResolved: true,
             reviewComments: true,
@@ -24,6 +30,15 @@ export async function GET(req:Request){
             question: {
                 select: {
                     content: true
+                }
+            },
+            chat: {
+                select: {
+                    user: {
+                        select: {
+                            name: true
+                        }
+                    }
                 }
             }
         }
