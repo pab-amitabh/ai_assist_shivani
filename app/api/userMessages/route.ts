@@ -1,11 +1,17 @@
 import { NextResponse } from "next/server";
 import prisma from "../../libs/prismadb";
-import { skip } from "node:test";
 
 export async function GET(req:Request){
     const {searchParams}=new URL(req.url);
     const per_page=parseInt(searchParams.get("per_page") || "10")
     const start_from=parseInt(searchParams.get("start_from") || "0")
+    const total_messages=await prisma.message.count({
+        where:{
+            rating: 0,
+            sender: 'AI',
+            messageType: 'ANSWER'
+        }
+    })
     const getMessages=await prisma.message.findMany({
         skip:start_from,
         take:per_page,
@@ -43,7 +49,7 @@ export async function GET(req:Request){
             }
         }
     })
-    return NextResponse.json({'messages':getMessages})
+    return NextResponse.json({'messages':getMessages,'total_messages':total_messages})
 }
 
 export async function POST(req:Request){

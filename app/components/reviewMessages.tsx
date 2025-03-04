@@ -18,12 +18,13 @@ export default function ReviewMessages() {
     const [reviewerComments,setReviewerComments] = useState<{[key:string]:string}>({});
     const [reviewerAction,setReviewerAction] = useState<{[key:string]:string}>({});
     const [pageCount,setPageCount]=useState(1);
+    const [pageCountDb,setPageCountDb]=useState(1)
     let count=0
     const currentDate=new Date();
     const allowed_emails=["amitabh.bhatia@gmail.com", "jitenpuri@gmail.com", "anushae.hassan@gmail.com", "ulkeshak23@gmail.com", "heenabanka@gmail.com","shivani.lpu71096@gmail.com","pollardryan525@gmail.com"]
     const per_page=10
     let start_from=0
-    let page_count=0
+    let page_count_db=1
     let userMessagesDB=()=>{};
     useEffect(() => {
         if (session && session.user && session.user.email) {
@@ -40,12 +41,19 @@ export default function ReviewMessages() {
                 const res = await response.json();
                 const result = res['messages'];
                 const result_count=result.length;
-                setUserMessages(result);
+                const total_messages=res['total_messages']
+                page_count_db=(Math.floor(total_messages/per_page))+1;
+                setPageCountDb(page_count_db);
+                if (result_count != 0){
+                    setUserMessages(result);
+                } else {
+                    setUserMessages([])
+                }
             };
 
             userMessagesDB();
         }
-    }, [session,pageCount]);
+    }, [session,pageCount,pageCountDb]);
 
     const saveReviewerComments = async(message_id: string) => {
         if (reviewerComments[message_id]) {
@@ -191,10 +199,18 @@ export default function ReviewMessages() {
                         })}
                     </tbody>
                 </table>
-                {userMessages &&  <div className="source-links flex justify-center">
-                    <button type="button" className={`text-white bg-[rgb(0,182,228)] rounded-lg font-medium text-sm px-5 py-2.5 me-2`} onClick={previousData} disabled={pageCount === 1 ? true: false}>Previous</button>
-                    <button type="button" onClick={nextData} className="text-white bg-[rgb(0,182,228)] rounded-lg font-medium text-sm px-5 py-2.5 me-2">Next</button>
-                </div>}
+                
+                {pageCount <= pageCountDb &&
+                    <>
+                        <div className="source-links flex justify-center">
+                        Page {pageCount} of {pageCountDb}
+                        </div>
+                        <div className="source-links flex justify-center">
+                            <button type="button" className={`text-white bg-[rgb(0,182,228)] rounded-lg font-medium text-sm px-5 py-2.5 me-2`} onClick={previousData} disabled={pageCount === 1 ? true: false}>Previous</button>
+                            <button type="button" onClick={nextData} className="text-white bg-[rgb(0,182,228)] rounded-lg font-medium text-sm px-5 py-2.5 me-2">Next</button>
+                        </div>
+                    </>
+                }   
                 </> :
                 <div className="flex flex-inline w-1/2 m-auto border-1 bg-gray font-bold align-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
