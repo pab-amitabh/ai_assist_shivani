@@ -26,6 +26,7 @@
     "@prisma/client": "^5.17.0",
     "@types/mongodb": "^4.0.7",
     "ai": "^3.2.37",
+    "axios": "^1.8.3",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.4.5",
     "ionicons": "^7.4.0",
