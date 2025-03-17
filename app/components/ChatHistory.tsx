@@ -404,19 +404,19 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
         //     </div>
         // </div>
 
-        <div className="w-60 bg-white p-6 shadow-lg hidden md:block">
-            <div className="mt-4 w-full max-w-xs p-4 bg-white border-2 border-gray-400 rounded-xl shadow-md text-center font-bold cursor-pointer" style={{borderColor: "rgb(22,184,216)", borderStyle: "solid"}} onClick={createChat}>
-                + Create a new Chat
+        <div className="w-60 bg-white pt-1 pl-4 pr-4  shadow-lg hidden md:block">
+            <div className="mt-4 w-full max-w-xs p-4 bg-white border-2 border-gray-400 text-gray-700 rounded-xl shadow-md text-center font-bold cursor-pointer" style={{borderColor: "rgb(22,184,216)", borderStyle: "solid"}} onClick={createChat}>
+                Create a new Chat
             </div>
-            <h2 className="text-lg font-semibold text-gray-700 mb-4 mt-4">Recent Chats</h2>
+            <h5 className="text-sm font-semibold text-gray-500 mb-4 mt-4">Recent Chats</h5>
             <ul className="space-y-2">
                 {chatHistory.map((value, index) => (
                     <li 
                         key={index} 
                         onClick={() => changeChat(index)} 
-                        className={`bg-gray-200 px-2 py-2 cursor-pointer rounded-lg ${currChatId === value.id ? "text-black" : "bg-white text-gray-400"}`}
+                        className={`bg-gray-100 px-2 py-2 cursor-pointer rounded-lg ${currChatId === value.id ? "text-gray-700" : "bg-white text-gray-400"}`}
                     >
-                        <div className="w-full justify-between truncate flex pr-2">
+                        <div className="w-full text-xs justify-between truncate flex pr-2 ">
                             {value.messages && value.messages.map((each_message, index) => (
                                 <React.Fragment key={index}>
                                     {value.messages.length > 1 

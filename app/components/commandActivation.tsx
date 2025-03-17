@@ -636,7 +636,7 @@ export default function CommandActivation() {
                 <ChatHistory currentChat={currentChat} setCurrentChat={setCurrentChat} currChatId={currChatId} setCurrChatId={setCurrChatId} chatHistory={chatHistory} setChatHistory={setChatHistory} />
                 {status === "authenticated" &&
                     <>
-                        <div className={`flex-1 p-6 ${currentChat.length !== 1 ? "max-w-5xl" : "max-w-8xl"} flex flex-col items-center`}>
+                        <div className={`flex-1 p-1 ${currentChat.length !== 1 ? "max-w-5xl" : "max-w-8xl"} flex flex-col items-center`}>
                             <div className="w-full  flex justify-between items-center bg-white p-4 rounded-lg">
                                 <div className='mr-auto'>
                                     <img src='/policyadvisor-logo.svg' height='200px' width='200px' alt='PolicyAdvisor'/>
@@ -654,7 +654,7 @@ export default function CommandActivation() {
                                         onClick={() => setIsOpen(!isOpen)}
                                     >
                                         <img 
-                                            src="/user-icon.webp" 
+                                            src={session?.user?.image ? session.user?.image :"/user-icon.webp"} 
                                             alt="User Avatar" 
                                             className="w-8 h-8 rounded-full border border-gray-300"
                                         />
@@ -682,7 +682,7 @@ export default function CommandActivation() {
 
                             {currentChat.length === 1 ? 
                                 <>
-                                    <div className="mt-16 w-full bg-white rounded-lg flex flex-col md:flex-row text-center">
+                                    <div className="mt-24 w-full bg-white rounded-lg flex flex-col md:flex-row text-center">
                                         <div className="md:ml-6 flex-1">
                                             <h2 className="text-3xl font-extrabold text-gray-900">Welcome to AdvisorGPT</h2>
                                             <p className="text-gray-300 mt-1">Version 1.0.0</p>
@@ -727,7 +727,7 @@ export default function CommandActivation() {
                                                         <img src="/PA ICON.png" className="icon rounded mt-4" />
                                                         )}
                                                         
-                                                        <ReactMarkdown remarkPlugins={[remarkGfm]} className={`markdown max-w-4xl text-justify ${isAIMessage ? "px-3" : "px-6"}`}>
+                                                        <ReactMarkdown remarkPlugins={[remarkGfm]} className={`markdown text-gray-700 max-w-4xl text-justify ${isAIMessage ? "px-3" : "px-6"}`}>
                                                             {messageWithoutSources}
                                                         </ReactMarkdown>
                                                     </div>
@@ -746,11 +746,11 @@ export default function CommandActivation() {
                                                                                 <><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`size-4`}>
                                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
                                                                                 </svg>
-                                                                                Make Longer</> : 
+                                                                                Elaborate</> : 
                                                                                 <><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`size-4`}>
                                                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181" />
                                                                                 </svg>
-                                                                                Make Shorter</>
+                                                                                Summarize</>
                                                                             }
 
                                                                         </button>
@@ -810,7 +810,7 @@ export default function CommandActivation() {
                                                     )}
                                                 </div>
                                             </div>
-                                            {isAIMessage && <hr className="border-gray-200 my-2 mx-3"/>}
+                                            {isAIMessage && index !== 0 && <hr className="border-gray-200 my-2 mx-8"/>}
                                             </>
                                         );
                                     })}
@@ -821,9 +821,9 @@ export default function CommandActivation() {
                             }
 
                             {/* Chat Input Box */}
-                            <form onSubmit={getResponse} className={`sticky bottom-0 ${currentChat.length === 1 ? "mt-20": "mt-2" } w-full max-w-4xl flex items-center bg-white border border-gray-300 rounded-lg shadow-md p-3`} >
+                            <form onSubmit={getResponse} className={`sticky bottom-0 ${currentChat.length === 1 ? "mt-20": "mt-2 mb-2" } w-full max-w-4xl flex items-center bg-white border border-gray-300 rounded-lg shadow-md p-3`} >
                                 <input type="text" value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeydown} placeholder={loading ? 'Generating Response...':"Type your message here..."} className="w-full p-2 outline-none text-gray-700" readOnly={loading ? true : false} />
-                                <button className="ml-4  px-4 py-2 rounded-lg bg-[rgb(226,245,250)]" disabled={sendDisabled}>
+                                <button className="ml-4 px-4 py-2 rounded-lg bg-[rgb(226,245,250)]" disabled={sendDisabled}>
                                     
                                     {!loading ? 
                                         <svg width="18" height="25" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">

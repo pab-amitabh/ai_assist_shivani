@@ -58,7 +58,7 @@ export async function POST(req: Request) {
         if (query.endsWith("? Please elaborate in detail.") === true || (detailMode === true && !query.endsWith("? Please answer in brief."))){
             customPromptTemplate = ` 
             Use the following pieces of context to answer the question at the end in detail specifically mentioning about insurance and PolicyAdvisor. Also don't repeat yourself & don't give summary. Always try to bring the most latest & most accurate information out of the documents, and give the response in form of categories & subcategories which looks well-organized and easy to understand.
-            If the answer isn't in the context, only return "garbagevalue", don't try to make up an answer. I repeat just return "garbagevalue" if answer isn't avaiable in the context. Don't add too many emojis inside the response, just add some to make it look more attractive and presentable.
+            If the answer isn't in the context, only return "Here you go !!!", don't try to make up an answer. I repeat just return "Here you go !!!" if answer isn't avaiable in the context. Don't add too many emojis inside the response, just add some to make it look more attractive and presentable.
 
             Also, please pay attention that If you are creating a table, do not use any newline characters, please do not add <br> tags under any circumstance. Be as detailed as possible, don't leave out any important information.
             Do not add HTML formatting, such as <br> tags, to your answer or any other formatting. Especially do NOT add <br> tags in tables, use new line characters.
@@ -73,7 +73,7 @@ export async function POST(req: Request) {
         } else {
             customPromptTemplate = ` 
             Use the following pieces of context to answer the question at the end in brief within 50 words specifically mentioning about insurance and PolicyAdvisor.Also, don't give me long responses, give me summarized responses I repeat give me summarized responses. Also don't repeat yourself & don't give summary. Always try to bring the most latest & most accurate information out of the documents, and give the response in brief in 50-100 words only in form of multiple paragraphs which looks well-organized and easy to understand.
-            If the answer isn't in the context, only return "garbagevalue", don't try to make up an answer. I repeat just return "garbagevalue" if answer isn't avaiable in the context. Don't add too many emojis inside the response, just add some to make it look more attractive and presentable.
+            If the answer isn't in the context, only return "Here you go !!!", don't try to make up an answer. I repeat just return "Here you go !!!" if answer isn't avaiable in the context. Don't add too many emojis inside the response, just add some to make it look more attractive and presentable.
 
             Also, please pay attention that If you are creating a table, do not use any newline characters, please do not add <br> tags under any circumstance. Be as detailed as possible, don't leave out any important information.
             Do not add HTML formatting, such as <br> tags, to your answer or any other formatting. Especially do NOT add <br> tags in tables, use new line characters.
@@ -132,7 +132,7 @@ export async function POST(req: Request) {
         console.timeEnd('AI response generation')
         const resAnswer = res["answer"]
         console.log('resAnswer::',resAnswer)
-        if (resAnswer.includes("garbagevalue")) { 
+        if (resAnswer.includes("Here you go !!!")) { 
             const openai=new OpenAI({apiKey:process.env.OPENAI_API_KEY})
             
             const systemPrompt = `You are an AI assistant. Answer the user's question in a detailed manner & answers should be focused more on PolicyAdvisor.
@@ -180,7 +180,7 @@ export async function POST(req: Request) {
             which might reference context in the chat history, formulate a concise standalone question which can be understood without the chat history. Do NOT answer the question. I repeat, do NOT answer the question. Create a concise standalone question. Do NOT ignore the latest question asked, ensure the question asked in the latest question would properly be answered from your reformated question. If the latest question is already a standalone question, return it as is, do not change anything if it is a standalone question.
             Try to answer the question in straight forward approach rather than giving it in essay pattern.
             Prioritize the latest messages in the chat history when inferring context.
-            Prioritize the human messages when formulating the standalone question, only use the AI messages as context if needed. just reformulate it if needed and otherwise return it as is. If the latest question asks to reformat information, use the chat history to infer what information and create a standalone question based on that. Do not answer the question and reformat the information. Just create a standalone question. Do not give 'garbagevalue'.
+            Prioritize the human messages when formulating the standalone question, only use the AI messages as context if needed. just reformulate it if needed and otherwise return it as is. If the latest question asks to reformat information, use the chat history to infer what information and create a standalone question based on that. Do not answer the question and reformat the information. Just create a standalone question. Do not give 'Here you go!!!'.
             If you are creating a table, do not use any newline characters, do not add <br> tags under any circumstance. Be as detailed as possible, don't leave out any important information.
             Do not add HTML formatting, such as <br> tags, to your answer or any other formatting. Especially do NOT add <br> tags in tables, use new line characters.`
 
@@ -227,7 +227,7 @@ export async function POST(req: Request) {
                 async transform(chunk, controller) {
                     if (chunk.answer) {
                         responseString += chunk.answer;
-                        if (chunk.answer.includes("garbagevalue")) {
+                        if (chunk.answer.includes("Here you go !!!")) {
                             console.log('result not found!!! fetch from previous answer', chunk.answer);
                             isInitialResponse = true;
                             return; 
@@ -279,7 +279,7 @@ export async function POST(req: Request) {
                     }
                 },
                 flush(controller) {
-                    if (responseString.includes("garbagevalue")) {
+                    if (responseString.includes("Here you go !!!")) {
                         console.log("Flush executed - Streaming resAnswer instead...");
                         const encoder = new TextEncoder();
                         controller.enqueue(encoder.encode(resAnswer)); // Stream resAnswer
@@ -322,12 +322,12 @@ export async function POST(req: Request) {
         // which can be understood without the chat history. Do NOT answer the question. I repeat, do NOT answer the question. Create a concise standalone question. Do NOT ignore the latest question asked, ensure the question asked in the latest question would properly be answered from your reformated question. If the latest question is already a standalone question, return it as is, do not change anything if it is a standalone question.
         // Prioritize the latest messages in the chat history when inferring context.
         // Prioritize the human messages when formulating the standalone question, only use the AI messages as context if needed.
-        // just reformulate it if needed and otherwise return it as is. If the latest question asks to reformat information, use the chat history to infer what information and create a standalone question based on that. Do not answer the question and reformat the information. Just create a standalone question. Do not give 'garbagevalue'.`;
+        // just reformulate it if needed and otherwise return it as is. If the latest question asks to reformat information, use the chat history to infer what information and create a standalone question based on that. Do not answer the question and reformat the information. Just create a standalone question. Do not give 'Here you go!!!'.`;
         
         // const contextualizeQSystemPromptOriginal = `DO NOT ANSWER THE QUESTION! DO NOT ANSWER THE QUESTION! Given a chat history and the latest user question
         //     which might reference context in the chat history, formulate a standalone question, if the latest user question is not already a standalone question,
         //     which can be understood without the chat history. Do NOT answer the question,
-        //     just reformulate it if needed and otherwise return it as is. I repeat, you are to reformulate the question IF NEEDED, do NOT answer the question. Do not add any information not already in the chat history or the latest question. Simply create a standalone question. Ensure all information in the latest question is asked in your standalone question. Do not give 'garbagevalue'.`;
+        //     just reformulate it if needed and otherwise return it as is. I repeat, you are to reformulate the question IF NEEDED, do NOT answer the question. Do not add any information not already in the chat history or the latest question. Simply create a standalone question. Ensure all information in the latest question is asked in your standalone question. Do not give 'Here you go!!!'.`;
 
 
         // // LANGCHAIN CONTEXTUALIZE QUERY METHOD #################################################################
