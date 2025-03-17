@@ -631,7 +631,7 @@ export default function CommandActivation() {
 
     // bg-[rgb(222,233,235)]
     return (
-            <div className='flex h-screen' style={{ fontFamily: 'Lato, sans-serif' }}>
+            <div className='flex h-screen text-sm' style={{ fontFamily: 'Lato, sans-serif' }}>
                 <ChatHistory currentChat={currentChat} setCurrentChat={setCurrentChat} currChatId={currChatId} setCurrChatId={setCurrChatId} chatHistory={chatHistory} setChatHistory={setChatHistory} />
                 {status === "authenticated" &&
                     <>
