@@ -1,4 +1,5 @@
-import "cheerio";
+import * as cheerio from "cheerio";
+import axios from 'axios';
 import { CheerioWebBaseLoader } from "@langchain/community/document_loaders/web/cheerio";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { MemoryVectorStore } from "langchain/vectorstores/memory";
@@ -39,7 +40,7 @@ export async function POST(req: Request) {
 
         let customPromptTemplate;
         const info = await req.json();
-        const { query, chatHistory } = info;
+        const { query, chatHistory, detailMode } = info;
         // console.log("Chat History in getLLMResponse: ", chatHistory)
         const pinecone = new Pinecone({ apiKey: process.env.PINECONE_API_KEY! })
         const pineconeIndex = pinecone.Index(process.env.PINECONE_INDEX!)
@@ -54,7 +55,7 @@ export async function POST(req: Request) {
         // console.log(retrievedDocs);
 
         
-        if (query.endsWith("? Please elaborate in detail.") === true){
+        if (query.endsWith("? Please elaborate in detail.") === true || (detailMode === true && !query.endsWith("? Please answer in brief."))){
             customPromptTemplate = ` 
             Use the following pieces of context to answer the question at the end in detail specifically mentioning about insurance and PolicyAdvisor. Also don't repeat yourself & don't give summary. Always try to bring the most latest & most accurate information out of the documents, and give the response in form of categories & subcategories which looks well-organized and easy to understand.
             If the answer isn't in the context, only return "garbagevalue", don't try to make up an answer. I repeat just return "garbagevalue" if answer isn't avaiable in the context. Don't add too many emojis inside the response, just add some to make it look more attractive and presentable.
@@ -218,6 +219,7 @@ export async function POST(req: Request) {
             
             const stream = await ragChainWithSources.stream(contextualizedQuery);
             let sourcesArray: string[] = [];
+            let headingArray: string[] = [];
             let responseString = "";
             let isInitialResponse = false;
             const transformStream = new TransformStream({
@@ -233,11 +235,18 @@ export async function POST(req: Request) {
                     } else if (chunk.context) {
                         let contextString = "";
                         for (const document of chunk.context) {
+                            const {data}=await axios.get(document.metadata.source.toString(),{
+                                headers: {'User-Agent': 'Mozilla/5.0'}
+                            });
+                            const $=cheerio.load(data);
+                            const h1text=$('h1').first().text().trim() || "No H1 Found";
                             let pushMessage =
                                 "Source by LLM: " +
                                 "* " +
                                 "[" +
                                 document.metadata.source.toString() +
+                                "  \n" +
+                                h1text +
                                 "  \n" +
                                 document.pageContent.toString() +
                                 "]" +
