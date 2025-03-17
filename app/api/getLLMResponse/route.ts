@@ -222,39 +222,60 @@ export async function POST(req: Request) {
             let headingArray: string[] = [];
             let responseString = "";
             let isInitialResponse = false;
+            
             const transformStream = new TransformStream({
                 async transform(chunk, controller) {
                     if (chunk.answer) {
                         responseString += chunk.answer;
                         if (chunk.answer.includes("garbagevalue")) {
-                            console.log('result not found!!! fetch from previous answer',chunk.answer)
+                            console.log('result not found!!! fetch from previous answer', chunk.answer);
                             isInitialResponse = true;
                             return; 
                         }
                         controller.enqueue(chunk.answer);
                     } else if (chunk.context) {
                         let contextString = "";
+                        let fetchPromises = []; // Store async fetches here
+            
                         for (const document of chunk.context) {
-                            const {data}=await axios.get(document.metadata.source.toString(),{
-                                headers: {'User-Agent': 'Mozilla/5.0'}
-                            });
-                            const $=cheerio.load(data);
-                            const h1text=$('h1').first().text().trim() || "No H1 Found";
-                            let pushMessage =
-                                "Source by LLM: " +
-                                "* " +
-                                "[" +
-                                document.metadata.source.toString() +
-                                "  \n" +
-                                h1text +
-                                "  \n" +
-                                document.pageContent.toString() +
-                                "]" +
-                                `(${document.metadata.source.toString()})` +
-                                " End of Source by LLM  \n";
-                            contextString += pushMessage;
+                            let h1text = "No H1 Found"; // Default value
+            
+                            if (!(document.metadata.source.toString().includes('/home/sujal/PolicyAdvisor/gemini-podcast/pdfs/'))) {
+                                // Start async fetch but don't block execution
+                                const fetchPromise = axios.get(document.metadata.source.toString(), {
+                                    headers: { 'User-Agent': 'Mozilla/5.0' }
+                                })
+                                .then(({ data }) => {
+                                    const $ = cheerio.load(data);
+                                    return $('h1').first().text().trim() || "No H1 Found";
+                                })
+                                .catch(() => "No H1 Found"); // Handle fetch errors gracefully
+            
+                                fetchPromises.push(fetchPromise);
+                            } else {
+                                fetchPromises.push(Promise.resolve("Internal Documents"));
+                            }
                         }
-                        controller.enqueue(contextString);
+            
+                        // Wait for all fetches to complete **after** processing current chunk
+                        Promise.all(fetchPromises).then(h1Results => {
+                            chunk.context.forEach((document:any, index:any) => {
+                                let pushMessage =
+                                    "Source by LLM: " +
+                                    "* " +
+                                    "[" +
+                                    document.metadata.source.toString() +
+                                    "  \n" +
+                                    h1Results[index] + // Use the resolved H1 text
+                                    "  \n" +
+                                    document.pageContent.toString() +
+                                    "]" +
+                                    `(${document.metadata.source.toString()})` +
+                                    " End of Source by LLM  \n";
+                                
+                                controller.enqueue(pushMessage); // Enqueue **without delay**
+                            });
+                        });
                     }
                 },
                 flush(controller) {
@@ -265,6 +286,7 @@ export async function POST(req: Request) {
                     }
                 },
             });
+            
             
             const readableStream = stream.pipeThrough(transformStream);
             
