@@ -335,12 +335,10 @@ export default function CommandActivation() {
 			console.log("Error", error);
 			setLoading(false);
 		}
-
-
     }
 
     async function getResponse(event:any) {
-        if (!input.endsWith('? Please elaborate in detail.') &&  !input.endsWith('? Please answer in brief.') && fastQuestion === false) {
+        if (!input.endsWith('? Please elaborate in detail.') && !input.endsWith('? Please answer in brief.') && fastQuestion === false) {
             event.preventDefault();
         }
         callLLM(input);
@@ -469,7 +467,7 @@ export default function CommandActivation() {
                         .map(line => {
                             // @ts-ignore
                             const matches = line.match(/\* \[(.*?)\]\((.*?)\)/s);
-                            console.log('matches:::',matches);
+                            // console.log('matches:::',matches);
                             const heading = matches ? matches[1].split("  \n")[1] : {}
                             const plaintext = matches ? matches[1].split("  \n")[2] : {}
                             return matches ? { text: plaintext, url: matches[2], heading: heading } : {};
@@ -483,7 +481,7 @@ export default function CommandActivation() {
         //   })
         //   .filter(source => source !== null);
         
-        console.log("sources: ", sources)
+        // console.log("sources: ", sources)
         return sources;
       }
 
@@ -514,6 +512,9 @@ export default function CommandActivation() {
     };
 
     const handleKeydown = (event: any) => {
+        console.log('before::',fastQuestion);
+        setFastQuestion((prev)=>false);
+        console.log('after::',fastQuestion);
         if (event.key === "Enter"){
             if (event.shiftKey) {
                 event.preventDefault();
@@ -746,8 +747,8 @@ export default function CommandActivation() {
                                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
                                                                             </svg>
                                                                             Make Longer</> : 
-                                                                            <><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className={`size-4`}>
-                                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181" />
+                                                                            <><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`size-4`}>
+                                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181" />
                                                                             </svg>
                                                                             Make Shorter</>
                                                                         }
