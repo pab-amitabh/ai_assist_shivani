@@ -27,8 +27,13 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
 	const { data: session } = useSession();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
     const [createdFirstChat, setCreatedFirstChat] = useState<boolean>(false);
+    const [openDropdown, setOpenDropdown] = useState(null);
 
 	// useEffect(() => {console.log("it changed")}, [isOpen])
+
+    const toggleDropdown = (index: any) => {
+        setOpenDropdown(openDropdown === index ? null : index); // Toggle only the clicked dropdown
+    };
 
 	const updateChatHistory = async (email:string) => {
 		let response = await fetch("/api/getChatHistory", {
@@ -414,7 +419,7 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
                     <li 
                         key={index} 
                         onClick={() => changeChat(index)} 
-                        className={`bg-gray-100 px-2 py-2 cursor-pointer rounded-lg ${currChatId === value.id ? "text-gray-700" : "bg-white text-gray-400"}`}
+                        className={`bg-gray-100 px-2 py-1 cursor-pointer items-center flex rounded-lg ${currChatId === value.id ? "text-gray-700" : "bg-white text-gray-400"}`}
                     >
                         <div className="w-full text-xs justify-between truncate flex pr-2 ">
                             {value.messages && value.messages.map((each_message, index) => (
@@ -427,6 +432,44 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
                                 
                             ))}
                             {/* <button type="button"><img src="send_icon.svg" height="12" width="12px" className="ml-2" /></button> */}
+                        </div>
+                        <div className="relative">
+                                <button 
+                                    className="flex items-center space-x-2 px-1 py-1 rounded-lg hover:bg-gray-100 transition"
+                                     id={`chat_options_${index}`} onClick={(e) => {
+                                        e.stopPropagation(); // Prevents clicking on the chat item
+                                        toggleDropdown(index);
+                                    }} 
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                    </svg>
+                                </button>
+
+                                {/* Dropdown Menu */}
+                                {openDropdown === index && (
+                                    <div className="absolute right-0 w-30 text-wrap bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                                        <ul className="py-1 text-sm text-gray-700">
+                                            <li>
+                                                <button className="w-full text-left px-4 py-1" id={`archieve_chat_options_${index}`} onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleArchive(value.id);
+                                                setOpenDropdown(null);
+                                            }}>
+                                                    Archive
+                                                </button>
+                                                {/* <hr className="border-gray-200 my-2 mx-2"/> */}
+                                                {/* <button className="w-full text-left px-4 py-1" id={`delete_chat_options_${index}`} onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleDelete(value.id);
+                                                setOpenDropdown(null);
+                                                }}>
+                                                    Delete
+                                                </button> */}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                )}
                         </div>
                     </li>
                 ))}
