@@ -456,7 +456,7 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
                                                 handleArchive(value.id);
                                                 setOpenDropdown(null);
                                             }}>
-                                                    Archieve
+                                                    Archive
                                                 </button>
                                                 {/* <hr className="border-gray-200 my-2 mx-2"/> */}
                                                 {/* <button className="w-full text-left px-4 py-1" id={`delete_chat_options_${index}`} onClick={(e) => {
