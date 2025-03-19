@@ -230,10 +230,12 @@ export default function CommandActivation() {
                 commentAddedAt: null
             }
         ]);
+
         
         console.log('question::',question)
 		console.log("currentChat after pushing question", currentChat)
 		setLoading(true);
+        scrollToBottom();
         setSendDisabled(true);
         loadingVar = true;
 		// const question = input.trim()
@@ -254,6 +256,7 @@ export default function CommandActivation() {
             let accumulated = '';
             let sources = ""
             let first = true;
+            setLoading(false);
             while (true) {
                 const { done, value } = await reader.read();
                 if (done) {
@@ -275,7 +278,7 @@ export default function CommandActivation() {
                         setAIResponse(true);
                     }
 
-                    setLoading(false);
+                    
                     setLLMResponse(accumulated);
                     setLlmDone(true);
                     loadingVar = false;
@@ -504,18 +507,18 @@ export default function CommandActivation() {
 
     const LoadingDots = () => {
         return (
-          <div className="flex items-center justify-center space-x-1 mt-8 mb-8 w-4/5 mx-auto">
-            <span className="w-4 h-4 bg-gray-500 rounded-full animate-bounce"></span>
-            <span className="w-4 h-4 bg-gray-500 rounded-full animate-bounce delay-200"></span>
-            <span className="w-4 h-4 bg-gray-500 rounded-full animate-bounce delay-400"></span>
-          </div>
+        <div className="flex w-full max-w-md ml-4  p-4 items-center bg-white rounded-lg animate-pulse">
+            <img src="/PA ICON.png" className="icon rounded mt-4" />
+            <p className="text-gray-500 ml-4 mr-2 ">Analyzing</p>
+            <div className="w-full h-2 bg-gray-300 rounded-lg overflow-hidden">
+                <div className="h-2 bg-gray-500 animate-[loading_1.5s_linear_infinite]"></div>
+            </div>
+        </div>
         );
     };
 
     const handleKeydown = (event: any) => {
-        console.log('before::',fastQuestion);
         setFastQuestion((prev)=>false);
-        console.log('after::',fastQuestion);
         if (event.key === "Enter"){
             if (event.shiftKey) {
                 event.preventDefault();
@@ -640,6 +643,18 @@ export default function CommandActivation() {
             console.error("Failed to copy: ", err);
         }
     }
+
+    const scrollToBottom = () => {
+        if (currentChatRef.current) {
+            currentChatRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+
+    useEffect(() => {
+        if (loading) {
+            scrollToBottom(); 
+        }
+    }, [loading]);
 
     // bg-[rgb(222,233,235)]
     return (
@@ -830,7 +845,7 @@ export default function CommandActivation() {
                                             </>
                                         );
                                     })}
-                                    {/* {loading &&  <LoadingDots />} */}
+                                    {loading &&  <LoadingDots />}
                                     <div ref={currentChatRef}></div>
                                     {message && <LoadingDots />}
                                 </div>
@@ -838,9 +853,8 @@ export default function CommandActivation() {
 
                             {/* Chat Input Box */}
                             <form onSubmit={getResponse} className={`sticky bottom-0 ${currentChat.length === 1 ? "mt-20": "mt-2 mb-2" } w-full max-w-4xl flex items-center bg-white border border-gray-300 rounded-lg shadow-md p-3`} >
-                                <input type="text" value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeydown} placeholder={loading ? 'Generating Response...':"Type your message here..."} className="w-full p-2 outline-none text-gray-700" readOnly={loading ? true : false} />
+                                <input type="text" value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeydown} placeholder={loading ? 'Analyzing...':"Type your message here..."} className="w-full p-2 outline-none text-gray-700" readOnly={loading ? true : false} />
                                 <button className="ml-4 px-4 py-2 rounded-lg bg-[rgb(226,245,250)]" disabled={sendDisabled}>
-                                    
                                     {!loading ? 
                                         <svg width="18" height="25" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1.56322 4.8854C1.02122 5.1129 0.684804 5.5179 0.679721 6.09123C0.676221 6.49206 0.94672 7.03041 1.48872 7.25041C1.71197 7.34125 4.84655 7.76291 4.84655 7.76291C4.84655 7.76291 5.67622 10.3854 5.97522 11.3071C6.0618 11.5737 6.11114 11.7046 6.30114 11.8787C6.62347 12.1737 7.16839 12.0813 7.40405 11.8446C8.02755 11.2196 9.01305 10.2554 9.01305 10.2554L9.4278 10.5929C9.4278 10.5929 11.2696 12.0621 12.2763 12.7537C12.8691 13.1612 13.2805 13.5862 13.9476 13.5887C14.2875 13.5904 14.8326 13.4212 15.1929 13.0087C15.431 12.7362 15.5837 12.3004 15.6428 11.9096C15.7771 11.0221 17.3531 1.42541 17.3464 1.08957C17.3357 0.553738 16.885 0.252065 16.5103 0.255398C16.275 0.257898 16.0811 0.326241 15.6496 0.457908C12.3117 1.47708 1.7843 4.7929 1.56322 4.8854ZM14.0131 2.7554C14.0131 2.7554 9.61472 6.58374 7.85714 8.34541C7.29405 8.90958 7.2543 9.8779 7.2543 9.8779L6.34581 6.97123L14.0131 2.7554Z" fill="rgb(22,184,216)"/>
