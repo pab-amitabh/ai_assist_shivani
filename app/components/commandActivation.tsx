@@ -665,11 +665,11 @@ export default function CommandActivation() {
                         <div className={`flex-1 p-1 ${currentChat.length !== 1 ? "max-w-5xl" : "max-w-8xl"} flex flex-col items-center`}>
                             <div className="w-full  flex justify-between items-center bg-white p-4 rounded-lg">
                                 <div className='mr-auto'>
-                                    <img src='/policyadvisor-logo.svg' height='200px' width='200px' alt='PolicyAdvisor'/>
+                                    <a href='https://www.policyadvisor.com/' target='_blank'><img src='/policyadvisor-logo.svg' height='200px' width='200px' alt='PolicyAdvisor'/></a>
                                 </div>
                                 <div className='flex flex-row items-center space-x-2 mr-3'>
                                     <label className="inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" checked={detailMode} className="sr-only peer" onChange={(event) => changeMode(event.target.checked)} / >
+                                        <input type="checkbox" checked={detailMode} className="sr-only peer" onChange={(event) => changeMode(event.target.checked)} />
                                         <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[rgb(22,184,216)] dark:peer-checked:bg-[rgb(22,184,216)]"></div>
                                         <span className="ms-1 text-sm font-medium text-gray-900 dark:text-gray-300">Detail Mode</span>
                                     </label>
