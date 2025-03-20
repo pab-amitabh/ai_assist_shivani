@@ -20,7 +20,7 @@ const authOptions: NextAuthOptions = {
     callbacks: {
         async signIn({ account, profile}) {
             if (account?.provider === "google") {
-                const allowedEmails = ["sujalchouhan77@gmail.com", "cyberghostx77@gmail.com", "amitabh.bhatia@gmail.com", "jitenpuri@gmail.com", "anushae.hassan@gmail.com", "ulkeshak23@gmail.com", "heenabanka@gmail.com","shivani.lpu71096@gmail.com","pollardryan525@gmail.com"]
+                const allowedEmails = ["sujalchouhan77@gmail.com", "cyberghostx77@gmail.com", "amitabh.bhatia@gmail.com", "jitenpuri@gmail.com", "anushae.hassan@gmail.com", "ulkeshak23@gmail.com", "heenabanka@gmail.com","shivani.lpu71096@gmail.com","pollardryan525@gmail.com","shivani@policyadvisor.com"]
 
                 return allowedEmails.includes(profile?.email || "");
             }
