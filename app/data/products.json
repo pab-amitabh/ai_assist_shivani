@@ -1,0 +1,447 @@
+[
+    {
+        "name": "Assumption - Golden Protection Elite",
+        "rules": [
+            "Weight exceeds threshold based on height",
+            "Lost more than 10% body weight in past 12 months",
+            "Currently admitted to hospital or in long-term/skilled care",
+            "Unexplained symptoms or pending investigations or surgeries",
+            "Diagnosed with HIV, ALS, dementia, cystic fibrosis, or terminal illness",
+            "Family history of Huntington’s or polycystic kidney disease (age ≤ 50)",
+            "Organ/bone marrow transplant, CHF, or cardiomyopathy in last 10 years",
+            "Heart attack, angina, stroke, or kidney issues in past 5 years",
+            "Cancer (except basal cell) or leukemia in past 5 years",
+            "Diabetes + any of the following in last 5 years: stroke, heart attack, gangrene, etc.",
+            "Chronic respiratory disorder needing oxygen in past 10 years",
+            "Steroid treatment or hospitalization for respiratory issue (past 2 years)",
+            "Hepatitis, cirrhosis, or pancreatitis (chronic or recurrent)",
+            "Neurological, autoimmune, or psychiatric illness",
+            "Driver’s license suspended or revoked",
+            "Substance use, criminal charges, or alcohol abuse in past 3 years",
+            "Planned travel outside North America/Caribbean/Western Europe > 12 weeks",
+            "Hazardous sports or non-commercial aerial activity planned"
+        ],
+        "coverage": [
+          {
+            "age_range": "18-70",
+            "maximum": "Upto $250,000"
+          }
+        ]
+    },
+    {
+        "name": "Assumption - Platinum Protection",
+        "rules": [
+            "Weight exceeds threshold based on height",
+            "Lost more than 10% body weight in past 12 months",
+            "Currently admitted to hospital or in long-term/skilled care",
+            "Unexplained symptoms or pending investigations or surgeries",
+            "Diagnosed with HIV, ALS, dementia, cystic fibrosis, or terminal illness",
+            "Family history of Huntington’s or polycystic kidney disease (age ≤ 50)",
+            "Organ/bone marrow transplant, CHF, or cardiomyopathy in last 10 years",
+            "Heart attack, angina, stroke, or kidney issues in past 5 years",
+            "Cancer (except basal cell) or leukemia in past 5 years",
+            "Diabetes + heart/stroke/vascular complications ever",
+            "Chronic respiratory disorder needing oxygen in past 10 years",
+            "Steroid treatment or hospitalization for respiratory issue (past 2 years)",
+            "Hepatitis, cirrhosis, or pancreatitis (chronic or recurrent)",
+            "Neurological, autoimmune, or psychiatric illness",
+            "Driver’s license suspended or revoked",
+            "Substance use, criminal charges, or alcohol abuse in past 3 years",
+            "Blood pressure meds added/increased in past 3 months",
+            "Planned travel outside North America/Caribbean/Western Europe > 6 weeks",
+            "Hazardous sports or non-commercial aerial activity planned"
+        ],
+        "coverage": [
+          {
+            "age_range": "18-50",
+            "maximum": "Upto $750,000"
+          },
+          {
+            "age_range": "51-75",
+            "maximum": "Upto $500,000"
+          }
+        ]
+    },
+    {
+        "name": "CPP - Guaranteed Acceptance Life",
+        "rules": [
+          "Used tobacco, nicotine, vaping, or marijuana (more than 6 times/week) in the last 12 months",
+          "Require assistance with 2 or more daily living activities",
+          "Resident of long-term care, nursing home, or assisted living facility",
+          "Bedridden or wheelchair-bound",
+          "Advised to receive or on waiting list for organ/bone marrow transplant (excluding corneal)",
+          "Admitted to hospital for more than 48 hours in the last 60 days (excluding pregnancy)",
+          "Advised to have surgery, diagnostic test, or consultation not yet completed or result unknown",
+          "Did not follow prescribed treatment or medication",
+          "Abnormal test in last 60 days that changed or led to new treatment",
+          "Weight exceeds limit based on height (see table)",
+          "Diagnosed or treated for HIV, AIDS, ARC, or immune disorder (excluding lupus, RA, type 1 diabetes)",
+          "Diagnosed or treated for: metastatic/recurrent cancer, COPD/lung disease (requiring oxygen/steroids), dementia, Parkinson’s, ALS, muscular dystrophy, or heart failure",
+          "Diagnosed before age 40 for angina, heart attack, CAD, stroke, TIA, kidney disease, aneurysm, or had bypass/stent/angioplasty"
+        ],
+        "coverage": [
+          {
+            "age_range": "18-80",
+            "maximum": "Upto $50,000"
+          }
+        ]
+    },
+    {
+        "name": "CPP - Deferred Life",
+        "rules": [
+            "Used tobacco, nicotine, vaping, or marijuana (more than 6 times/week) in the last 12 months",
+            "Require assistance with 2 or more daily living activities",
+            "Resident of long-term care, nursing home, or assisted living facility",
+            "Bedridden or wheelchair-bound",
+            "Advised to receive or on waiting list for organ/bone marrow transplant (excluding corneal)",
+            "Admitted to hospital for more than 48 hours in the last 60 days (excluding pregnancy)",
+            "Advised to have surgery, diagnostic test, or consultation not yet completed or result unknown",
+            "Did not follow prescribed treatment or medication",
+            "Abnormal test in last 60 days that changed or led to new treatment",
+            "Weight exceeds limit based on height (see table)",
+            "Diagnosed or treated for HIV, AIDS, ARC, or immune disorder (excluding lupus, RA, type 1 diabetes)",
+            "Diagnosed or treated for: metastatic/recurrent cancer, COPD/lung disease (requiring oxygen/steroids), dementia, Parkinson’s, ALS, muscular dystrophy, or heart failure",
+            "Diagnosed before age 40 for angina, heart attack, CAD, stroke, TIA, kidney disease, aneurysm, or had bypass/stent/angioplasty",
+            "Diagnosed or treated for bipolar disorder, schizophrenia, or psychosis",
+            "Received treatment or counseling for alcohol or drug use in last 5 years",
+            "Used illegal/street drugs or was in rehab for drug/alcohol in last 5 years",
+            "Diagnosed/treated for chronic lung or respiratory disease (excluding asthma) in last 5 years",
+            "Convicted/incarcerated/on probation/parole or awaiting sentencing in last 5 years"
+        ],
+        "coverage": [
+          {
+            "age_range": "18-80",
+            "maximum": "Upto $75,000"
+          }
+        ]
+    },
+    {
+        "name": "CPP - Deferred Elite Plans",
+        "rules": [
+            "Used tobacco, nicotine, vaping, or marijuana (more than 6 times/week) in the last 12 months",
+            "Require assistance with 2 or more daily living activities",
+            "Resident of long-term care, nursing home, or assisted living facility",
+            "Bedridden or wheelchair-bound",
+            "Advised to receive or on waiting list for organ/bone marrow transplant (excluding corneal)",
+            "Admitted to hospital for more than 48 hours in the last 60 days (excluding pregnancy)",
+            "Advised to have surgery, diagnostic test, or consultation not yet completed or result unknown",
+            "Did not follow prescribed treatment or medication",
+            "Abnormal test in last 60 days that changed or led to new treatment",
+            "Weight exceeds limit based on height (see table)",
+            "Diagnosed or treated for HIV, AIDS, ARC, or immune disorder (excluding lupus, RA, type 1 diabetes)",
+            "Diagnosed or treated for: metastatic/recurrent cancer, COPD/lung disease (requiring oxygen/steroids), dementia, Parkinson’s, ALS, muscular dystrophy, or heart failure",
+            "Diagnosed before age 40 for angina, heart attack, CAD, stroke, TIA, kidney disease, aneurysm, or had bypass/stent/angioplasty",
+            "Diagnosed or treated for bipolar disorder, schizophrenia, or psychosis",
+            "Received treatment or counseling for alcohol or drug use in last 5 years",
+            "Used illegal/street drugs or was in rehab for drug/alcohol in last 5 years",
+            "Diagnosed/treated for chronic lung or respiratory disease (excluding asthma) in last 5 years",
+            "Convicted/incarcerated/on probation/parole or awaiting sentencing in last 5 years",
+            "Had serious heart or stroke issue, procedure, or vascular problem in last 3 years",
+            "Diagnosed/treated for cancer (excluding basal cell) in last 12 months",
+            "Diagnosed/treated for chronic kidney disease, PKD, liver disease, or pancreatitis",
+            "Hospitalized for mental health (depression, anxiety, psychosis) in last 12 months",
+            "Age 29 or under and diagnosed/treated/investigated for diabetes (excluding gestational)",
+            "Diabetes with any of: CAD, angina, heart attack, stroke, neuropathy, retinopathy, nephropathy, amputation",
+            "Diagnosed with Down's syndrome, autism, or congenital development disorder"
+        ],
+        "coverage": [
+          {
+            "age_range": "18-80",
+            "maximum": " Upto $350,000"
+          }
+        ]
+    },
+    {
+        "name": "CPP - Simplified Elite Plans",
+        "rules": [
+            "Used tobacco, nicotine, vaping, or marijuana (more than 6 times/week) in the last 12 months",
+            "Require assistance with 2 or more daily living activities",
+            "Resident of long-term care, nursing home, or assisted living facility",
+            "Bedridden or wheelchair-bound",
+            "Advised to receive or on waiting list for organ/bone marrow transplant (excluding corneal)",
+            "Admitted to hospital for more than 48 hours in the last 60 days (excluding pregnancy)",
+            "Advised to have surgery, diagnostic test, or consultation not yet completed or result unknown",
+            "Did not follow prescribed treatment or medication",
+            "Abnormal test in last 60 days that changed or led to new treatment",
+            "Weight exceeds limit based on height (see table)",
+            "Diagnosed or treated for HIV, AIDS, ARC, or immune disorder (excluding lupus, RA, type 1 diabetes)",
+            "Diagnosed or treated for: metastatic/recurrent cancer, COPD/lung disease (requiring oxygen/steroids), dementia, Parkinson’s, ALS, muscular dystrophy, or heart failure",
+            "Diagnosed before age 40 for angina, heart attack, CAD, stroke, TIA, kidney disease, aneurysm, or had bypass/stent/angioplasty",
+            "Diagnosed or treated for bipolar disorder, schizophrenia, or psychosis",
+            "Received treatment or counseling for alcohol or drug use in last 5 years",
+            "Used illegal/street drugs or was in rehab for drug/alcohol in last 5 years",
+            "Diagnosed/treated for chronic lung or respiratory disease (excluding asthma) in last 5 years",
+            "Convicted/incarcerated/on probation/parole or awaiting sentencing in last 5 years",
+            "Had serious heart or stroke issue, procedure, or vascular problem in last 3 years",
+            "Diagnosed/treated for cancer (excluding basal cell) in last 12 months",
+            "Diagnosed/treated for chronic kidney disease, PKD, liver disease, or pancreatitis",
+            "Hospitalized for mental health (depression, anxiety, psychosis) in last 12 months",
+            "Age 29 or under and diagnosed/treated/investigated for diabetes (excluding gestational)",
+            "Diabetes with any of: CAD, angina, heart attack, stroke, neuropathy, retinopathy, nephropathy, amputation",
+            "Diagnosed with Down's syndrome, autism, or congenital development disorder",
+            "Diagnosed/treated/investigated for multiple sclerosis in last 12 months",
+            "Diagnosed/treated/investigated for cancer (any type, excluding basal cell carcinoma)",
+            "Diagnosed/treated/investigated for diabetes (excluding gestational) or A1c > 8.5 in past 6 months",
+            "Change in medication (increase/decrease) or newly prescribed for chronic condition in last 12 months",
+            "Convicted/incarcerated/probation/parole in last 10 years, or DUI/impaired driving charges in past 2 years",
+            "Hazardous sport participation or pilot activity in last 2 years or planned in next year",
+            "Driver’s license suspended/revoked in past 2 years or more than 3 moving violations in past 12 months",
+            "2 or more immediate family members diagnosed/treated for cancer, heart disease, stroke, or hereditary disease before age 60"
+        ],
+        "coverage": [
+            {
+            "age_range": "18-80",
+            "maximum": "Up to $500,000"
+            }
+        ]
+    },      
+    {
+        "name": "IA Access Life - Deferred",
+        "rules": [
+        "Diagnosed with AIDS or tested positive for HIV",
+        "Diagnosed with heart rhythm disorder requiring pacemaker, heart failure, or cardiomyopathy",
+        "Diagnosed with cystic fibrosis, Alzheimer’s, dementia, Huntington’s, Parkinson’s, ALS, muscular/myotonic dystrophy, or ataxia",
+        "Chronic respiratory disease (excluding sleep apnea) requiring daily oxygen",
+        "Under age 18 with type-1 diabetes, cerebral palsy, congenital heart disease, Down’s syndrome, or ASD",
+        "Diagnosed or treated for leukemia, lymphoma, or malignant tumor (excluding basal cell carcinoma) in past 3 years",
+        "Found guilty of criminal offence or DUI or awaiting trial in past 12 months",
+        "Used hard drugs or methadone (unless prescribed) in past 12 months",
+        "Currently hospitalized or in nursing facility/home for reduced autonomy",
+        "Currently bedridden or wheelchair-bound",
+        "Undergoing or awaiting investigation for diagnostic purposes",
+        "Weight exceeds threshold based on height for individuals age 15+"
+        ],
+        "coverage": [
+          {
+            "age_range": "18-80",
+            "maximum": "Upto $100,000"
+          }
+        ]
+    },
+    {
+        "name": "IA Access Life - Deferred Plus",
+        "rules": [
+        "Diagnosed with AIDS or tested positive for HIV",
+        "Diagnosed with heart rhythm disorder requiring pacemaker, heart failure, or cardiomyopathy",
+        "Diagnosed with cystic fibrosis, Alzheimer’s, dementia, Huntington’s, Parkinson’s, ALS, muscular/myotonic dystrophy, or ataxia",
+        "Chronic respiratory disease (excluding sleep apnea) requiring daily oxygen",
+        "Under age 18 with type-1 diabetes, cerebral palsy, congenital heart disease, Down’s syndrome, or ASD",
+        "Diagnosed or treated for leukemia, lymphoma, or malignant tumor (excluding basal cell carcinoma) in past 3 years",
+        "Found guilty of criminal offence or DUI or awaiting trial in past 12 months",
+        "Used hard drugs or methadone (unless prescribed) in past 12 months",
+        "Currently hospitalized or in nursing facility/home for reduced autonomy",
+        "Currently bedridden or wheelchair-bound",
+        "Undergoing or awaiting investigation for diagnostic purposes",
+        "Weight exceeds threshold based on height for individuals age 15+",
+        "Had amputation due to disease in past 5 years",
+        "Diagnosed or treated for chronic kidney or liver disease (cirrhosis, fibrosis, hepatitis C, etc.) in past 5 years",
+        "Received or advised to receive organ or bone marrow transplant in past 5 years",
+        "Treated for drug or alcohol use, joined support group, or advised to reduce use in past 5 years",
+        "Diagnosed or treated for heart attack, angina, or valve disease with anticoagulants in past 3 years",
+        "Underwent or awaiting heart surgery (bypass, angioplasty, stent, etc.) in past 3 years",
+        "Diagnosed or treated for stroke, TIA, or vascular disease (arms/legs) with anticoagulants in past 3 years",
+        "Underwent or awaiting vascular surgery in past 3 years",
+        "Hospitalized for depression or mental health disorder in past 12 months",
+        "Had medication change for mental health in past 12 months",
+        "Stopped mental health medication without doctor's advice in past 12 months",
+        "Underwent or awaiting aneurysm surgery in past 12 months",
+        "If diabetic: had medication change advised by physician in past 12 months"
+        ],
+        "coverage": [
+          {
+            "age_range": "18-80",
+            "maximum": "Upto $350,000"
+          }
+        ]
+    },
+    {
+        "name": "IA Access Life - Immediate Plus",
+        "rules": [
+        "Diagnosed with AIDS or tested positive for HIV",
+        "Diagnosed with heart rhythm disorder requiring pacemaker, heart failure, or cardiomyopathy",
+        "Diagnosed with cystic fibrosis, Alzheimer’s, dementia, Huntington’s, Parkinson’s, ALS, muscular/myotonic dystrophy, or ataxia",
+        "Chronic respiratory disease (excluding sleep apnea) requiring daily oxygen",
+        "Under age 18 with type-1 diabetes, cerebral palsy, congenital heart disease, Down’s syndrome, or ASD",
+        "Diagnosed or treated for leukemia, lymphoma, or malignant tumor (excluding basal cell carcinoma) in past 3 years",
+        "Found guilty of criminal offence or DUI or awaiting trial in past 12 months",
+        "Used hard drugs or methadone (unless prescribed) in past 12 months",
+        "Currently hospitalized or in nursing facility/home for reduced autonomy",
+        "Currently bedridden or wheelchair-bound",
+        "Undergoing or awaiting investigation for diagnostic purposes",
+        "Weight exceeds threshold based on height for individuals age 15+",
+        "Had amputation due to disease in past 5 years",
+        "Diagnosed or treated for chronic kidney or liver disease (cirrhosis, fibrosis, hepatitis C, etc.) in past 5 years",
+        "Received or advised to receive organ or bone marrow transplant in past 5 years",
+        "Treated for drug or alcohol use, joined support group, or advised to reduce use in past 5 years",
+        "Diagnosed or treated for heart attack, angina, or valve disease with anticoagulants in past 3 years",
+        "Underwent or awaiting heart surgery (bypass, angioplasty, stent, etc.) in past 3 years",
+        "Diagnosed or treated for stroke, TIA, or vascular disease (arms/legs) with anticoagulants in past 3 years",
+        "Underwent or awaiting vascular surgery in past 3 years",
+        "Hospitalized for depression or mental health disorder in past 12 months",
+        "Had medication change for mental health in past 12 months",
+        "Stopped mental health medication without doctor's advice in past 12 months",
+        "Underwent or awaiting aneurysm surgery in past 12 months",
+        "If diabetic: had medication change advised by physician in past 12 months",
+        "Diagnosed or treated for leukemia, lymphoma, or malignant tumor (excluding basal cell carcinoma) in past 5 years",
+        "Lost 10%+ weight in past 12 months (not due to diet or childbirth)",
+        "Plans to travel to high-risk/conflict regions in next 2 years",
+        "Plans to reside outside Canada/USA for 6+ consecutive months",
+        "Immediate family diagnosed with Huntington’s or PKD before age 60",
+        "Child under age 3 diagnosed with cystic fibrosis"
+        ],
+        "coverage": [
+          {
+            "age_range": "18-80",
+            "maximum": "Upto $500,000"
+          }
+        ]
+    },
+    {
+        "name": "Humania - Insurance Without Medical Exam – Life",
+        "rules": [
+        "Not currently working and unable to perform regular daily living activities such as bathing, dressing, toileting, continence, moving, and eating independently",
+        "Currently working but unable to complete all occupations (28 weeks, 21 hrs/week) in the past 12 months",
+        "Not working and unable to confirm no cognitive impairment and independence in daily living activities",
+        "Absent from work for more than 15 consecutive days due to illness or received disability/critical illness benefits in the past 2 years",
+        "Used drugs or alcohol in past 2 years and received treatment, joined support group, or advised to reduce consumption",
+        "Incarcerated for more than 48 hours in the past 5 years",
+        "Had unresolved physical or mental symptoms in the past 6 months without consulting a health professional",
+        "Received any treatment/therapy or prescribed medication in the past 2 years (excluding birth control, antibiotics, NSAIDs)",
+        "Diagnosed or treated for heart, stroke, or blood vessel disorder (excluding controlled high blood pressure) in the past 5 years",
+        "Diagnosed or treated for cancer, tumor, cystic fibrosis, Hodgkin’s disease, lymphoma, leukemia, emphysema, or chronic bronchitis in the past 5 years",
+        "Diagnosed or treated for diabetes, Crohn’s disease, ulcerative colitis, hepatitis B or C, or other liver/pancreas disorder in the past 5 years",
+        "Diagnosed or treated for multiple sclerosis, muscular dystrophy, or paralysis in the past 5 years",
+        "Diagnosed or treated for seizures or motor neuron disease in the past 5 years",
+        "Diagnosed or treated for prostate disorder, polycystic kidney disease, or other kidney disorder in the past 5 years",
+        "Diagnosed with HIV or AIDS",
+        "Diagnosed or treated for rheumatoid arthritis, fibromyalgia, or spinal disc disease in the past 5 years",
+        "Diagnosed or treated for depression, psychosis, schizophrenia, or bipolar disorder in the past 5 years",
+        "More than one immediate family member diagnosed before age 60 with cancer, diabetes, stroke, heart attack, angina, multiple sclerosis, polycystic kidney disease, or motor neuron disease"
+        ],
+        "coverage": [
+          {
+            "age_range": "18-70",
+            "maximum": "Upto $300,000"
+          }
+        ]
+    },
+    {
+        "name": "UV - Express Life Insurance",
+        "rules": [
+          "Used tobacco or smoking-related products in the last 12 months",
+          "Currently hospitalized, in a nursing home, using a wheelchair, or require help with 2+ daily living activities",
+          "Diagnosed or treated for AIDS, AIDS-related condition, or HIV",
+          "Hospitalized or had surgery in the last 60 days (excluding pregnancy)",
+          "Abnormal test results in the last 60 days",
+          "Advised to undergo tests, investigations, or surgery",
+          "Symptoms or abnormal results with no consultation yet",
+          "Under investigation or awaiting diagnosis for symptoms",
+          "Advised to have tests/surgery that hasn’t been done yet",
+          "Doctor advised more frequent medical follow-ups than usual",
+          "Cancer with metastasis, 2 different cancers, or recurrence (excluding basal cell)",
+          "Cystic fibrosis or chronic respiratory disease requiring daily oxygen (excluding sleep apnea)",
+          "Chronic kidney disease or polycystic kidney disease",
+          "Dementia, Alzheimer’s, muscular dystrophy, Huntington’s, ALS, or Parkinson’s",
+          "Chronic heart failure, cardiomyopathy, or heart valve replacement",
+          "Waiting for or received an organ/bone marrow transplant (excluding corneal)",
+          "Before age 40 or in last 3 years if age 40+, diagnosed or treated for cerebrovascular accident, TIA, aneurysm, or coronary artery disease",
+          "Coronary artery bypass, angioplasty, stent, pacemaker, or chronic kidney disease",
+          "Angina or heart attack",
+          "Chronic liver disease including cirrhosis, fibrosis, hepatitis B/C",
+          "Peripheral arterial/vascular disease",
+          "Leukemia, lymphoma, malignant melanoma, breast, ovarian, cervix, lung or colorectal cancer",
+          "Insulin-dependent diabetes with diagnosis over 20 years ago or medication changed in last 6 months",
+          "Diagnosed or treated for bipolar disorder, schizophrenia, psychosis, borderline personality disorder, or attempted suicide in last 24 months",
+          "Unintentional weight loss of 10% or more in last 12 months (excluding diet/lifestyle/pregnancy/bariatric surgery)",
+          "Had bariatric surgery in last 6 months",
+          "Travel planned outside North America/Caribbean/UK/EU for over 12 weeks in next 12 months",
+          "Convicted or charged with a criminal offense in the last 3 years (including impaired driving)",
+          "Used illegal drugs or similar substances in last 24 months",
+          "Advised to reduce drug or alcohol use by healthcare professional in last 24 months",
+          "Stayed in a treatment facility for drug/alcohol abuse in last 24 months"
+        ],
+        "coverage": [
+          {
+            "age_range": "18-75",
+            "maximum": "Upto $150,000"
+          }
+        ]
+    },
+    {
+        "name": "UV - Immediate Life Insurance",
+        "rules": [
+            "Used tobacco or smoking-related products in the last 12 months",
+            "Currently hospitalized, in a nursing home, using a wheelchair, or require help with 2+ daily living activities",
+            "Diagnosed or treated for AIDS, AIDS-related condition, or HIV",
+            "Hospitalized or had surgery in the last 60 days (excluding pregnancy)",
+            "Abnormal test results in the last 60 days",
+            "Advised to undergo tests, investigations, or surgery",
+            "Symptoms or abnormal results with no consultation yet",
+            "Under investigation or awaiting diagnosis for symptoms",
+            "Advised to have tests/surgery that hasn’t been done yet",
+            "Doctor advised more frequent medical follow-ups than usual",
+            "Cancer with metastasis, 2 different cancers, or recurrence (excluding basal cell)",
+            "Cystic fibrosis or chronic respiratory disease requiring daily oxygen (excluding sleep apnea)",
+            "Chronic kidney disease or polycystic kidney disease",
+            "Dementia, Alzheimer’s, muscular dystrophy, Huntington’s, ALS, or Parkinson’s",
+            "Chronic heart failure, cardiomyopathy, or heart valve replacement",
+            "Waiting for or received an organ/bone marrow transplant (excluding corneal)",
+            "Before age 40 or in last 3 years if age 40+, diagnosed or treated for cerebrovascular accident, TIA, aneurysm, or coronary artery disease",
+            "Coronary artery bypass, angioplasty, stent, pacemaker, or chronic kidney disease",
+            "Angina or heart attack",
+            "Chronic liver disease including cirrhosis, fibrosis, hepatitis B/C",
+            "Peripheral arterial/vascular disease",
+            "Leukemia, lymphoma, malignant melanoma, breast, ovarian, cervix, lung or colorectal cancer",
+            "Insulin-dependent diabetes with diagnosis over 20 years ago or medication changed in last 6 months",
+            "Diagnosed or treated for bipolar disorder, schizophrenia, psychosis, borderline personality disorder, or attempted suicide in last 24 months",
+            "Unintentional weight loss of 10% or more in last 12 months (excluding diet/lifestyle/pregnancy/bariatric surgery)",
+            "Had bariatric surgery in last 6 months",
+            "Travel planned outside North America/Caribbean/UK/EU for over 12 weeks in next 12 months",
+            "Convicted or charged with a criminal offense in the last 3 years (including impaired driving)",
+            "Used illegal drugs or similar substances in last 24 months",
+            "Advised to reduce drug or alcohol use by healthcare professional in last 24 months",
+            "Stayed in a treatment facility for drug/alcohol abuse in last 24 months",
+            "Angina pectoris or heart attack (myocardial infarction) in the last 5 years",
+            "Multiple episodes of angina pectoris or heart attack",
+            "Angina pectoris or heart attack with current diabetes",
+            "CVA (stroke), TIA, aneurysm, or coronary artery disease in the last 5 years",
+            "Multiple episodes of CVA, TIA, aneurysm, or coronary artery disease",
+            "CVA, TIA, aneurysm, or coronary artery disease with current diabetes",
+            "Coronary artery bypass surgery, angioplasty, or stent insertion in the last 5 years",
+            "3 or more vessels affected during bypass, angioplasty, or stent procedures",
+            "Coronary procedure with pacemaker due to coronary disease",
+            "Coronary procedure with current diabetes",
+            "Pacemaker implanted in the last 5 years",
+            "Pacemaker received due to coronary artery disease or related procedures",
+            "Any cancer (excluding basal cell carcinoma) in the last 5 years",
+            "Thyroid cancer with chemotherapy or radiotherapy, affected lymph nodes or metastases",
+            "Prostate cancer with abnormal PSA, chemo/radiotherapy, or lymph nodes/metastases",
+            "Diagnosed with diabetes or advised blood sugar monitoring (if age ≤ 30)",
+            "Diabetes with any of the following: coronary artery disease, heart attack, bypass, angioplasty, stent, peripheral vascular disease, amputation, neuropathy, retinopathy, stroke (CVA), or TIA",
+            "Amputation due to illness in the last 3 years",
+            "Medication added, removed, or changed in last 3 months without healthcare advice",
+            "Anticoagulant therapy in the last 3 months",
+            "Family history of polycystic kidney disease (investigated or diagnosed)",
+            "Family history of Huntington’s disease",
+            "Driver’s licence suspended/revoked in last 24 months or more than 3 traffic violations in last 12 months",
+            "Use of illegal drugs or unprescribed barbiturates/narcotics/opioids in the last 5 years",
+            "Drug/alcohol abuse treatment or recommendation in the last 5 years",
+            "Criminal conviction or charges (including impaired driving) in the last 5 years",
+            "Weight outside allowed range according to height chart"
+        ],
+        "coverage": [
+          {
+            "age_range": "18–45",
+            "maximum": "Upto $500,000"
+          },
+          {
+            "age_range": "46–55",
+            "maximum": "Upto $350,000"
+          },
+          {
+            "age_range": "56–65",
+            "maximum": "Upto $250,000"
+          }
+        ]
+    }   
+]
