@@ -1,7 +1,8 @@
-// app/page.tsx (Frontend UI for eligibility)
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 
 interface ParsedResult {
   company: string
@@ -13,6 +14,15 @@ interface ParsedResult {
 }
 
 export default function Home() {
+  const allowedEmails = [
+    "amitabh@policyadvisor.com",
+    "jiten@policyadvisor.com",
+    "shivani@policyadvisor.com"
+  ]
+
+  const { data: session, status } = useSession()
+  const router = useRouter()
+
   const [input, setInput] = useState('')
   const [age, setAge] = useState<number | ''>('')
   const [smokerStatus, setSmokerStatus] = useState<'Non-Smoker' | 'Smoker'>('Non-Smoker')
@@ -20,6 +30,24 @@ export default function Home() {
   const [factors, setFactors] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [expandedCompanies, setExpandedCompanies] = useState<Set<string>>(new Set())
+
+  useEffect(() => {
+    const isUnauthorized =
+      status === "unauthenticated" ||
+      (status === "authenticated" && session && !allowedEmails.includes(session.user?.email || ""))
+
+    if (isUnauthorized) {
+      const currentPath = window.location.pathname
+      router.push(`/?callbackUrl=${encodeURIComponent(currentPath)}`)
+    }
+  }, [status, session, router])
+
+  if (
+    status === "loading" ||
+    (status === "authenticated" && !allowedEmails.includes(session?.user?.email || ""))
+  ) {
+    return null // Or show a loading spinner if you'd like
+  }
 
   const handleSubmit = async () => {
     setLoading(true)
