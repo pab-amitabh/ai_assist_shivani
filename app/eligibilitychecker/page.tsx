@@ -135,7 +135,7 @@ export default function Home() {
 
   return (
     <main className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-center mb-6 text-blue-700">Insurance Eligibility Checker</h1>
+      <h1 className="text-3xl font-bold text-center mb-6 text-blue-800">Insurance Eligibility Checker</h1>
 
       <div className="bg-white shadow-md rounded-md p-4 mb-6">
         <div className="mb-4">
@@ -147,7 +147,7 @@ export default function Home() {
             placeholder="Enter age"
             min={18}
             max={80}
-            className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-800"
           />
         </div>
         <div className="mb-4">
@@ -155,7 +155,7 @@ export default function Home() {
           <select
             value={smokerStatus}
             onChange={(e) => setSmokerStatus(e.target.value as 'Smoker' | 'Non-Smoker')}
-            className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-800"
           >
             <option value="Non-Smoker">Non-Smoker</option>
             <option value="Smoker">Smoker</option>
@@ -166,7 +166,7 @@ export default function Home() {
             <select
                 value={gender}
                 onChange={(e) => setGender(e.target.value as 'Male' | 'Female')}
-                className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-800"
             >
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
@@ -182,7 +182,7 @@ export default function Home() {
                 placeholder="Enter weight in lbs"
                 min={50}
                 max={500}
-                className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-800"
             />
             </div>
 
@@ -192,7 +192,7 @@ export default function Home() {
                 <select
                 value={heightFeet}
                 onChange={(e) => setHeightFeet(Number(e.target.value))}
-                className="w-1/2 border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-1/2 border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-800"
                 >
                 <option value="">Feet</option>
                 {[...Array(8)].map((_, i) => (
@@ -219,7 +219,7 @@ export default function Home() {
           onChange={(e) => setInput(e.target.value)}
         />
         <button
-          className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50"
+          className="w-full bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50"
           onClick={handleSubmit}
           disabled={loading || !input.trim() || !age }
         >
@@ -229,7 +229,7 @@ export default function Home() {
 
       {factors.length > 0 && (
         <div className="bg-white shadow-sm rounded-md p-4 mb-6">
-          <h2 className="font-semibold mb-2 text-blue-600">Extracted Factors:</h2>
+          <h2 className="font-semibold mb-2 text-blue-800">Extracted Factors:</h2>
           <ul className="list-disc list-inside text-sm text-gray-700">
             {factors.map((f, i) => (
               <li key={i}>{f}</li>
