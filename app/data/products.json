@@ -2,7 +2,36 @@
     {
         "name": "Assumption - Golden Protection Elite",
         "rules": [
-            "Weight exceeds threshold based on height",
+          {
+            "type": "weight_threshold_by_height",
+            "description": "Applicant's weight must not exceed the threshold corresponding to their height as per the following table",
+            "table": [
+              { "height": "4'10\"", "weight_lbs": 192 },
+              { "height": "4'11\"", "weight_lbs": 198 },
+              { "height": "5'0\"", "weight_lbs": 205 },
+              { "height": "5'1\"", "weight_lbs": 212 },
+              { "height": "5'2\"", "weight_lbs": 219 },
+              { "height": "5'3\"", "weight_lbs": 226 },
+              { "height": "5'4\"", "weight_lbs": 233 },
+              { "height": "5'5\"", "weight_lbs": 240 },
+              { "height": "5'6\"", "weight_lbs": 247 },
+              { "height": "5'7\"", "weight_lbs": 254 },
+              { "height": "5'8\"", "weight_lbs": 262 },
+              { "height": "5'9\"", "weight_lbs": 270 },
+              { "height": "5'10\"", "weight_lbs": 278 },
+              { "height": "5'11\"", "weight_lbs": 286 },
+              { "height": "6'0\"", "weight_lbs": 294 },
+              { "height": "6'1\"", "weight_lbs": 302 },
+              { "height": "6'2\"", "weight_lbs": 310 },
+              { "height": "6'3\"", "weight_lbs": 318 },
+              { "height": "6'4\"", "weight_lbs": 326 },
+              { "height": "6'5\"", "weight_lbs": 334 },
+              { "height": "6'6\"", "weight_lbs": 342 },
+              { "height": "6'7\"", "weight_lbs": 350 },
+              { "height": "6'8\"", "weight_lbs": 358 },
+              { "height": "6'9\"", "weight_lbs": 366 }
+            ]
+          },
             "Lost more than 10% body weight in past 12 months",
             "Currently admitted to hospital or in long-term/skilled care",
             "Unexplained symptoms or pending investigations or surgeries",
@@ -31,7 +60,36 @@
     {
         "name": "Assumption - Platinum Protection",
         "rules": [
-            "Weight exceeds threshold based on height",
+          {
+            "type": "weight_threshold_by_height",
+            "description": "Applicant's weight must not exceed the threshold corresponding to their height as per the following table",
+            "table": [
+              { "height": "4'10\"", "weight_lbs": 192 },
+              { "height": "4'11\"", "weight_lbs": 198 },
+              { "height": "5'0\"", "weight_lbs": 205 },
+              { "height": "5'1\"", "weight_lbs": 212 },
+              { "height": "5'2\"", "weight_lbs": 219 },
+              { "height": "5'3\"", "weight_lbs": 226 },
+              { "height": "5'4\"", "weight_lbs": 233 },
+              { "height": "5'5\"", "weight_lbs": 240 },
+              { "height": "5'6\"", "weight_lbs": 247 },
+              { "height": "5'7\"", "weight_lbs": 254 },
+              { "height": "5'8\"", "weight_lbs": 262 },
+              { "height": "5'9\"", "weight_lbs": 270 },
+              { "height": "5'10\"", "weight_lbs": 278 },
+              { "height": "5'11\"", "weight_lbs": 286 },
+              { "height": "6'0\"", "weight_lbs": 294 },
+              { "height": "6'1\"", "weight_lbs": 302 },
+              { "height": "6'2\"", "weight_lbs": 310 },
+              { "height": "6'3\"", "weight_lbs": 318 },
+              { "height": "6'4\"", "weight_lbs": 326 },
+              { "height": "6'5\"", "weight_lbs": 334 },
+              { "height": "6'6\"", "weight_lbs": 342 },
+              { "height": "6'7\"", "weight_lbs": 350 },
+              { "height": "6'8\"", "weight_lbs": 358 },
+              { "height": "6'9\"", "weight_lbs": 366 }
+            ]
+          },
             "Lost more than 10% body weight in past 12 months",
             "Currently admitted to hospital or in long-term/skilled care",
             "Unexplained symptoms or pending investigations or surgeries",
@@ -65,6 +123,43 @@
     {
         "name": "CPP - Guaranteed Acceptance Life",
         "rules": [
+            {
+                "type": "weight_threshold_by_height",
+                "description": "Applicant's weight must not exceed the threshold corresponding to their height as per the following table",
+                "table":[
+                    { "height": "4'8\"", "weight_lbs": 230 },
+                    { "height": "4'9\"", "weight_lbs": 230 },
+                    { "height": "4'10\"", "weight_lbs": 230 },
+                  
+                    { "height": "4'11\"", "weight_lbs": 247 },
+                    { "height": "5'0\"", "weight_lbs": 247 },
+                    { "height": "5'1\"", "weight_lbs": 247 },
+                  
+                    { "height": "5'2\"", "weight_lbs": 273 },
+                    { "height": "5'3\"", "weight_lbs": 273 },
+                    { "height": "5'4\"", "weight_lbs": 273 },
+                  
+                    { "height": "5'5\"", "weight_lbs": 300 },
+                    { "height": "5'6\"", "weight_lbs": 300 },
+                    { "height": "5'7\"", "weight_lbs": 300 },
+                  
+                    { "height": "5'8\"", "weight_lbs": 328 },
+                    { "height": "5'9\"", "weight_lbs": 328 },
+                    { "height": "5'10\"", "weight_lbs": 328 },
+                  
+                    { "height": "5'11\"", "weight_lbs": 358 },
+                    { "height": "6'0\"", "weight_lbs": 358 },
+                    { "height": "6'1\"", "weight_lbs": 358 },
+                  
+                    { "height": "6'2\"", "weight_lbs": 389 },
+                    { "height": "6'3\"", "weight_lbs": 389 },
+                    { "height": "6'4\"", "weight_lbs": 389 },
+                  
+                    { "height": "6'5\"", "weight_lbs": 420 },
+                    { "height": "6'6\"", "weight_lbs": 420 },
+                    { "height": "6'7\"", "weight_lbs": 420 }
+                ]   
+            },
           "Used tobacco, nicotine, vaping, or marijuana (more than 6 times/week) in the last 12 months",
           "Require assistance with 2 or more daily living activities",
           "Resident of long-term care, nursing home, or assisted living facility",
@@ -89,6 +184,43 @@
     {
         "name": "CPP - Deferred Life",
         "rules": [
+            {
+                "type": "weight_threshold_by_height",
+                "description": "Applicant's weight must not exceed the threshold corresponding to their height as per the following table",
+                "table":[
+                    { "height": "4'8\"", "weight_lbs": 230 },
+                    { "height": "4'9\"", "weight_lbs": 230 },
+                    { "height": "4'10\"", "weight_lbs": 230 },
+                  
+                    { "height": "4'11\"", "weight_lbs": 247 },
+                    { "height": "5'0\"", "weight_lbs": 247 },
+                    { "height": "5'1\"", "weight_lbs": 247 },
+                  
+                    { "height": "5'2\"", "weight_lbs": 273 },
+                    { "height": "5'3\"", "weight_lbs": 273 },
+                    { "height": "5'4\"", "weight_lbs": 273 },
+                  
+                    { "height": "5'5\"", "weight_lbs": 300 },
+                    { "height": "5'6\"", "weight_lbs": 300 },
+                    { "height": "5'7\"", "weight_lbs": 300 },
+                  
+                    { "height": "5'8\"", "weight_lbs": 328 },
+                    { "height": "5'9\"", "weight_lbs": 328 },
+                    { "height": "5'10\"", "weight_lbs": 328 },
+                  
+                    { "height": "5'11\"", "weight_lbs": 358 },
+                    { "height": "6'0\"", "weight_lbs": 358 },
+                    { "height": "6'1\"", "weight_lbs": 358 },
+                  
+                    { "height": "6'2\"", "weight_lbs": 389 },
+                    { "height": "6'3\"", "weight_lbs": 389 },
+                    { "height": "6'4\"", "weight_lbs": 389 },
+                  
+                    { "height": "6'5\"", "weight_lbs": 420 },
+                    { "height": "6'6\"", "weight_lbs": 420 },
+                    { "height": "6'7\"", "weight_lbs": 420 }
+                ]   
+            },
             "Used tobacco, nicotine, vaping, or marijuana (more than 6 times/week) in the last 12 months",
             "Require assistance with 2 or more daily living activities",
             "Resident of long-term care, nursing home, or assisted living facility",
@@ -118,6 +250,64 @@
     {
         "name": "CPP - Deferred Elite Plans",
         "rules": [
+            {
+                "type": "weight_range_by_height_and_gender",
+                "description": "Applicant's weight must fall within the minimum and maximum threshold corresponding to their height as per the following table.",
+                "table": {
+                  "Male": [
+                    { "height": "4'8\"", "weight_min_lbs": 79, "weight_max_lbs": 185 },
+                    { "height": "4'9\"", "weight_min_lbs": 79, "weight_max_lbs": 185 },
+                    { "height": "4'10\"", "weight_min_lbs": 79, "weight_max_lbs": 185 },
+                    { "height": "4'11\"", "weight_min_lbs": 87, "weight_max_lbs": 199 },
+                    { "height": "5'0\"", "weight_min_lbs": 87, "weight_max_lbs": 199 },
+                    { "height": "5'1\"", "weight_min_lbs": 87, "weight_max_lbs": 199 },
+                    { "height": "5'2\"", "weight_min_lbs": 94, "weight_max_lbs": 215 },
+                    { "height": "5'3\"", "weight_min_lbs": 94, "weight_max_lbs": 215 },
+                    { "height": "5'4\"", "weight_min_lbs": 94, "weight_max_lbs": 215 },
+                    { "height": "5'5\"", "weight_min_lbs": 104, "weight_max_lbs": 235 },
+                    { "height": "5'6\"", "weight_min_lbs": 104, "weight_max_lbs": 235 },
+                    { "height": "5'7\"", "weight_min_lbs": 104, "weight_max_lbs": 235 },
+                    { "height": "5'8\"", "weight_min_lbs": 115, "weight_max_lbs": 260 },
+                    { "height": "5'9\"", "weight_min_lbs": 115, "weight_max_lbs": 260 },
+                    { "height": "5'10\"", "weight_min_lbs": 115, "weight_max_lbs": 260 },
+                    { "height": "5'11\"", "weight_min_lbs": 125, "weight_max_lbs": 282 },
+                    { "height": "6'0\"", "weight_min_lbs": 125, "weight_max_lbs": 282 },
+                    { "height": "6'1\"", "weight_min_lbs": 125, "weight_max_lbs": 282 },
+                    { "height": "6'2\"", "weight_min_lbs": 139, "weight_max_lbs": 305 },
+                    { "height": "6'3\"", "weight_min_lbs": 139, "weight_max_lbs": 305 },
+                    { "height": "6'4\"", "weight_min_lbs": 139, "weight_max_lbs": 305 },
+                    { "height": "6'5\"", "weight_min_lbs": 149, "weight_max_lbs": 333 },
+                    { "height": "6'6\"", "weight_min_lbs": 149, "weight_max_lbs": 333 },
+                    { "height": "6'7\"", "weight_min_lbs": 149, "weight_max_lbs": 333 }
+                  ],
+                  "Female": [
+                    { "height": "4'8\"", "weight_min_lbs": 74, "weight_max_lbs": 185 },
+                    { "height": "4'9\"", "weight_min_lbs": 74, "weight_max_lbs": 185 },
+                    { "height": "4'10\"", "weight_min_lbs": 74, "weight_max_lbs": 185 },
+                    { "height": "4'11\"", "weight_min_lbs": 82, "weight_max_lbs": 199 },
+                    { "height": "5'0\"", "weight_min_lbs": 82, "weight_max_lbs": 199 },
+                    { "height": "5'1\"", "weight_min_lbs": 82, "weight_max_lbs": 199 },
+                    { "height": "5'2\"", "weight_min_lbs": 89, "weight_max_lbs": 215 },
+                    { "height": "5'3\"", "weight_min_lbs": 89, "weight_max_lbs": 215 },
+                    { "height": "5'4\"", "weight_min_lbs": 89, "weight_max_lbs": 215 },
+                    { "height": "5'5\"", "weight_min_lbs": 99, "weight_max_lbs": 235 },
+                    { "height": "5'6\"", "weight_min_lbs": 99, "weight_max_lbs": 235 },
+                    { "height": "5'7\"", "weight_min_lbs": 99, "weight_max_lbs": 235 },
+                    { "height": "5'8\"", "weight_min_lbs": 110, "weight_max_lbs": 260 },
+                    { "height": "5'9\"", "weight_min_lbs": 110, "weight_max_lbs": 260 },
+                    { "height": "5'10\"", "weight_min_lbs": 110, "weight_max_lbs": 260 },
+                    { "height": "5'11\"", "weight_min_lbs": 120, "weight_max_lbs": 282 },
+                    { "height": "6'0\"", "weight_min_lbs": 120, "weight_max_lbs": 282 },
+                    { "height": "6'1\"", "weight_min_lbs": 120, "weight_max_lbs": 282 },
+                    { "height": "6'2\"", "weight_min_lbs": 134, "weight_max_lbs": 305 },
+                    { "height": "6'3\"", "weight_min_lbs": 134, "weight_max_lbs": 305 },
+                    { "height": "6'4\"", "weight_min_lbs": 134, "weight_max_lbs": 305 },
+                    { "height": "6'5\"", "weight_min_lbs": 144, "weight_max_lbs": 333 },
+                    { "height": "6'6\"", "weight_min_lbs": 144, "weight_max_lbs": 333 },
+                    { "height": "6'7\"", "weight_min_lbs": 144, "weight_max_lbs": 333 }
+                  ]
+                }
+            },              
             "Used tobacco, nicotine, vaping, or marijuana (more than 6 times/week) in the last 12 months",
             "Require assistance with 2 or more daily living activities",
             "Resident of long-term care, nursing home, or assisted living facility",
@@ -154,6 +344,64 @@
     {
         "name": "CPP - Simplified Elite Plans",
         "rules": [
+            {
+                "type": "weight_range_by_height_and_gender",
+                "description": "Applicant's weight must fall within the minimum and maximum threshold corresponding to their height as per the following table.",
+                "table": {
+                  "Male": [
+                    { "height": "4'8\"", "weight_min_lbs": 79, "weight_max_lbs": 185 },
+                    { "height": "4'9\"", "weight_min_lbs": 79, "weight_max_lbs": 185 },
+                    { "height": "4'10\"", "weight_min_lbs": 79, "weight_max_lbs": 185 },
+                    { "height": "4'11\"", "weight_min_lbs": 87, "weight_max_lbs": 199 },
+                    { "height": "5'0\"", "weight_min_lbs": 87, "weight_max_lbs": 199 },
+                    { "height": "5'1\"", "weight_min_lbs": 87, "weight_max_lbs": 199 },
+                    { "height": "5'2\"", "weight_min_lbs": 94, "weight_max_lbs": 215 },
+                    { "height": "5'3\"", "weight_min_lbs": 94, "weight_max_lbs": 215 },
+                    { "height": "5'4\"", "weight_min_lbs": 94, "weight_max_lbs": 215 },
+                    { "height": "5'5\"", "weight_min_lbs": 104, "weight_max_lbs": 235 },
+                    { "height": "5'6\"", "weight_min_lbs": 104, "weight_max_lbs": 235 },
+                    { "height": "5'7\"", "weight_min_lbs": 104, "weight_max_lbs": 235 },
+                    { "height": "5'8\"", "weight_min_lbs": 115, "weight_max_lbs": 260 },
+                    { "height": "5'9\"", "weight_min_lbs": 115, "weight_max_lbs": 260 },
+                    { "height": "5'10\"", "weight_min_lbs": 115, "weight_max_lbs": 260 },
+                    { "height": "5'11\"", "weight_min_lbs": 125, "weight_max_lbs": 282 },
+                    { "height": "6'0\"", "weight_min_lbs": 125, "weight_max_lbs": 282 },
+                    { "height": "6'1\"", "weight_min_lbs": 125, "weight_max_lbs": 282 },
+                    { "height": "6'2\"", "weight_min_lbs": 139, "weight_max_lbs": 305 },
+                    { "height": "6'3\"", "weight_min_lbs": 139, "weight_max_lbs": 305 },
+                    { "height": "6'4\"", "weight_min_lbs": 139, "weight_max_lbs": 305 },
+                    { "height": "6'5\"", "weight_min_lbs": 149, "weight_max_lbs": 333 },
+                    { "height": "6'6\"", "weight_min_lbs": 149, "weight_max_lbs": 333 },
+                    { "height": "6'7\"", "weight_min_lbs": 149, "weight_max_lbs": 333 }
+                  ],
+                  "Female": [
+                    { "height": "4'8\"", "weight_min_lbs": 74, "weight_max_lbs": 185 },
+                    { "height": "4'9\"", "weight_min_lbs": 74, "weight_max_lbs": 185 },
+                    { "height": "4'10\"", "weight_min_lbs": 74, "weight_max_lbs": 185 },
+                    { "height": "4'11\"", "weight_min_lbs": 82, "weight_max_lbs": 199 },
+                    { "height": "5'0\"", "weight_min_lbs": 82, "weight_max_lbs": 199 },
+                    { "height": "5'1\"", "weight_min_lbs": 82, "weight_max_lbs": 199 },
+                    { "height": "5'2\"", "weight_min_lbs": 89, "weight_max_lbs": 215 },
+                    { "height": "5'3\"", "weight_min_lbs": 89, "weight_max_lbs": 215 },
+                    { "height": "5'4\"", "weight_min_lbs": 89, "weight_max_lbs": 215 },
+                    { "height": "5'5\"", "weight_min_lbs": 99, "weight_max_lbs": 235 },
+                    { "height": "5'6\"", "weight_min_lbs": 99, "weight_max_lbs": 235 },
+                    { "height": "5'7\"", "weight_min_lbs": 99, "weight_max_lbs": 235 },
+                    { "height": "5'8\"", "weight_min_lbs": 110, "weight_max_lbs": 260 },
+                    { "height": "5'9\"", "weight_min_lbs": 110, "weight_max_lbs": 260 },
+                    { "height": "5'10\"", "weight_min_lbs": 110, "weight_max_lbs": 260 },
+                    { "height": "5'11\"", "weight_min_lbs": 120, "weight_max_lbs": 282 },
+                    { "height": "6'0\"", "weight_min_lbs": 120, "weight_max_lbs": 282 },
+                    { "height": "6'1\"", "weight_min_lbs": 120, "weight_max_lbs": 282 },
+                    { "height": "6'2\"", "weight_min_lbs": 134, "weight_max_lbs": 305 },
+                    { "height": "6'3\"", "weight_min_lbs": 134, "weight_max_lbs": 305 },
+                    { "height": "6'4\"", "weight_min_lbs": 134, "weight_max_lbs": 305 },
+                    { "height": "6'5\"", "weight_min_lbs": 144, "weight_max_lbs": 333 },
+                    { "height": "6'6\"", "weight_min_lbs": 144, "weight_max_lbs": 333 },
+                    { "height": "6'7\"", "weight_min_lbs": 144, "weight_max_lbs": 333 }
+                  ]
+                }
+            }, 
             "Used tobacco, nicotine, vaping, or marijuana (more than 6 times/week) in the last 12 months",
             "Require assistance with 2 or more daily living activities",
             "Resident of long-term care, nursing home, or assisted living facility",
@@ -198,6 +446,43 @@
     {
         "name": "IA Access Life - Deferred",
         "rules": [
+            {
+                "type": "weight_threshold_by_height",
+                "description": "Applicant's weight must not exceed the threshold corresponding to their height as per the following table.",
+                "table": [
+                  { "height": "4'8\"", "weight_lbs": 230 },
+                  { "height": "4'9\"", "weight_lbs": 230 },
+                  { "height": "4'10\"", "weight_lbs": 230 },
+          
+                  { "height": "4'11\"", "weight_lbs": 260 },
+                  { "height": "5'0\"", "weight_lbs": 260 },
+                  { "height": "5'1\"", "weight_lbs": 260 },
+          
+                  { "height": "5'2\"", "weight_lbs": 285 },
+                  { "height": "5'3\"", "weight_lbs": 285 },
+                  { "height": "5'4\"", "weight_lbs": 285 },
+          
+                  { "height": "5'5\"", "weight_lbs": 310 },
+                  { "height": "5'6\"", "weight_lbs": 310 },
+                  { "height": "5'7\"", "weight_lbs": 310 },
+          
+                  { "height": "5'8\"", "weight_lbs": 335 },
+                  { "height": "5'9\"", "weight_lbs": 335 },
+                  { "height": "5'10\"", "weight_lbs": 335 },
+          
+                  { "height": "5'11\"", "weight_lbs": 365 },
+                  { "height": "6'0\"", "weight_lbs": 365 },
+                  { "height": "6'1\"", "weight_lbs": 365 },
+          
+                  { "height": "6'2\"", "weight_lbs": 390 },
+                  { "height": "6'3\"", "weight_lbs": 390 },
+                  { "height": "6'4\"", "weight_lbs": 390 },
+          
+                  { "height": "6'5\"", "weight_lbs": 415 },
+                  { "height": "6'6\"", "weight_lbs": 415 },
+                  { "height": "6'7\"", "weight_lbs": 415 }
+                ]
+            },
         "Diagnosed with AIDS or tested positive for HIV",
         "Diagnosed with heart rhythm disorder requiring pacemaker, heart failure, or cardiomyopathy",
         "Diagnosed with cystic fibrosis, Alzheimer’s, dementia, Huntington’s, Parkinson’s, ALS, muscular/myotonic dystrophy, or ataxia",
@@ -221,6 +506,43 @@
     {
         "name": "IA Access Life - Deferred Plus",
         "rules": [
+            {
+                "type": "weight_threshold_by_height",
+                "description": "Applicant's weight must not exceed the threshold corresponding to their height as per the following table.",
+                "table": [
+                  { "height": "4'8\"", "weight_lbs": 190 },
+                  { "height": "4'9\"", "weight_lbs": 190 },
+                  { "height": "4'10\"", "weight_lbs": 190 },
+          
+                  { "height": "4'11\"", "weight_lbs": 200 },
+                  { "height": "5'0\"", "weight_lbs": 200 },
+                  { "height": "5'1\"", "weight_lbs": 200 },
+          
+                  { "height": "5'2\"", "weight_lbs": 220 },
+                  { "height": "5'3\"", "weight_lbs": 220 },
+                  { "height": "5'4\"", "weight_lbs": 220 },
+          
+                  { "height": "5'5\"", "weight_lbs": 240 },
+                  { "height": "5'6\"", "weight_lbs": 240 },
+                  { "height": "5'7\"", "weight_lbs": 240 },
+          
+                  { "height": "5'8\"", "weight_lbs": 260 },
+                  { "height": "5'9\"", "weight_lbs": 260 },
+                  { "height": "5'10\"", "weight_lbs": 260 },
+          
+                  { "height": "5'11\"", "weight_lbs": 280 },
+                  { "height": "6'0\"", "weight_lbs": 280 },
+                  { "height": "6'1\"", "weight_lbs": 280 },
+          
+                  { "height": "6'2\"", "weight_lbs": 300 },
+                  { "height": "6'3\"", "weight_lbs": 300 },
+                  { "height": "6'4\"", "weight_lbs": 300 },
+          
+                  { "height": "6'5\"", "weight_lbs": 330 },
+                  { "height": "6'6\"", "weight_lbs": 330 },
+                  { "height": "6'7\"", "weight_lbs": 330 }
+                ]
+            },
         "Diagnosed with AIDS or tested positive for HIV",
         "Diagnosed with heart rhythm disorder requiring pacemaker, heart failure, or cardiomyopathy",
         "Diagnosed with cystic fibrosis, Alzheimer’s, dementia, Huntington’s, Parkinson’s, ALS, muscular/myotonic dystrophy, or ataxia",
@@ -257,6 +579,43 @@
     {
         "name": "IA Access Life - Immediate Plus",
         "rules": [
+            {
+                "type": "weight_threshold_by_height",
+                "description": "Applicant's weight must not exceed the threshold corresponding to their height as per the following table.",
+                "table": [
+                  { "height": "4'8\"", "weight_lbs": 190 },
+                  { "height": "4'9\"", "weight_lbs": 190 },
+                  { "height": "4'10\"", "weight_lbs": 190 },
+          
+                  { "height": "4'11\"", "weight_lbs": 200 },
+                  { "height": "5'0\"", "weight_lbs": 200 },
+                  { "height": "5'1\"", "weight_lbs": 200 },
+          
+                  { "height": "5'2\"", "weight_lbs": 220 },
+                  { "height": "5'3\"", "weight_lbs": 220 },
+                  { "height": "5'4\"", "weight_lbs": 220 },
+          
+                  { "height": "5'5\"", "weight_lbs": 240 },
+                  { "height": "5'6\"", "weight_lbs": 240 },
+                  { "height": "5'7\"", "weight_lbs": 240 },
+          
+                  { "height": "5'8\"", "weight_lbs": 260 },
+                  { "height": "5'9\"", "weight_lbs": 260 },
+                  { "height": "5'10\"", "weight_lbs": 260 },
+          
+                  { "height": "5'11\"", "weight_lbs": 280 },
+                  { "height": "6'0\"", "weight_lbs": 280 },
+                  { "height": "6'1\"", "weight_lbs": 280 },
+          
+                  { "height": "6'2\"", "weight_lbs": 300 },
+                  { "height": "6'3\"", "weight_lbs": 300 },
+                  { "height": "6'4\"", "weight_lbs": 300 },
+          
+                  { "height": "6'5\"", "weight_lbs": 330 },
+                  { "height": "6'6\"", "weight_lbs": 330 },
+                  { "height": "6'7\"", "weight_lbs": 330 }
+                ]
+            },
         "Diagnosed with AIDS or tested positive for HIV",
         "Diagnosed with heart rhythm disorder requiring pacemaker, heart failure, or cardiomyopathy",
         "Diagnosed with cystic fibrosis, Alzheimer’s, dementia, Huntington’s, Parkinson’s, ALS, muscular/myotonic dystrophy, or ataxia",
@@ -299,24 +658,11 @@
     {
         "name": "Humania - Insurance Without Medical Exam – Life",
         "rules": [
-        "Not currently working and unable to perform regular daily living activities such as bathing, dressing, toileting, continence, moving, and eating independently",
-        "Currently working but unable to complete all occupations (28 weeks, 21 hrs/week) in the past 12 months",
-        "Not working and unable to confirm no cognitive impairment and independence in daily living activities",
-        "Absent from work for more than 15 consecutive days due to illness or received disability/critical illness benefits in the past 2 years",
-        "Used drugs or alcohol in past 2 years and received treatment, joined support group, or advised to reduce consumption",
-        "Incarcerated for more than 48 hours in the past 5 years",
-        "Had unresolved physical or mental symptoms in the past 6 months without consulting a health professional",
-        "Received any treatment/therapy or prescribed medication in the past 2 years (excluding birth control, antibiotics, NSAIDs)",
-        "Diagnosed or treated for heart, stroke, or blood vessel disorder (excluding controlled high blood pressure) in the past 5 years",
-        "Diagnosed or treated for cancer, tumor, cystic fibrosis, Hodgkin’s disease, lymphoma, leukemia, emphysema, or chronic bronchitis in the past 5 years",
-        "Diagnosed or treated for diabetes, Crohn’s disease, ulcerative colitis, hepatitis B or C, or other liver/pancreas disorder in the past 5 years",
-        "Diagnosed or treated for multiple sclerosis, muscular dystrophy, or paralysis in the past 5 years",
-        "Diagnosed or treated for seizures or motor neuron disease in the past 5 years",
-        "Diagnosed or treated for prostate disorder, polycystic kidney disease, or other kidney disorder in the past 5 years",
-        "Diagnosed with HIV or AIDS",
-        "Diagnosed or treated for rheumatoid arthritis, fibromyalgia, or spinal disc disease in the past 5 years",
-        "Diagnosed or treated for depression, psychosis, schizophrenia, or bipolar disorder in the past 5 years",
-        "More than one immediate family member diagnosed before age 60 with cancer, diabetes, stroke, heart attack, angina, multiple sclerosis, polycystic kidney disease, or motor neuron disease"
+            "Unable to confirm no cognitive impairment and independence in daily living activities such as bathing, dressing, toileting, continence, moving, and eating",
+            "Absent from work for more than 15 consecutive days due to illness or received disability/critical illness benefits in the past 2 years",
+            "Used drugs or alcohol in the past 2 years and received treatment, joined a support group, or was advised to reduce or seek help",
+            "Incarcerated for more than 48 hours in the past 5 years",
+            "Experienced physical or mental symptoms or discomfort in the past 6 months and has not yet consulted a healthcare professional"
         ],
         "coverage": [
           {
@@ -370,6 +716,43 @@
     {
         "name": "UV - Immediate Life Insurance",
         "rules": [
+            {
+                "type": "weight_range_by_height",
+                "description": "Applicant's weight must fall within the minimum and maximum threshold corresponding to their height as per the following table.",
+                "table": [
+                  { "height": "4'8\"", "weight_min_lbs": 79, "weight_max_lbs": 190 },
+                  { "height": "4'9\"", "weight_min_lbs": 79, "weight_max_lbs": 190 },
+                  { "height": "4'10\"", "weight_min_lbs": 79, "weight_max_lbs": 190 },
+              
+                  { "height": "4'11\"", "weight_min_lbs": 87, "weight_max_lbs": 200 },
+                  { "height": "5'0\"", "weight_min_lbs": 87, "weight_max_lbs": 200 },
+                  { "height": "5'1\"", "weight_min_lbs": 87, "weight_max_lbs": 200 },
+              
+                  { "height": "5'2\"", "weight_min_lbs": 94, "weight_max_lbs": 220 },
+                  { "height": "5'3\"", "weight_min_lbs": 94, "weight_max_lbs": 220 },
+                  { "height": "5'4\"", "weight_min_lbs": 94, "weight_max_lbs": 220 },
+              
+                  { "height": "5'5\"", "weight_min_lbs": 104, "weight_max_lbs": 240 },
+                  { "height": "5'6\"", "weight_min_lbs": 104, "weight_max_lbs": 240 },
+                  { "height": "5'7\"", "weight_min_lbs": 104, "weight_max_lbs": 240 },
+              
+                  { "height": "5'8\"", "weight_min_lbs": 115, "weight_max_lbs": 260 },
+                  { "height": "5'9\"", "weight_min_lbs": 115, "weight_max_lbs": 260 },
+                  { "height": "5'10\"", "weight_min_lbs": 115, "weight_max_lbs": 260 },
+              
+                  { "height": "5'11\"", "weight_min_lbs": 125, "weight_max_lbs": 282 },
+                  { "height": "6'0\"", "weight_min_lbs": 125, "weight_max_lbs": 282 },
+                  { "height": "6'1\"", "weight_min_lbs": 125, "weight_max_lbs": 282 },
+              
+                  { "height": "6'2\"", "weight_min_lbs": 136, "weight_max_lbs": 305 },
+                  { "height": "6'3\"", "weight_min_lbs": 136, "weight_max_lbs": 305 },
+                  { "height": "6'4\"", "weight_min_lbs": 136, "weight_max_lbs": 305 },
+              
+                  { "height": "6'5\"", "weight_min_lbs": 147, "weight_max_lbs": 333 },
+                  { "height": "6'6\"", "weight_min_lbs": 147, "weight_max_lbs": 333 },
+                  { "height": "6'7\"", "weight_min_lbs": 147, "weight_max_lbs": 333 }
+                ]
+            },              
             "Used tobacco or smoking-related products in the last 12 months",
             "Currently hospitalized, in a nursing home, using a wheelchair, or require help with 2+ daily living activities",
             "Diagnosed or treated for AIDS, AIDS-related condition, or HIV",
