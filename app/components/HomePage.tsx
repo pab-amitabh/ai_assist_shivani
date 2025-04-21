@@ -1,21 +1,13 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import { useSession, signIn, signOut } from "next-auth/react"
-import Image from "next/image"
-import { useSearchParams } from 'next/navigation'
+import React, { useState, Suspense } from 'react';
+import { useSession, signOut } from "next-auth/react";
+import Image from "next/image";
+import LoginButton from './LoginButton'; // Make sure the path is correct
 
 const HomePage = () => {
-  const { data: session } = useSession()
-  const [createdFirstChat, setCreatedFirstChat] = useState<boolean>(false)
-  const searchParams = useSearchParams()
-  const rawCallback = searchParams.get("callbackUrl") || "/eligibilitychecker"
-
-  // Convert relative callback path to full URL
-  const callbackUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}${rawCallback}`
-      : rawCallback
+  const { data: session } = useSession();
+  const [createdFirstChat, setCreatedFirstChat] = useState<boolean>(false);
 
   if (session && session.user) {
     return (
@@ -34,7 +26,7 @@ const HomePage = () => {
           Sign out
         </button>
       </div>
-    )
+    );
   }
 
   return (
@@ -44,28 +36,11 @@ const HomePage = () => {
         className="absolute top-0 left-0 w-full h-full object-cover"
         alt="Background"
       />
-      <button
-        onClick={() => signIn("google", { callbackUrl })}
-        className="transition-transform duration-300 hover:translate-x-2 flex absolute bottom-36 ml-16 focus:outline-none justify-center items-center text-white bg-[rgb(216,22,113)] hover:bg-[rgb(216,22,113)]-700 font-medium text-md px-7 py-4 me-2 mb-2"
-      >
-        Sign In
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-          className="ml-4 size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-          />
-        </svg>
-      </button>
+      <Suspense fallback={null}>
+        <LoginButton />
+      </Suspense>
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

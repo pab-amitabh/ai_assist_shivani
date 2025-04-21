@@ -30,6 +30,11 @@ export default function Home() {
   const [factors, setFactors] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [expandedCompanies, setExpandedCompanies] = useState<Set<string>>(new Set())
+  const [weight, setWeight] = useState<number | ''>('') 
+  const [heightFeet, setHeightFeet] = useState<number | ''>('')
+  const [heightInches, setHeightInches] = useState<number | ''>('') 
+  const [gender, setGender] = useState<'Male' | 'Female' | ''>('')
+
 
   useEffect(() => {
     const isUnauthorized =
@@ -53,20 +58,31 @@ export default function Home() {
     setLoading(true)
     setResults([])
     setFactors([])
-
+  
     const user_input = `Age: ${age}\nSmoker: ${smokerStatus}\n${input}`
-
+    const formattedHeight =
+      heightFeet !== '' && heightInches !== '' ? `${heightFeet}'${heightInches}"` : ''
+  
     const res = await fetch('/api/eligibility', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user_input })
+      body: JSON.stringify({ user_input, height: formattedHeight, weight, gender })
     })
-
+  
     const data = await res.json()
-    setFactors(data.clientFactors)
+    const updatedFactors = formattedHeight && weight !== ''
+    ? [
+        ...(gender ? [`Gender: ${gender}`] : []),
+        `Height: ${formattedHeight}`,
+        `Weight: ${weight} lb`,
+        ...data.clientFactors
+      ]
+    : [...data.clientFactors]
+    setFactors(updatedFactors)
     setResults(parseResults(data.results))
     setLoading(false)
   }
+  
 
   const parseResults = (rawResults: string[]): ParsedResult[] => {
     return rawResults.map(result => {
@@ -145,6 +161,57 @@ export default function Home() {
             <option value="Smoker">Smoker</option>
           </select>
         </div>
+        <div className="mb-4">
+            <label className="block text-sm font-semibold text-gray-700 mb-1">Gender</label>
+            <select
+                value={gender}
+                onChange={(e) => setGender(e.target.value as 'Male' | 'Female')}
+                className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div className="mb-4">
+            <label className="block text-sm font-semibold text-gray-700 mb-1">Weight (lbs)</label>
+            <input
+                type="number"
+                value={weight}
+                onChange={(e) => setWeight(Number(e.target.value))}
+                placeholder="Enter weight in lbs"
+                min={50}
+                max={500}
+                className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            </div>
+
+            <div className="mb-4">
+            <label className="block text-sm font-semibold text-gray-700 mb-1">Height</label>
+            <div className="flex gap-2">
+                <select
+                value={heightFeet}
+                onChange={(e) => setHeightFeet(Number(e.target.value))}
+                className="w-1/2 border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                <option value="">Feet</option>
+                {[...Array(8)].map((_, i) => (
+                    <option key={i} value={i + 4}>{i + 4}'</option>
+                ))}
+                </select>
+                <select
+                value={heightInches}
+                onChange={(e) => setHeightInches(Number(e.target.value))}
+                className="w-1/2 border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                <option value="">Inches</option>
+                {[...Array(12)].map((_, i) => (
+                    <option key={i} value={i}>{i}"</option>
+                ))}
+                </select>
+            </div>
+            </div>
+
         <textarea
           className="w-full border border-gray-300 rounded p-3 mb-4 min-h-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter client info (e.g., 'Client is 50, diabetic, had stroke 3 years ago...')"
@@ -154,7 +221,7 @@ export default function Home() {
         <button
           className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50"
           onClick={handleSubmit}
-          disabled={loading || !input.trim() || !age}
+          disabled={loading || !input.trim() || !age }
         >
           {loading ? 'Checking...' : 'Check Eligibility'}
         </button>
