@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
-
+import Header from '../components/header';
 
 interface ParsedResult {
   company: string
@@ -135,7 +135,9 @@ export default function Home() {
   }, {})
 
   return (
-    <main className="max-w-6xl mx-auto p-6">
+    <>
+    <Header/>
+    <main className="max-w-6xl mx-auto p-6 text-sm" style={{ fontFamily: 'Lato, sans-serif' }}>
       <h1 className="text-3xl font-bold text-center mb-6 text-blue-800">Insurance Eligibility Checker</h1>
 
       <div className="bg-white shadow-md rounded-md p-4 mb-6">
@@ -306,5 +308,6 @@ export default function Home() {
   </div>
 )}
     </main>
+    </>
   )
 }

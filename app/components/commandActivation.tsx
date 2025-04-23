@@ -658,6 +658,11 @@ export default function CommandActivation() {
         window.open('/traditional', '_blank');
     };
 
+    const openQuoteChecker = () => {
+        window.open('/quotechecker', '_blank');
+    };
+    
+
     useEffect(() => {
         if (loading) {
             scrollToBottom(); 
@@ -713,6 +718,14 @@ export default function CommandActivation() {
                                                         onClick={openTraditionalUnderwriting} 
                                                     >
                                                         Traditional AI
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button 
+                                                        className="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-600"
+                                                        onClick={openQuoteChecker} 
+                                                    >
+                                                        Quote Checker AI
                                                     </button>
                                                 </li>
                                                 <li>
