@@ -650,6 +650,14 @@ export default function CommandActivation() {
         }
     };
 
+    const openEligibilityChecker = () => {
+        window.open('/eligibilitychecker', '_blank');
+    };
+
+    const openTraditionalUnderwriting = () => {
+        window.open('/traditional', '_blank');
+    };
+
     useEffect(() => {
         if (loading) {
             scrollToBottom(); 
@@ -691,6 +699,22 @@ export default function CommandActivation() {
                                     {isOpen && (
                                         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                                             <ul className="py-2 text-sm text-gray-700">
+                                                <li>
+                                                    <button 
+                                                        className="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-600"
+                                                        onClick={openEligibilityChecker} 
+                                                    >
+                                                        Non-Medical AI
+                                                    </button>
+                                                    </li>
+                                                <li>
+                                                    <button 
+                                                        className="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-600"
+                                                        onClick={openTraditionalUnderwriting} 
+                                                    >
+                                                        Traditional AI
+                                                    </button>
+                                                </li>
                                                 <li>
                                                     <button 
                                                         className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600"

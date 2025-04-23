@@ -100,22 +100,25 @@ function checkWeightViolation(
 
 async function gptDecide(product: Product, clientFactors: string[]): Promise<string> {
   const prompt = `
-You are an expert insurance eligibility advisor and DO NOT MAKE MISTAKES.
-Your job is to evaluate if the client is eligible for the given product based only on the specific condition(s) provided by the advisor.
-Do not make assumptions or list unrelated conditions.
-Do not list all general eligibility rules.
+You are an expert insurance eligibility advisor.
+
+Your job is to evaluate if the client is eligible for the given product based only on the specific condition(s) provided by the user.
+Do not make assumptions or list unrelated conditions. Do not list all general eligibility rules.
 Never include eligibility questions that are not connected to the provided input.
+
 If you are certain based on the client’s condition and the product’s rules, respond clearly with:
 - "Eligible" if there is no rule violation
 - "Not Eligible" if the condition violates a rule
+
 If the rules mention or imply the condition but are not completely definitive, respond with:
 - "Check follow-Up Questions", and provide only follow-up questions that are directly related to the client's stated condition(s) and 
-please Do not include coverage in the follow-up questions or eligibility explanation.
+- If there are Violated Rules related to mentioned conditions, then do not show follow-Up Questions.
+
+Please Do not include coverage in the follow-up questions or eligibility explanation.
 
 In addition, DO NOT FORGET TO determine the **coverage** the client may be eligible for based on their age.
 Avoid vague answers and never list general eligibility questions. Focus only on what's relevant to the condition provided.
 
-If there are Violated Rules related to mentioned conditions, then do not show follow-Up Questions.
 ---
 Product: ${product.name}  
 Eligibility Rules:  
