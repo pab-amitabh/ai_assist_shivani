@@ -1,19 +1,22 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { useState } from 'react'
 
 export default function Header() {
   const router = useRouter()
   const pathname = usePathname()
+  const { data: session } = useSession()
   const [menuOpen, setMenuOpen] = useState(false)
 
   const linkBaseClasses =
     'block px-3 py-2 rounded-md transition duration-150 ease-in-out text-sm font-medium'
 
   const isActive = (path: string) =>
-    pathname === path
+    pathname.includes('?') // Do not highlight if there’s a query param
+      ? ''
+      : pathname === path
       ? 'bg-blue-100 text-blue-800 shadow-sm border border-blue-200'
       : 'text-gray-700 hover:bg-gray-100 hover:text-blue-800'
 
@@ -30,25 +33,29 @@ export default function Header() {
           <img
             src="/policyadvisor-logo.svg"
             alt="PolicyAdvisor"
-            className=" md:h-10 transition hover:opacity-90"
-            height='200px' width='200px'
+            className="md:h-10 transition hover:opacity-90"
+            height="200px"
+            width="200px"
           />
         </a>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex space-x-2 items-center">
-            <a href="/home" target="_blank" className={`${linkBaseClasses} ${isActive('/home')}`}>Home</a>
+          <a href="/home" target="_blank" className={`${linkBaseClasses} ${isActive('/home')}`}>Home</a>
           <a href="/" target="_blank" className={`${linkBaseClasses} ${isActive('/')}`}>AI Assist</a>
           <a href="/eligibilitychecker" target="_blank" className={`${linkBaseClasses} ${isActive('/eligibilitychecker')}`}>Eligibility Checker AI</a>
           <a href="/traditional" target="_blank" className={`${linkBaseClasses} ${isActive('/traditional')}`}>Traditional Underwriting AI</a>
           <a href="/quotechecker" target="_blank" className={`${linkBaseClasses} ${isActive('/quotechecker')}`}>Quote Checker AI</a>
           <a href="/training" target="_blank" className={`${linkBaseClasses} ${isActive('/training')}`}>Training AI</a>
-          <button
-            onClick={handleLogout}
-            className="ml-2 px-3 py-1.5 rounded-md bg-red-100 text-red-600 hover:bg-red-200 transition"
-          >
-            Logout
-          </button>
+
+          {session && (
+            <button
+              onClick={handleLogout}
+              className="ml-2 px-3 py-1.5 rounded-md bg-red-100 text-red-600 hover:bg-red-200 transition"
+            >
+              Logout
+            </button>
+          )}
         </nav>
 
         {/* Mobile menu icon */}
@@ -68,7 +75,14 @@ export default function Header() {
           <a href="/" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/')}`}>AI Assist</a>
           <a href="/eligibilitychecker" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/eligibilitychecker')}`}>Eligibility Checker</a>
           <a href="/traditional" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/traditional')}`}>Traditional Underwriting</a>
-          <button onClick={handleLogout} className="w-full text-left px-3 py-2 rounded-md bg-red-100 text-red-600 hover:bg-red-200">Logout</button>
+          {session && (
+            <button
+              onClick={handleLogout}
+              className="w-full text-left px-3 py-2 rounded-md bg-red-100 text-red-600 hover:bg-red-200"
+            >
+              Logout
+            </button>
+          )}
         </div>
       )}
     </header>

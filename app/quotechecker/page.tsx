@@ -1,9 +1,20 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import Header from '../components/header'
 
 export default function QuoteCheckerPage() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
+
+  const allowedEmails = [
+    "amitabh@policyadvisor.com",
+    "jiten@policyadvisor.com",
+    "shivani@policyadvisor.com"
+  ]
+
   const [quote, setQuote] = useState('')
   const [extracted, setExtracted] = useState<any>(null)
   const [baseResults, setBaseResults] = useState<any>({})
@@ -11,6 +22,23 @@ export default function QuoteCheckerPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+  useEffect(() => {
+    const isUnauthorized =
+      status === 'unauthenticated' ||
+      (status === 'authenticated' && session && !allowedEmails.includes(session.user?.email || ''))
+
+    if (isUnauthorized) {
+      const currentPath = window.location.pathname
+      router.push(`/?callbackUrl=${encodeURIComponent(currentPath)}`)
+    }
+  }, [status, session, router])
+
+  if (
+    status === 'loading' ||
+    (status === 'authenticated' && !allowedEmails.includes(session?.user?.email || ''))
+  ) {
+    return null // or a loading spinner
+  }
 
   const handleSubmit = async () => {
     setLoading(true)
@@ -18,14 +46,14 @@ export default function QuoteCheckerPage() {
     setBaseResults({})
     setProjectedResults({})
     setError('')
-  
+
     try {
       const res = await fetch('/api/quoteChecker', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: quote }),
       })
-  
+
       if (!res.ok) {
         if (res.status === 500) {
           setError('Please check your input and try again.')
@@ -35,9 +63,9 @@ export default function QuoteCheckerPage() {
         setLoading(false)
         return
       }
-  
+
       const data = await res.json()
-  
+
       if (data.error) {
         setError(data.error)
       } else {
@@ -48,10 +76,9 @@ export default function QuoteCheckerPage() {
     } catch (err) {
       setError('Something went wrong. Please try again.')
     }
-  
+
     setLoading(false)
   }
-  
 
   return (
     <>
@@ -60,7 +87,9 @@ export default function QuoteCheckerPage() {
         <h1 className="text-2xl font-bold text-center mb-4 text-blue-800">Quote Checker</h1>
 
         <div className="bg-white shadow-md rounded-md p-4">
-          <label className="block text-sm font-semibold text-gray-700 mb-1">Enter your requirements <span className='text-gray-500 italic'> (Provide details including Age, Gender, Smoker Status, Premium, PLIFE or P20)</span></label>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Enter your requirements <span className="text-gray-500 italic">(Provide details including Age, Gender, Smoker Status, Premium, PLIFE or P20)</span>
+          </label>
           <textarea
             value={quote}
             onChange={(e) => setQuote(e.target.value)}
@@ -83,24 +112,24 @@ export default function QuoteCheckerPage() {
         )}
 
         {extracted && (
-        <div className="mt-6 p-4 border rounded">
+          <div className="mt-6 p-4 border rounded">
             <h2 className="font-bold text-blue-800 mb-2">Extracted Info</h2>
             <ul className="list-disc list-inside text-gray-800 text-sm space-y-1">
-                {Object.entries(extracted).map(([key, value]) => (
+              {Object.entries(extracted).map(([key, value]) => (
                 <li key={key}>
-                    <span>{key}:</span>  {String(value)}
+                  <span>{key}:</span> {String(value)}
                 </li>
-                ))}
+              ))}
             </ul>
-            {extracted && Object.keys(baseResults).length === 0 && Object.keys(projectedResults).length === 0 && !loading && (
-            <p className="italic text-center mt-4 text-gray-600">
-                No data found. Please check back later.
-            </p>
-            )}
-        </div>
+            {Object.keys(baseResults).length === 0 &&
+              Object.keys(projectedResults).length === 0 &&
+              !loading && (
+                <p className="italic text-center mt-4 text-gray-600">
+                  No data found. Please check back later.
+                </p>
+              )}
+          </div>
         )}
-
-        
 
         {Object.keys(baseResults).length > 0 && (
           <div className="mt-6 space-y-6">
@@ -113,7 +142,7 @@ export default function QuoteCheckerPage() {
               const displayPremium = premium.replace('B', '$') + '/month'
 
               return (
-                <div key={i} className="border border-gray-200 rounded p-4 bg-white shadow-sm text-sm" style={{ fontFamily: 'Lato, sans-serif' }}>
+                <div key={i} className="border border-gray-200 rounded p-4 bg-white shadow-sm text-sm">
                   <h3 className="font-semibold text-blue-700 mb-2">
                     {`${displayGender} - ${displayProduct} - ${displaySmoker} - ${displayPremium}`}
                   </h3>
@@ -130,14 +159,14 @@ export default function QuoteCheckerPage() {
                       <tbody>
                         {baseEntries.map((entry, idx) => (
                           <tr key={idx} className="bg-gray-50">
-                            <td className="p-2 border text-center">{entry.projected_age} <span className='text-gray-300'>(Current Age)</span></td>
+                            <td className="p-2 border text-center">{entry.projected_age} <span className="text-gray-300">(Current Age)</span></td>
                             <td className="p-2 border text-center">{entry.projected_cash_value ?? 'N/A'}</td>
                             <td className="p-2 border text-center">{entry.projected_death_benefit ?? 'N/A'}</td>
                           </tr>
                         ))}
-                        {projectedEntries.map((entry:any, idx:any) => (
+                        {projectedEntries.map((entry: any, idx: any) => (
                           <tr key={`p-${idx}`}>
-                            <td className="p-2 border text-center">{entry.projected_age} <span className='text-gray-300'>(Future Age)</span></td>
+                            <td className="p-2 border text-center">{entry.projected_age} <span className="text-gray-300">(Future Age)</span></td>
                             <td className="p-2 border text-center">{entry.projected_cash_value ?? 'N/A'}</td>
                             <td className="p-2 border text-center">{entry.projected_death_benefit ?? 'N/A'}</td>
                           </tr>
@@ -151,11 +180,12 @@ export default function QuoteCheckerPage() {
           </div>
         )}
       </main>
+
       {loading && (
-  <div className="fixed inset-0 bg-white/30 backdrop-blur-sm z-50 flex items-center justify-center">
-    <div className="w-12 h-12 border-4 border-blue-800 border-t-transparent rounded-full animate-spin"></div>
-  </div>
-)}
+        <div className="fixed inset-0 bg-white/30 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="w-12 h-12 border-4 border-blue-800 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
     </>
   )
 }
