@@ -6,8 +6,8 @@ import Provider from "./context/AuthContext"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PolicyAdvisor AI Assist",
-  description: "PolicyAdvisor AI Assist",
+  title: "PolicyAdvisor AI",
+  description: "PolicyAdvisor AI",
 };
 
 export default function RootLayout({
