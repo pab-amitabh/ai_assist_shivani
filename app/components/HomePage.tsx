@@ -4,6 +4,7 @@ import React, { useState, Suspense } from 'react';
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import LoginButton from './LoginButton'; // Make sure the path is correct
+import Header from './header';
 
 const HomePage = () => {
   const { data: session } = useSession();
@@ -36,6 +37,7 @@ const HomePage = () => {
         className="absolute top-0 left-0 w-full h-full object-cover"
         alt="Background"
       />
+      <Header></Header>
       <Suspense fallback={null}>
         <LoginButton />
       </Suspense>
