@@ -2095,5 +2095,2414 @@
              }
           }
        ]
-    }
+    },
+    {
+        "company_name":"EmpireLife",
+        "data":[
+            {
+                "disease_name": "Alcohol Excess Use",
+                "definition": "Excessive alcohol use can lead to increased risk of health problems such as injuries, liver disease, and cancer.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Past and current use – Amount consumed, i.e., daily, weekly and how many at each sitting",
+                  "Ever been advised to reduce consumption or seek treatment",
+                  "Details of any treatment",
+                  "If treated, any relapses",
+                  "Ever had a DUI"
+                ],
+                "requirements": [
+                  "Alcohol and Drug Use Questionnaire",
+                  "APS",
+                  "Blood profile"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on age, amount of consumption, dates, any associated risks. If no treatment and drinking 5 or more drinks per day – 200% to decline. If treatment and any relapses – decline. If treatment and no relapse in one year from date treatment ended – possible high rating."
+                }
+            },
+            {
+                "disease_name": "Anemia",
+                "definition": "Anemia is a condition that develops when blood lacks enough healthy red blood cells or hemoglobin. It can be caused by blood loss, decreased red blood cell production, iron or vitamin deficiency, bone marrow problems.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Severity of symptoms",
+                  "Frequency of attacks",
+                  "Type of medication",
+                  "Dosage of medication",
+                  "Any hospitalization or ER visits",
+                  "Any limitation of activities",
+                  "Any other medical condition"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "Must have been fully investigated. Depends on type, cause and severity – can range from standard to decline."
+                }
+              },
+              {
+                "disease_name": "Anxiety/Stress",
+                "definition": "Fear and worry out of proportion to the circumstances. Sometimes accompanied by physical symptoms such as palpitations. There are several types of anxiety including generalized, panic attacks, stress. Can be situational and related to life events such as loss of employment, divorce, bereavement.",
+                "underwriting_focus": [
+                  "Date of diagnosis and onset",
+                  "Severity of disease",
+                  "Type of disorder",
+                  "Frequency of episodes",
+                  "Treatment (medication and dosage; any counselling)",
+                  "Any suicidal thoughts or attempts",
+                  "Any hospitalization or ER visits",
+                  "Any limitation of activities",
+                  "Any time off work"
+                ],
+                "requirements": [
+                  "Nervous Disorder questionnaire",
+                  "Possibly APS depending on severity, date of onset, duration"
+                ],
+                "underwriting_action": {
+                  "life": "If off work at time of application – decline with possible reconsideration in one year. Mild (not associated with depression) – standard. Moderate – 150%. Severe – 200% to decline."
+                }
+              },
+              {
+                "disease_name": "Arthritis",
+                "definition": "Arthritis is an inflammation of joints. It is not a single disease – it is a term that covers over 100 medical conditions. Osteoarthritis is the most common and usually affects older people. Another fairly common form is rheumatoid which often affects people in the 25–50 age range.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Type",
+                  "Date of onset",
+                  "Severity",
+                  "Treatment",
+                  "Medication and dosage",
+                  "Any limitation of activities"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on type and severity. Osteoarthritis: Mild or moderate – standard; Severe – 200% to decline; Pending surgery – decline for 6 months. Rheumatoid Arthritis: Mild – 150%; Moderate – 200%; Severe – 250% to decline."
+                }
+              },
+              {
+                "disease_name": "Asthma",
+                "definition": "Asthma is a chronic inflammatory condition of the airways causing shortness of breath.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Severity",
+                  "Type of medication / treatment",
+                  "Smoking",
+                  "Any visits to the ER or hospitalization"
+                ],
+                "requirements": [
+                  "APS",
+                  "Respiratory questionnaire"
+                ],
+                "underwriting_action": {
+                  "life": "Mild – Standard; Moderate – 150% to 250%; Severe – 250% to Decline."
+                }
+              },
+              {
+                "disease_name": "Attention Deficit Hyperactivity Disorder (ADHD)",
+                "definition": "Attention Deficit Hyperactivity Disorder (ADHD) is a common childhood and adolescent disorder characterized by manifestations of emotional, behavioural and cognitive disturbances. Adults can also be affected.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Stability of disease",
+                  "Functional and social capacity",
+                  "Any other associated conditions such as any other mental health disorders",
+                  "Treatment"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "Children: Mild to moderate – no significant behavioural problems – Standard. Severe or with behavioural problems or other mental disorders – Decline – possible reconsideration at age 16. Adults: No associated complications – Standard. With complications such as depression, anxiety – Rate for complications."
+                }
+              },
+              {
+                "disease_name": "Atrial Fibrillation/Flutter",
+                "definition": "Atrial fibrillation/flutter is a rapid cardiac arrhythmia.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Heart rate",
+                  "Type – Constant or intermittent",
+                  "High blood pressure",
+                  "Any other cardiac impairments",
+                  "Date of last episode"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "Constant type – 150% to decline. Intermittent type – Standard to decline."
+                }
+              },
+              {
+                "disease_name": "Autism Spectrum Disorder",
+                "definition": "Autism spectrum disorder (ASD) is a developmental condition that can involve challenges in social interaction, communications, and behaviour. Asperger’s Syndrome is included.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Functional and social capacity",
+                  "Able to live independently",
+                  "Education",
+                  "Employment situation",
+                  "Treatment",
+                  "Any other co-existing conditions such as anxiety, depression, ADHD"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "Age 8 or younger – decline. Over age 8 – Standard to decline – depends on date of diagnosis, severity, level of independence, any complications."
+                }
+              },
+              {
+                "disease_name": "Blood Pressure (Hypertension)",
+                "definition": "Primary hypertension is the most common type and can be caused by diet, stress and genetics. Secondary hypertension is related to an underlying cause such as kidney disease.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Type of medication",
+                  "Current blood pressure reading",
+                  "Compliance with treatment and follow-up",
+                  "Smoking",
+                  "Any other medical condition, such as obesity, diabetes, kidney disease, heart disease, stroke, etc."
+                ],
+                "requirements": [
+                  "Para-medical or Vital Stats",
+                  "Blood profile",
+                  "Urine HIV"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on severity and control. If treated, well controlled and has regular follow-ups with attending physician – can usually be standard."
+                }
+              },
+              {
+                "disease_name": "Cancer – Breast",
+                "definition": "Breast cancer is the most common type of cancer in women and most are diagnosed between ages 50–64. It is the leading cause of cancer death in women.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Type and stage of the tumor",
+                  "Site of treatment including surgery",
+                  "Date treatment completed",
+                  "Any recurrence or spread"
+                ],
+                "requirements": [
+                  "APS to include pathology report"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on type, staging, any lymph node involvement and the length of time since treatment ended. Rating can be a percentage, flat extra or both, depending on time from treatment end or a combination of both. Some carcinoma-in-situ can be standard after 3 years since treatment ceased. If diagnosed at a young age (<50), an additional 150% rating will likely apply."
+                }
+              },
+              {
+                "disease_name": "Cancer – Colorectal",
+                "definition": "Colorectal cancer can affect any part of the large bowel, although it often appears in the lower part of the colon, the sigmoid colon or the rectum.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Grade and stage of tumour",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Any recurrence or spread"
+                ],
+                "requirements": [
+                  "APS to include pathology report"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on type, staging, any lymph node involvement and number of years since treatment ended. Rating can be a combination of percentage and/or flat extra. Some carcinoma-in-situ can be standard after 3 years since treatment ceased. Others are rated to decline. Rating can range from $5.00/$1,000 to $15.00/$1,000 and possible 150%."
+                }
+              },
+              {
+                "disease_name": "Cancer – Lung",
+                "definition": "Lung cancer is the uncontrolled growth of abnormal cells that starts in one or both lungs. There are 2 main types – non-small cell and small cell. Small cell grows more quickly.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Type and stage",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Any recurrence or spread",
+                  "Smoking history"
+                ],
+                "requirements": [
+                  "APS to include pathology report"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on type, staging, any lymph node involvement, smoking, and number of years since treatment ended. Rating is usually flat extras for a reducing number of years since treatment ended. Some low grade tumors can be standard after 5 years since date of last treatment. Others are rated to decline. Rating can range from $10.00/$1,000 to $15.00/$1,000. If still smokes, decline."
+                }
+              },
+              {
+                "disease_name": "Cancer – Prostate",
+                "definition": "Prostate cancer is usually a slow-growing tumour and one of the most common forms of cancer in males.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Type and stage",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Any recurrence or spread"
+                ],
+                "requirements": [
+                  "APS to include pathology report",
+                  "Current PSA"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on type, staging, any lymph node involvement and length of time since treatment ended. Ratings are usually a flat extra for a reducing number of years since treatment ended. Adenocarcinoma, Stage 1, can be standard after one year since date of last treatment. Others are rated to decline. Rating can range from $7.50/$1,000 to $10.00/$1,000."
+                }
+              },
+              {
+                "disease_name": "Cancer – Skin – Basal Cell",
+                "definition": "Basal Cell Carcinoma is the most common skin cancer. It rarely spreads or causes death but if it does invade surrounding tissues it is considered to be malignant.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Pathology – confirmation that it is basal cell",
+                  "Date of diagnosis",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Any recurrence or spread",
+                  "Any dysplastic nevi"
+                ],
+                "requirements": [
+                  "APS with pathology report",
+                  "If any dysplastic nevi, confirmation that it is being followed"
+                ],
+                "underwriting_action": {
+                  "life": "If less than 5.0 cm, usually standard after lesion has been completely removed. Others are rated or declined. Rating is usually a flat extra for a reducing number of years since treatment ended. It can range from $5.00/$1,000 to $7.50/$1,000."
+                }
+              },
+              {
+                "disease_name": "Cancer – Skin – Squamous Cell",
+                "definition": "Squamous cell carcinoma is cancer of the squamous cells of the skin. It can also occur in other parts of the body such as digestive tract, lungs, bladder.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Pathology",
+                  "Date of diagnosis",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Any recurrence or spread",
+                  "Any dysplastic nevi"
+                ],
+                "requirements": [
+                  "APS with pathology report",
+                  "If any dysplastic nevi, confirmation that it is being followed"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on location. If skin and is Stage 0 or 1 could be standard after removal. Others are rated or declined. Rating is usually a flat extra for a reducing number of years since treatment ended. It can range from $5.00/$1,000 to $15.00/$1,000."
+                }
+              },
+              {
+                "disease_name": "Cancer – Skin – Melanoma",
+                "definition": "Melanoma is malignancy of the skin tissues but can occur elsewhere – particularly the eye.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Pathology",
+                  "Date of diagnosis",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Any recurrence or spread",
+                  "Any dysplastic nevi"
+                ],
+                "requirements": [
+                  "APS with pathology report",
+                  "If any dysplastic nevi, confirmation that it is being followed"
+                ],
+                "underwriting_action": {
+                  "life": "Melanoma in-situ – declined for 3 months after treatment and possible standard thereafter. Others are rated to decline. Rating is usually a flat extra for a reducing number of years since treatment ended. It can range from $7.50/$1,000 to $15.00/$1,000."
+                }
+              },
+              {
+                "disease_name": "Cancer – Thyroid",
+                "definition": "Thyroid cancer is the most common malignancy of the endocrine system and there are 4 main types: papillary, follicular, medullary and anaplastic thyroid carcinomas. Papillary and follicular are most common.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Pathology",
+                  "Type of cancer",
+                  "Date of diagnosis",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Any recurrence or spread"
+                ],
+                "requirements": [
+                  "APS with pathology report"
+                ],
+                "underwriting_action": {
+                  "life": "Papillary tumor ≤ 2 cm – reducing flat extra of $5.00/$1,000 – may be standard after 3 years. Papillary tumors > 2 cm and follicular tumours – reducing flat extra in range of $5.00/$1,000 to $15.00/$1,000. Possible standard after 5 to 6 years. Medullary – rating could be a combination of percentage and flat extra ranging from $5.00/$1,000 to $15.00/$1,000. Anaplastic – usually a decline."
+                }
+              },
+              {
+                "disease_name": "Cancer – Other",
+                "definition": "Cancers – other than those listed above.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Type and stage",
+                  "Type of treatment including surgery",
+                  "Date treatment completed",
+                  "Any recurrence or spread"
+                ],
+                "requirements": [
+                  "APS to include pathology report"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on type, staging, any lymph node involvement and the length of time since treatment ended. Rating can be a percentage, flat extras for specified period of time from number of years since treatment ended, or a combination of both. Some carcinoma-in-situ can be standard after 3 years since treatment ceased."
+                }
+              },
+              {
+                "disease_name": "Chronic Obstructive Lung Disease (including chronic bronchitis and emphysema)",
+                "definition": "Chronic obstructive pulmonary disease (COPD) is an inflammatory lung disease that causes obstructed airflow from the lungs. Symptoms include breathing difficulty, cough, sputum production and wheezing.",
+                "underwriting_focus": [
+                  "Smoking status",
+                  "Severity",
+                  "Symptoms",
+                  "Results of pulmonary tests"
+                ],
+                "requirements": [
+                  "Respiratory Questionnaire",
+                  "APS (depending on severity)"
+                ],
+                "underwriting_action": {
+                  "life": "Mild – Standard to 175%; Moderate – 200% to Decline; Severe – Usually decline. ** Smoking results in the higher ratings."
+                }
+              },
+              {
+                "disease_name": "Concussion",
+                "definition": "A concussion is a traumatic brain injury that affects brain function. Effects are usually temporary and can include headache, vision impairment, tremor, dizziness, problems with concentration and memory.",
+                "underwriting_focus": [
+                  "Severity",
+                  "Any residual neurological deficits",
+                  "MRI results",
+                  "Number of concussions",
+                  "Time since last concussion"
+                ],
+                "requirements": [
+                  "APS if severe or multiple concussions"
+                ],
+                "underwriting_action": {
+                  "life": "Mild and full recovery – standard. More severe (hemorrhage or loss of consciousness): Full recovery and no neurological deficits – Decline if within one year and then standard. With neurological deficits: Mild – assess for residuals. Moderate to severe – decline. Multiple – Individual Consideration (I.C.)."
+                }
+              },
+              {
+                "disease_name": "Coronary Artery Disease (including by-pass surgery and angioplasty)",
+                "definition": "Coronary artery disease is failure of the coronary arteries to provide an adequate blood flow to the heart. Manifestations are silent heart attack (no symptoms – usually detected on routine testing), Angina (chest pain or squeezing sensation), heart attack or myocardial infarction.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of onset",
+                  "Number of arteries involved",
+                  "Medications",
+                  "Dosages of medication",
+                  "Current blood pressure reading",
+                  "Regular follow ups",
+                  "Details of hospitalization",
+                  "Any limitations of activity",
+                  "Smoking",
+                  "Any other medical condition, such as obesity, diabetes, stroke",
+                  "Any current symptoms"
+                ],
+                "requirements": [
+                  "APS to include cardiac test results e.g. – ECG, Stress ECG, angiogram, perfusion studies"
+                ],
+                "underwriting_action": {
+                  "life": "If diagnosed before age 35 – decline. If diagnosed between ages 35–40 – individual consideration will be given and high rating may be possible. If surgery or angioplasty within 6 months – declined. Others will depend on type, severity, follow-up and smoking status. Rating can range from 200% to decline."
+                }
+              },
+              {
+                "disease_name": "Crohn’s Disease (also see Ulcerative colitis)",
+                "definition": "Crohn’s disease is a type of inflammatory bowel disease that may affect any part of the gastrointestinal tract.",
+                "underwriting_focus": [
+                  "Date of diagnosis",
+                  "Symptoms and severity",
+                  "Frequency of flare-ups (medication, dosage, any surgery)",
+                  "Any hospitalization or ER visits",
+                  "Any limitation of activities",
+                  "Any complications or other medical condition, such as anemia, arthritis or other inflammatory disease"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on age of diagnosis and severity:\n\nMILD:\n- Current – possible 175%\n- Within 1–2 years of last flare-up – possible 150%\n- > 2 years – possible standard\n\nMODERATE:\n- Within 1 year of last flare-up – possible 200%\n- 1–5 years with no flare-ups – possible 150% to 175%\n- > 5 years with no flare-ups – possible standard\n\nSEVERE:\n- If severe within 2 years – possible 300%\n- > 2 years with no flare-ups – possible 200% to 250%\n- Any surgery – decline for 6 months"
+                }
+              },
+              {
+                "disease_name": "Depression (also see Anxiety)",
+                "definition": "Depression is a serious medical condition with many emotional, physical, behavioural symptoms.",
+                "underwriting_focus": [
+                  "Number of episodes",
+                  "Date of last episode",
+                  "Severity",
+                  "Time loss from work",
+                  "Medication and/or psychotherapy",
+                  "Any hospitalization or ER visits",
+                  "Any suicidal thoughts, gestures or attempts",
+                  "Any drug or alcohol use"
+                ],
+                "requirements": [
+                  "APS",
+                  "Psychiatric questionnaire"
+                ],
+                "underwriting_action": {
+                  "life": "If off work at time of application – decline with possible reconsideration in one year. Depends on severity, frequency and date of last episode:\n- Single or mild episode – could be standard\n- Others – 150% to decline\n- If suicide attempt, rating will be higher, may also include a reducing flat extra of $7.50/$1,000 for at least 3 years"
+                }
+              },
+              {
+                "disease_name": "Diabetes – Type 1",
+                "definition": "Type 1 diabetes is a disease in which the pancreas does not produce any insulin. Previously was called Juvenile Diabetes or Insulin Dependent Diabetes. Usually occurs before age 30.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Duration",
+                  "Treatment (type, medication, dosage)",
+                  "Degree control",
+                  "Compliance",
+                  "Well followed",
+                  "Smoking",
+                  "Any hospitalization or ER visits",
+                  "Any other medical condition, such as obesity, kidney disorder, vision problem, heart disease, stroke, circulatory problems, neuropathy"
+                ],
+                "requirements": [
+                  "APS",
+                  "Blood profile to include HGB A1C and HOS"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on gender, age diagnosed, duration, control, smoking habits, any co-morbid conditions. Rating can range from 150% for best cases to decline."
+                }
+              },
+              {
+                "disease_name": "Diabetes – Type 2",
+                "definition": "Type 2 diabetes is a disease in which your pancreas does not produce enough insulin, or your body does not effectively use the insulin it makes. It is also known as Non-insulin dependent diabetes.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Treatment (type, medication, dosage)",
+                  "Duration",
+                  "Well followed",
+                  "Smoking",
+                  "Any hospitalization or ER visits",
+                  "Any other medical condition, such as obesity, kidney disorder, vision problem, heart disease, stroke, circulatory problems, neuropathy"
+                ],
+                "requirements": [
+                  "APS",
+                  "Blood profile to include HGB A1C and HOS"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on gender, age diagnosed, duration, control, smoking habits, any co-morbid conditions. Rating can range from 150% for best cases to decline."
+                }
+              },
+              {
+                "disease_name": "Drug Use",
+                "definition": "Pattern of use of a substance or use of a substance that can lead to abuse.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Type of drug use – past or current",
+                  "Duration of use and date of last use",
+                  "Any treatment and if so, details"
+                ],
+                "requirements": [
+                  "Alcohol and Drug Use Questionnaire"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on type of drug use, frequency, date last used:\n- Occasional use – no recent use – standard to decline\n- *Medical* – Decision depends on underlying reason for taking medicinal marijuana\n- *Other drugs such as Cocaine* – Decline for 3 years from date of last use then high rating. Any IV drug use – decline\n- Combination of multiple drugs may require longer decline period"
+                }
+              },
+              {
+                "disease_name": "Epilepsy",
+                "definition": "Epilepsy is a central nervous system (neurological) disorder in which brain activity becomes abnormal, causing seizures. There are many possible causes.",
+                "underwriting_focus": [
+                  "Age",
+                  "Cause",
+                  "Date of diagnosis",
+                  "Date of last occurrence",
+                  "Type (grand mal, petit mal, other)",
+                  "Frequency",
+                  "Treatment",
+                  "Control and compliance with treatment",
+                  "Any complications"
+                ],
+                "requirements": [
+                  "Seizures Questionnaire",
+                  "APS (depending on severity)"
+                ],
+                "underwriting_action": {
+                  "life": "Single seizure:\n- < 6 months – decline\n- > 6 months – possible standard\n- Known cause – rate for cause\n\nEpilepsy on medication – Cause Unknown\nMild:\n- Last episode < 6 months – decline\n- 6 months to 2 years – 200%\n- > 2 to 5 years – 150%\n- > 5 years – standard\n\nModerate:\n- Last episode < 6 months – decline\n- 6 months to 2 years – 300%\n- > 2 – 5 years – 200%\n- > 5 years – 150%\n\nSevere:\n- Last episode:\n  - < 2 years – decline\n  - 2–5 years – 300%\n  - 6–8 years – 200%\n  - > 8 years – 150%\n\nOther seizures:\n- Seizures attributed to fever may be standard\n- Other known cause (e.g., alcohol withdrawal, brain tumor) – rate for cause and severity\n\nNot On Medication: Individual Consideration (I.C.)"
+                }
+              },
+              {
+                "disease_name": "Fibromyalgia",
+                "definition": "Fibromyalgia is a common and chronic disorder characterized by a number of symptoms including widespread pain, tenderness, fatigue, etc.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Details of time loss from work",
+                  "Treatment",
+                  "Severity",
+                  "Underlying disease ruled out"
+                ],
+                "requirements": [
+                  "APS depending on severity"
+                ],
+                "underwriting_action": {
+                  "life": "Usually standard as long as underlying disease ruled out and the risk is not on disability. Use of narcotic drugs may result in a rating."
+                }
+              },
+              {
+                "disease_name": "Gastric Bypass Surgery (Bariatric/Weight Loss Surgery)",
+                "definition": "Surgical procedure for treatment of obesity. Procedures include the Roux-en-Y gastric bypass (RYGB), the laparoscopic sleeve gastrectomy (LSG), the laparoscopic adjustable gastric band (LAGB), and the endoluminal obesity procedure.",
+                "underwriting_focus": [
+                  "Date of surgery",
+                  "Type of surgery",
+                  "Any complications",
+                  "Deficiencies due to malabsorption",
+                  "Fatty liver, chronic diarrhea, gastric reflux",
+                  "Current build",
+                  "Amount of weight loss"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "Decline within one year of surgery. After 6 months and no complications, assessment is based on current height and weight. After 6 months and complications, assessment is based on current height and weight and the complications."
+                }
+              },
+              {
+                "disease_name": "Hepatitis A",
+                "definition": "Hepatitis A is a liver infection caused by the hepatitis A virus. It is very contagious and easily spread but usually a benign disease.",
+                "underwriting_focus": [
+                  "Age",
+                  "Time since attacks",
+                  "Date since complete recovery",
+                  "Treatment",
+                  "Blood test results"
+                ],
+                "requirements": [
+                  "APS depending on severity and how long since recovered"
+                ],
+                "underwriting_action": {
+                  "life": "If present – decline until recovered. If completely recovered and liver enzymes are normal – could be standard. If liver enzymes are not normal – could be rated 150% to decline. If status is questionable – decline."
+                }
+              },
+              {
+                "disease_name": "Hepatitis B",
+                "definition": "Hepatitis B is a virus that attacks the liver. It can cause serious disease, including permanent liver damage. It can be acute (recovered) or chronic.",
+                "underwriting_focus": [
+                  "Age at infection",
+                  "Acute or chronic",
+                  "Date since complete recovery",
+                  "If chronic – whether it is well followed",
+                  "Any symptoms such as fever, jaundice",
+                  "Treatment",
+                  "Blood test results"
+                ],
+                "requirements": [
+                  "APS",
+                  "Current Blood profile with liver enzyme testing",
+                  "Hepatitis screening"
+                ],
+                "underwriting_action": {
+                  "life": "Acute infection – could be standard depending on Hepatitis screening results. Chronic infection – could be 175% to decline depending on blood profile results."
+                }
+              },
+              {
+                "disease_name": "Hepatitis C",
+                "definition": "Hepatitis C is an inflammation of the liver caused by infection with the hepatitis C virus. It can cause serious disease, including permanent liver damage.",
+                "underwriting_focus": [
+                  "Age at infection",
+                  "Current age",
+                  "Acute or chronic",
+                  "If recovered, date since complete recovery",
+                  "If chronic – whether it is well followed",
+                  "Any symptoms such as fever, jaundice",
+                  "Treatment",
+                  "Blood test results",
+                  "Biopsy results",
+                  "Alcohol consumption"
+                ],
+                "requirements": [
+                  "APS with biopsy results",
+                  "Current Blood profile with liver enzyme testing",
+                  "Hepatitis screening"
+                ],
+                "underwriting_action": {
+                  "life": "Treated infection – decline if less than 6 months since treatment ceased. If more than 6 months since treatment ceased, could be standard to decline depending on blood profile results, any fibrosis. Untreated infection – could be 150% to decline depending on age, blood profile results, and if any liver fibrosis."
+                }
+              },
+              {
+                "disease_name": "Hodgkin’s Disease (Hodgkin’s Lymphoma)",
+                "definition": "Hodgkin lymphoma is a malignant disease of the lymphatic system.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Type of treatment or spread",
+                  "Date treatment completed",
+                  "Any recurrence or spread"
+                ],
+                "requirements": [
+                  "APS with pathology report"
+                ],
+                "underwriting_action": {
+                  "life": "Ratings depend on staging and date since last treatment. All cases are declined for at least 3 years post-treatment. After that, rating is flat extra possible in the range of $8.00/$1,000 to $16.00/$1,000 for 5 years. A percentage rating of 150% may be added depending on type of treatment."
+                }
+              },
+              {
+                "disease_name": "Non-Hodgkin’s Disease (Non-Hodgkin’s Lymphoma)",
+                "definition": "Non-Hodgkin’s Lymphomas are cancers of the lymphoid tissue. NHL has 30 subtypes with differing characteristics.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Any recurrence"
+                ],
+                "requirements": [
+                  "APS with pathology report"
+                ],
+                "underwriting_action": {
+                  "life": "Ratings depend on staging and date since last treatment. All cases are declined for at least 3 years post-treatment. After that, rating can range from 200% to decline."
+                }
+              },
+              {
+                "disease_name": "Hyperthyroid",
+                "definition": "Hyperthyroidism is a condition where the thyroid gland produces too much thyroid hormone. It can cause weakness, fatigue, increased heart rate, weight loss.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis and last treatment",
+                  "Current surgery, medication or treatment",
+                  "Results of any tests, biopsies",
+                  "Radioiodine therapy",
+                  "Any hospitalization or ER visits",
+                  "Any complications"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "If no symptoms – could be standard to 150%. If having symptoms or still being treated – defer until further follow-up. Surgery or treatment completed with no symptoms > 6 months – standard to 200%."
+                }
+              },
+              {
+                "disease_name": "Hypothyroid",
+                "definition": "Hypothyroidism is a condition where the thyroid levels are decreased. It can cause weakness, fatigue, cold intolerance, weight gain, depression.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis and onset",
+                  "Treatment",
+                  "Any limitation of activities",
+                  "Any complications"
+                ],
+                "requirements": [
+                  "Details"
+                ],
+                "underwriting_action": {
+                  "life": "Juveniles – Individual Consideration depending on age of diagnosis and severity.\n\nADULTS\nUntreated:\n- No symptoms or complications – standard\n- With symptoms – 150% to Decline\n\nTreated:\n- No symptoms – standard\n- Treatment with symptoms – 175% to Decline"
+                }
+              },
+              {
+                "disease_name": "Kidney Disease – Glomerulonephritis",
+                "definition": "There are many different types of kidney diseases. Glomerulonephritis is one of the most common. It can be acute or chronic.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Severity",
+                  "Type (acute or chronic)",
+                  "Date of recovery",
+                  "Any progression",
+                  "Any hospitalization or ER visits",
+                  "Any complications"
+                ],
+                "requirements": [
+                  "APS",
+                  "Blood profile if APS does not have current info"
+                ],
+                "underwriting_action": {
+                  "life": "Acute:\n- Within one year of diagnosis – decline\n- Could be standard if recovered for one year and only one occurrence\n- Otherwise would be rated in range of 150% to 200% depending on number of years since recovery\n\nChronic:\n- 200% to decline depending on severity"
+                }
+              },
+              {
+                "disease_name": "Multiple Sclerosis",
+                "definition": "Multiple sclerosis is an inflammatory disease in which the insulating covers in the nerve cells of the spinal cord and brain are damaged.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of onset",
+                  "Severity",
+                  "Treatment (type, dosage)",
+                  "Any progression",
+                  "Any limitation of activities",
+                  "Any hospitalization or ER visits"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on severity and date of onset. Ratings are in the range of 150% for mild to decline for severe."
+                }
+              },
+              {
+                "disease_name": "Parkinson’s Disease",
+                "definition": "Parkinson’s Disease is a progressive degenerative disease. Signs and symptoms are tremors, stiffness, slowness of movements, impaired balance and coordination.",
+                "underwriting_focus": [
+                  "Severity",
+                  "Age of diagnosis",
+                  "Treatment",
+                  "Stability"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "If diagnosed under age 35 – Decline. If diagnosed over age 35 – 150% to decline depending on severity and level of control."
+                }
+              },
+              {
+                "disease_name": "Sleep Apnea",
+                "definition": "Sleep apnea is a common sleep disorder characterized by brief interruptions of breathing (apneas) during sleep.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Type – whether it is central, mixed or obstructive",
+                  "Severity of disease",
+                  "Treatment (CPAP or surgery)",
+                  "Compliance",
+                  "Date of last sleep study",
+                  "Any other conditions such as obesity, hypertension, heart disease"
+                ],
+                "requirements": [
+                  "APS to include sleep study results"
+                ],
+                "underwriting_action": {
+                  "life": "Central – Decline. Obstructive – Mild – standard; Moderate – 150%; Severe – 250% to Decline."
+                }
+              },
+              {
+                "disease_name": "Stroke",
+                "definition": "Stroke is a sudden loss of brain function, caused by the interruption of flow of blood to the brain or the rupture of blood vessels in the brain. This causes permanent damage to the brain.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Number of strokes",
+                  "Treatment",
+                  "Any residual impairment",
+                  "Blood pressure readings",
+                  "Smoking – past and current use"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on age, type, number of strokes, and residual impairment. More than one stroke – decline. Stroke within one year – decline with possible reconsideration after one year. Others are rated 150% to decline, depending on the noted factors. A stroke at a younger age will usually have a higher rating."
+                }
+              },
+              {
+                "disease_name": "Transient Ischemic Attack",
+                "definition": "Transient ischemic attack (TIA) is when blood flow to a part of the brain stops for a brief period of time. Symptoms usually resolve within an hour and there are no lasting neurological defects.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Number of TIA’s",
+                  "Treatment",
+                  "Any residual impairment",
+                  "Blood pressure readings",
+                  "Smoking – past and current use"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on age, type, number of strokes, recency. 1 or 2 TIA’s within a year are decline for at least 6 months and one year if under age 40. After that rating will apply. Ratings are in the 150% to 225% range depending on age and frequency. 3 TIA’s or more will be considered as stroke."
+                }
+              },
+              {
+                "disease_name": "Ulcerative Colitis",
+                "definition": "Ulcerative colitis is a type of inflammatory bowel disease that causes ulcerative lesions in the lining of the colon.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Symptoms and severity",
+                  "Frequency of flare-ups",
+                  "Treatment (type, medication, dosage, any surgery)",
+                  "Any hospitalization or ER visits",
+                  "Any limitation of activities",
+                  "Any complications or other medical condition, such as arthritis or other inflammatory disease"
+                ],
+                "requirements": [
+                  "APS"
+                ],
+                "underwriting_action": {
+                  "life": "Depends on age of diagnosis and severity:\n\nMILD:\n- Proctitis only, not requiring treatment with oral steroids or immune therapy – possible standard\n\nMODERATE:\n- Within 6 months of last flare-up – possible 200%\n- > 6 months to 5 years – possible 150% to 175%\n- After 5 years with no flare-ups – possible standard\n\nSEVERE:\n- Within 2 years of last flare-up – possible 300%\n- > 2 to 10 years since last flare-up – possible 200% to 250%\n- After 10 years since last flare-up – possible 150%\n- Any surgery would be a decline for 6 months"
+                }
+              }
+        ]
+     },
+     {
+        "company_name":"CanadaLife",
+        "data":[
+            {
+                "disease_name": "Alcohol Abuse / Alcoholism",
+                "definition": "Heavy use or dependence on alcohol (current or past) may damage the brain, liver, nerves, and other organs.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Patterns of use (amount consumed and how often)",
+                  "Diagnosis",
+                  "Relapses",
+                  "Treatment programs",
+                  "Membership in an alcohol self-help group",
+                  "Lifestyle",
+                  "Other medical concerns",
+                  "Mental health history",
+                  "Drug use",
+                  "Driving history"
+                ],
+                "requirements": [
+                  "Alcohol usage questionnaire",
+                  "Attending physician’s statement (APS)",
+                  "Motor vehicle report",
+                  "Blood profile"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Healthy recovery: 150–250%\n- Over age 40 and more than five years since last alcoholic drink: standard (best case)\n- Currently consuming alcohol: decline\n\nRating depends on:\n- Current age\n- Patterns of use\n- Time last used\n- Other medical concerns"
+                }
+              },
+              {
+                "disease_name": "Anemia",
+                "definition": "People with this condition don’t have enough healthy red blood cells to carry adequate oxygen to tissues. There are many forms of anemia, each with its own cause. Anemia can be temporary or long-term, and range from mild to severe.",
+                "underwriting_focus": [
+                  "Date diagnosed",
+                  "Labs and investigations",
+                  "Cause identified",
+                  "Current and historical hemoglobin levels"
+                ],
+                "requirements": [
+                  "Depends on application or paramedical exam",
+                  "Attending physician’s statement (APS)",
+                  "Copies of lab and investigation results"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Iron deficiency anemia: standard if mild and no dangerous cause identified\n- Aplastic anemia:\n  - Fully resolved mild case: standard to 200%\n  - Others: decline\n- Hemolytic anemia:\n  - Fully resolved: standard to 200%\n  - In treatment: 200% to decline\n\nRating depends on:\n- Type and cause\n- Results of investigations\n- Hemoglobin level"
+                }
+              },
+              {
+                "disease_name": "Aneurysm",
+                "definition": "People with this condition have a bulge in the wall of a blood vessel. If it ruptures it may cause sudden death.\n\n- Berry aneurysms occur in the brain, can be corrected by surgery, and typically have minimal long-term risk after surgery.\n- Aortic aneurysms occur in the abdomen or chest, usually affect older people, and are often related to arteriosclerosis/high blood pressure.",
+                "underwriting_focus": [
+                  "Size",
+                  "Rate of progression",
+                  "Underlying cause",
+                  "Period of stability",
+                  "Planned surgery",
+                  "Full recovery after surgery",
+                  "Lifestyle (control of risk factors, compliance with treatment, medical follow-up)",
+                  "Other co-morbid conditions like diabetes"
+                ],
+                "requirements": [
+                  "Attending physician’s statement (APS)"
+                ],
+                "underwriting_action": {
+                  "life": "Small aneurysms that have been stable for at least three years may be insurable with a rating, even with co-morbid conditions as long as they're controlled.\nUnderwriters are more concerned with ongoing tobacco use."
+                }
+              },
+              {
+                "disease_name": "Anxiety Disorders",
+                "definition": "People with this chronic condition have extreme and persistent worry. Physical symptoms include sweating and shaking.",
+                "underwriting_focus": [
+                  "Drug and alcohol use",
+                  "Date diagnosed",
+                  "Stability of symptoms",
+                  "Time lost from work or school",
+                  "Hospitalizations",
+                  "Medications",
+                  "Suicide attempts/thoughts or ideations"
+                ],
+                "requirements": [
+                  "Paramedical exam",
+                  "Mental health questionnaire",
+                  "Customer interview",
+                  "Attending physician’s statement (APS)"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Mild: standard\n- Moderate: standard to 200%\n- Severe: 200% to decline"
+                }
+              },
+              {
+                "disease_name": "Asthma",
+                "definition": "People with this respiratory condition experience repeated shortness of breath, which can be life-threatening, and is often caused by an allergic reaction or hypersensitivity.",
+                "underwriting_focus": [
+                  "Age",
+                  "Frequency of attacks",
+                  "Severity of attacks",
+                  "Current treatment",
+                  "Compliance with treatment",
+                  "Pulmonary function test results",
+                  "Hospitalizations",
+                  "Time lost from work or school",
+                  "History of smoking"
+                ],
+                "requirements": [
+                  "Paramedical exam",
+                  "Asthma questionnaire",
+                  "Customer interview",
+                  "Attending physician’s statement (APS)"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Mild: standard to 150%\n- Moderate: 150% to 200%\n- Severe: 250% to decline\n\nRating depends on:\n- Age and severity (younger than six years with severe case: decline)\n- Frequency\n- Smoking status (current smokers are rated higher)"
+                }
+              },
+              {
+                "disease_name": "Atrial / Auricular Fibrillation",
+                "definition": "This condition is characterized by rapid, irregular heartbeats and may lead to heart attack, stroke, or congestive heart failure.",
+                "underwriting_focus": [
+                  "Frequency of attacks",
+                  "Associated complications",
+                  "Control of risk factors for a heart attack or stroke",
+                  "Compliance with recommended treatment and medical follow-up"
+                ],
+                "requirements": [
+                  "Attending physician’s statement (APS)",
+                  "Blood profile",
+                  "Urinalysis",
+                  "Vitals, height, weight",
+                  "Paramedical or tele-paramedical exam"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Fully investigated and controlled: minimum 150%\n- Uncontrolled: decline\n- Non-compliant with treatment: decline\n- Other co-morbid conditions like diabetes or kidney disease: decline"
+                }
+              },
+              {
+                "disease_name": "Bariatric Surgery",
+                "definition": "Surgery that alters digestion for weight loss, including gastric sleeve, gastric bypass, and duodenal switch.",
+                "underwriting_focus": [
+                  "Current build",
+                  "Amount of weight loss",
+                  "Date of surgery",
+                  "Type of surgery",
+                  "Any complications",
+                  "History of associated chronic diseases like diabetes and hypertension"
+                ],
+                "requirements": [
+                  "Attending physician’s statement (APS)",
+                  "Current paramedical",
+                  "Vitals, height, weight"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n\nRestrictive surgery (gastric sleeve):\n- More than 3 months since surgery: standard to 150%\n- Less than 3 months since surgery: postpone\n\nMalabsorptive surgery (gastric bypass, duodenal switch):\n- More than 6 months since surgery: standard to 175%\n- Less than 6 months since surgery: postpone"
+                }
+              },
+              {
+                "disease_name": "Barrett’s Esophagus",
+                "definition": "The lining of the esophagus changes, often due to chronic reflux of stomach acid. This is considered a pre-malignant condition.",
+                "underwriting_focus": [
+                  "Length of time diagnosed",
+                  "Results of endoscopies, including pathology of biopsies",
+                  "Severity of disease",
+                  "History of complications"
+                ],
+                "requirements": [
+                  "Attending physician’s statement (APS)"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Most cases when effectively treated and controlled: standard to 150%\n- Depends on severity of disease"
+                }
+              },
+              {
+                "disease_name": "Cancer - Basal Cell Carcinoma",
+                "definition": "This cancer starts in the outer layer of skin and is the most common form of skin cancer. It rarely spreads.",
+                "underwriting_focus": [
+                  "Age diagnosed",
+                  "Current age",
+                  "Pathology (confirmation of basal cell carcinoma), including size and any invasion beyond the skin or regional node involvement",
+                  "Type of treatment and date completed",
+                  "Any recurrence",
+                  "Details of regular skin examinations"
+                ],
+                "requirements": [
+                  "Confirmation of pathology"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Completely removed: standard to preferred\n- Not completely removed: postpone"
+                }
+              },
+              {
+                "disease_name": "Cancer - Breast",
+                "definition": "This cancer forms in breast cells.",
+                "underwriting_focus": [
+                  "Age diagnosed",
+                  "Date diagnosed",
+                  "Type, grade and stage",
+                  "Size of tumour",
+                  "Lymph nodes involved",
+                  "Types of treatment",
+                  "Date all treatments completed",
+                  "Recurrence or spread",
+                  "Any complications",
+                  "Follow-ups and tests"
+                ],
+                "requirements": [
+                  "Attending physician’s statement (APS)",
+                  "Pathology and follow-up"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Hasn’t spread (carcinoma-in-situ): standard once removed\n- Stages 1 and 2: minimum $7.50 per $1,000 for three years after last treatment\n- Stage 3: minimum $10 per $1,000 for four years after last treatment\n- Stage 4: decline"
+                }
+              },
+              {
+                "disease_name": "Cancer - Colorectal (Colon)",
+                "definition": "This cancer occurs in the intestines or rectum.",
+                "underwriting_focus": [
+                  "Date diagnosed",
+                  "Age diagnosed",
+                  "Pathology (type, size, stage)",
+                  "Date all treatments completed",
+                  "Any complications, recurrence or spreading"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Pathology and follow-up"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Carcinoma-in-situ (hasn’t spread): minimum $5 per $1,000 for 3 years after last treatment\n- Stage 1: minimum $10 per $1,000 for 4 years after last treatment\n- Stages 2 and 3:\n  - Less than 2 years since last treatment: decline\n  - 2 to 5 years after last treatment: minimum $15 per $1,000\n- Stage 4: decline"
+                }
+              },
+              {
+                "disease_name": "Cancer - Hodgkin’s or Non-Hodgkin’s Lymphoma",
+                "definition": "This cancer affects the lymph nodes. It can be aggressive but responsive to treatment or slow-growing and long term.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date diagnosed",
+                  "Type",
+                  "Stage",
+                  "Type of treatment",
+                  "Date treatments completed"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Pathology and follow-up"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Stage 1: minimum $10 per $1,000 for 4 years after last treatment\n- Stage 2: decline for at least one year after last treatment, then minimum $12 per $1,000 for 5 years\n- Stage 3: decline for 2 to 3 years after last treatment, then temporary ratings for 4 to 5 years\n- Stage 4: decline"
+                }
+              },
+              {
+                "disease_name": "Cancer - Leukemia",
+                "definition": "This cancer occurs in blood cells and blood-forming organs like bone marrow and the spleen.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date diagnosed",
+                  "Type of leukemia and stage",
+                  "Type of treatment",
+                  "Date all treatments completed",
+                  "Any recurrence, secondary cancer, or complications"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Pathology and follow up"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Less than five years since diagnosis or last treatment: decline\n- Ratings often continue long term"
+                }
+              },
+              {
+                "disease_name": "Cancer - Lung",
+                "definition": "This cancer has a high mortality rate. There’s a strong correlation with smoking.",
+                "underwriting_focus": [
+                  "Age diagnosed",
+                  "Current age",
+                  "Stage of lung cancer",
+                  "Type of treatment and date completed",
+                  "Any recurrence or spread to other organs",
+                  "Any complications"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Pathology, treatment, and follow up",
+                  "Smoking status"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Stage 1: decline for 1–4 years after last treatment, then flat extra ratings apply\n- Stage 2: decline for at least 5 years after last treatment, then flat extra ratings apply\n- Stage 3 and 4: decline"
+                }
+              },
+              {
+                "disease_name": "Cancer - Prostate",
+                "definition": "This cancer occurs in the prostate gland.",
+                "underwriting_focus": [
+                  "Age diagnosed",
+                  "Current age",
+                  "Pathology including stage and Gleason grade",
+                  "Type of treatment",
+                  "Any recurrence or spread",
+                  "Any complications from treatment"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Biopsy and pathology results",
+                  "Treatment and follow up",
+                  "Blood profile with prostate-specific antigen (PSA) if current results not available"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Stages 1 to 3: ratings highly variable depending on pathology, treatment type, and ongoing PSA scores\n- Stage 4: decline"
+                }
+              },
+              {
+                "disease_name": "Cancer - Skin Borderline Malignancy",
+                "definition": "Includes Paget’s disease, Bowen’s disease (no genital), Dysplastic nevus, Lentigo maligna, Hutchinson’s melanotic freckle.",
+                "underwriting_focus": [
+                  "Date diagnosed",
+                  "Pathology",
+                  "Type of treatment and date completed",
+                  "Confirmation tumour has been completely removed",
+                  "Any recurrence or spread",
+                  "Any ongoing risk factors such as multiple dysplastic nevi",
+                  "Any complications",
+                  "Family history"
+                ],
+                "requirements": [
+                  "Attending physician’s statement including pathology, treatments, and any follow up"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Completely excised: standard\n- Incomplete excision: postpone\n- Dysplastic nevus syndrome: minimum 150%"
+                }
+              },
+              {
+                "disease_name": "Cancer - Skin Malignant",
+                "definition": "Malignant melanoma is the most serious of all skin cancers. Older and fair-skinned people are most at risk.",
+                "underwriting_focus": [
+                  "Date diagnosed",
+                  "Type of cancer",
+                  "Depth and thickness of tumour",
+                  "Type of treatment and date completed",
+                  "Any recurrence or spread",
+                  "Any ongoing risk factors such as multiple dysplastic nevi",
+                  "Any complications",
+                  "Family history"
+                ],
+                "requirements": [
+                  "Attending physician’s statement including pathology and evidence of regular dermatology follow up"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Stage 0 in-situ (completely excised): standard\n- Stage 1: minimum $5 per $1,000 for three years after last treatment\n- Stages 2 and 3: decline for at least two years, then minimum $15 per $1,000 for five years\n- Stage 4: decline"
+                }
+              },
+              {
+                "disease_name": "Cancer - Thyroid",
+                "definition": "This occurs in the endocrine system and is more common in women. Treatments have a good success rate.",
+                "underwriting_focus": [
+                  "Type (follicular, papillary, anaplastic, etc.)",
+                  "Stage",
+                  "Type of treatment",
+                  "Age of applicant",
+                  "Response to treatment or any complications"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Pathology reports",
+                  "Copy of lab tests",
+                  "Follow up"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Thyroid cancers that remain contained: flat extra ratings for three to five years after last treatment\n- Cancer that has spread locally: decline for one to four years, then flat extra ratings for about five years\n- Cancer with a wider spread: decline"
+                }
+              },
+              {
+                "disease_name": "Cerebral Vascular Accident (Stroke)",
+                "definition": "A loss of blood supply to the brain. This is often related to arteriosclerosis or a blood clot but may also be secondary to certain drugs or underlying conditions that can be repaired by medication or surgery.",
+                "underwriting_focus": [
+                  "Age diagnosed (higher risk in earlier ages if related to arteriosclerosis)",
+                  "Control of risk factors:\n  - High blood pressure\n  - High cholesterol\n  - Obesity\n  - Genetics",
+                  "Compliance with recommended treatment and medical follow-up",
+                  "Disease progression despite treatment",
+                  "Other co-morbid conditions:\n  - Diabetes\n  - Coronary artery disease\n  - Kidney damage\n  - Atrial fibrillation",
+                  "Residual damage, i.e., paralysis",
+                  "Tobacco use"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Blood profile",
+                  "Urinalysis",
+                  "Vitals, height, weight",
+                  "Paramedical/tele-paramedical exam"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- More than one stroke: decline\n- Significant residual damage: decline\n- Other co-morbid conditions: decline\n- Single mild to moderate episode: after at least six months of recovery, considered on a substandard basis"
+                }
+              },
+              {
+                "disease_name": "Chronic Obstructive Pulmonary Disease (COPD), Includes Chronic Bronchitis and Emphysema",
+                "definition": "An obstruction of the airways permanently damages the lungs. Chronic bronchitis and emphysema are the most common forms.",
+                "underwriting_focus": [
+                  "Age at onset",
+                  "Smoking status and history",
+                  "Frequency and severity of symptoms",
+                  "Treatment (inhalers, steroids, oxygen)",
+                  "Co-morbidities",
+                  "Time off work",
+                  "Hospitalization",
+                  "Emergency room visits"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Pulmonary function test and results",
+                  "Chest X-ray"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\nNon-smokers:\n- Mild: minimum 150%\n- Moderate: minimum 250%\n- Severe: decline\nSmokers:\n- Mild: minimum 200%\n- Moderate: minimum 350%\nSevere: decline"
+                }
+              },
+              {
+                "disease_name": "Congenital Heart Disease (Heart Murmur)",
+                "definition": "This is a general term for heart diseases that are present from birth.",
+                "underwriting_focus": [
+                  "Diagnosis",
+                  "Surgeries (past or future)",
+                  "Current symptoms",
+                  "Level of function"
+                ],
+                "requirements": [
+                  "Attending physician’s statement"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Rating until corrected for:\n  - Atrial septal defect\n  - Ventricular septal defect\n  - Pulmonary stenosis\n  - Coarctation of aorta\n- 150% to decline:\n  - Bicuspid aortic valve\n  - Tetralogy of Fallot\n- Decline even with surgical correction:\n  - Ebstein’s anomaly\n  - Hypoplastic left heart syndrome"
+                }
+              },
+              {
+                "disease_name": "Coronary Artery Disease (Includes Angina, Arteriosclerosis, Bypass Surgery, Heart Attack, Myocardial Infarction)",
+                "definition": "Plaque builds up in heart vessels. This may decrease the heart’s ability to function and lead to a heart attack and possible death. People with this condition may be treated with medication, angioplasty, or bypass surgery.",
+                "underwriting_focus": [
+                  "Age diagnosed (higher risk in younger people)",
+                  "Control of risk factors (High blood pressure, High cholesterol, Diabetes, Aging, Obesity, Genetics, Smoking)",
+                  "Compliance with recommended treatment and medical follow-up",
+                  "Disease progression despite treatment",
+                  "Ongoing tobacco use",
+                  "Other co-morbid conditions"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Blood profile",
+                  "Urinalysis",
+                  "Vitals, height, weight",
+                  "Paramedical/tele-paramedical exam"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Less than 35 years old: decline\n- Age 35 to 45: minimum 300% to decline for mild disease\n- Age 46 to 60: minimum 250%\n- Older than 60: minimum 200%\nDecline likely:\n- Non-compliant with treatment\n- Disease progressing\n- Other co-morbid conditions"
+                }
+              },
+              {
+                "disease_name": "Crohn’s Disease",
+                "definition": "This inflammatory bowel disease can affect any part of the gastrointestinal tract.",
+                "underwriting_focus": [
+                  "Age diagnosed",
+                  "Date of last major attack",
+                  "Medications",
+                  "Surgery",
+                  "Results of investigations, including colonoscopy",
+                  "Severity of symptoms and how they have impacted quality of life"
+                ],
+                "requirements": [
+                  "Gastrointestinal questionnaire",
+                  "Attending physician’s statement"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Recent diagnosis or active disease: postpone\n- Minimal current symptoms: standard to 225%\nRatings may increase with significant complications of disease"
+                }
+              },
+              {
+                "disease_name": "Depression",
+                "definition": "This mood disorder is marked by feelings of sadness, hopelessness, difficulty focusing and concentrating. Thoughts of suicide in most severe cases.",
+                "underwriting_focus": [
+                  "Age at onset",
+                  "Cause (situational or chronic)",
+                  "Severity/recurrence of symptoms",
+                  "Thoughts of suicide",
+                  "Hospitalizations",
+                  "Emergency room visits",
+                  "Treatment",
+                  "Time off work",
+                  "Lifestyle (drug use, alcohol consumption)"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Mental health questionnaire"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Mild symptoms, ongoing treatment, no time off work, no hospitalizations, or thoughts of suicide: standard\n- Other cases: 150% to decline depending on the severity of symptoms, their recurrence and treatment"
+                }
+              },
+              {
+                "disease_name": "Diabetes (Type 1 and Type 2)",
+                "definition": "Type 1 is insulin-dependent, usually diagnosed in children and young adults. Type 2 is non-insulin dependent, often diagnosed in adults and treated with oral medication or lifestyle changes.",
+                "underwriting_focus": [
+                  "Age diagnosed",
+                  "Disease control (measured by hemoglobin A1c levels)",
+                  "Treatment and compliance with treatment",
+                  "Presence of risk factors for cardiovascular disease",
+                  "Complications: Retinopathy (eyes), Peripheral neuropathy (extremities), Nephropathy (kidneys)"
+                ],
+                "requirements": [
+                  "Labs to include hemoglobin A1c and urine microalbumin",
+                  "Diabetes questionnaire",
+                  "Attending physician’s statement"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Ratings are higher if under age 50, diabetes has lasted more than 6 years, or complications exist\nAdults:\n- Type 1: 200% to decline\n- Type 2: standard to decline (case-by-case)\nChildren:\n- Type 1: 300% to decline\n- Type 2: individual consideration (uncommon)"
+                }
+              },
+              {
+                "disease_name": "Drug Abuse",
+                "definition": "Misuse of substances, which may involve psychiatric issues and alcohol use disorder.",
+                "underwriting_focus": [
+                  "Type of drug",
+                  "Treatment",
+                  "Response to treatment",
+                  "History of relapses",
+                  "Other medical or psychiatric disorders",
+                  "Concurrent alcohol use disorder"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Drug questionnaire",
+                  "Motor vehicle record"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Current use: decline\n- Recovered:\n  - Less than three years: decline\n  - Three to six years: flat extra ratings\n  - At least six years with no relapses: standard"
+                }
+              },
+              {
+                "disease_name": "Epilepsy",
+                "definition": "Seizures caused by brain disorders, fevers, infections, tumours, or other factors.",
+                "underwriting_focus": [
+                  "Type",
+                  "Cause",
+                  "Investigation results",
+                  "Frequency and severity of seizures",
+                  "Treatment and compliance",
+                  "Effect on driving"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Seizure questionnaire"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Diagnosed and controlled for at least six months: minimum 150%\n- Nocturnal seizures or those caused by fevers are less of a concern"
+                }
+              },
+              {
+                "disease_name": "High Blood Pressure (Hypertension)",
+                "definition": "Sustained increase in blood force that can lead to stroke, heart attack, or kidney damage if left unmanaged.",
+                "underwriting_focus": [
+                  "Control of risk factors related to coronary artery disease and stroke",
+                  "Compliance with recommended treatment and medical follow-up",
+                  "Other co-morbid conditions like diabetes, kidney damage"
+                ],
+                "requirements": [
+                  "Vitals, height, weight",
+                  "Blood profile",
+                  "Urinalysis",
+                  "Paramedical/tele-paramedical exam",
+                  "Attending physician’s statement"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Controlled: may be offered standard\n- Mild: may require a rating\n- Severe: may be declined until condition is controlled"
+                }
+              },
+              {
+                "disease_name": "HIV Infection",
+                "definition": "Human immunodeficiency virus (HIV) infection is a retroviral disease which causes the acquired immunodeficiency syndrome (AIDS). HIV primarily infects cells in the immune system, mainly CD4+ T helper lymphocytes.",
+                "underwriting_focus": [
+                  "Age at policy issue at least 18",
+                  "HIV positive only",
+                  "On HAART (highly active antiretroviral therapy), also known as cART or ART",
+                  "Treatment started more than six months ago",
+                  "CD4 count at least 350 over the last two years",
+                  "No hepatitis coinfection",
+                  "Current alcohol use less than two per day",
+                  "No history of drug use"
+                ],
+                "requirements": [
+                  "Doctor’s report to include serial blood tests with CD4 count"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Under age 18: individual consideration\n- Age 18–39:\n  • CD4 count of 350–499: 200%\n  • CD4 count over 500: 150%\n- Age 40–59:\n  • CD4 count of 350–499: 150%\n  • CD4 count over 500: standard\n- Age 60–65:\n  • CD4 count of 350–499: 200%\n  • CD4 count over 500: 150%\n- Over age 65: individual consideration"
+                }
+              },
+              {
+                "disease_name": "Marijuana Use",
+                "definition": "Use of marijuana for recreational or medicinal purposes. Underwriting focuses on usage frequency and presence of any related conditions.",
+                "underwriting_focus": [
+                  "Frequency",
+                  "Recreational/medicinal use",
+                  "Underlying ratable conditions",
+                  "Other drugs or lifestyle concerns"
+                ],
+                "requirements": [
+                  "Drug questionnaire",
+                  "Attending physician’s statement",
+                  "Motor vehicle record"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Light use: standard\n- Moderate use: minimum 150%\n- Heavy use: 200% to decline\n- Additional rating may apply for underlying conditions"
+                }
+              },
+              {
+                "disease_name": "Sleep Apnea",
+                "definition": "A condition where breathing stops for short periods during sleep. If untreated, it may lead to high blood pressure, heart disease, motor vehicle accidents, diabetes, and depression.",
+                "underwriting_focus": [
+                  "Age",
+                  "Treatment",
+                  "Compliance with treatment",
+                  "Results of sleep studies",
+                  "Type (obstructive is the most common)",
+                  "Frequency",
+                  "Severity",
+                  "Duration",
+                  "Any associated impairments (build, cardiac disease)",
+                  "Any motor vehicle accidents caused by drowsiness"
+                ],
+                "requirements": [
+                  "Paramedical exam",
+                  "Sleep disorders questionnaire",
+                  "Customer interview",
+                  "Attending physician’s statement"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Mild or compliant with treatment: standard\n- Moderate: standard to 150%\n- Severe: standard to 250%\n- Not following recommended treatment: decline"
+                }
+              },
+              {
+                "disease_name": "Stroke",
+                "definition": "A loss of blood supply to the brain caused by arteriosclerosis, a blood clot, or other treatable conditions. May result in permanent damage if untreated.",
+                "underwriting_focus": [
+                  "Age diagnosed (higher risk in earlier ages if related to arteriosclerosis)",
+                  "Control of risk factors",
+                  "High blood pressure",
+                  "High cholesterol",
+                  "Obesity",
+                  "Genetics",
+                  "Smoking",
+                  "Compliance with recommended treatment and medical follow-up",
+                  "Disease progression despite treatment",
+                  "Other co-morbid conditions (e.g., diabetes, coronary artery disease, kidney damage, atrial fibrillation)",
+                  "Residual damage, i.e., paralysis",
+                  "Tobacco use"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Blood profile",
+                  "Urinalysis",
+                  "Vitals, height, weight",
+                  "Paramedical/tele-paramedical exam"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- More than one stroke: decline\n- Significant residual damage: decline\n- Other co-morbid conditions: decline\n- Ongoing tobacco use: decline\n- Single mild to moderate episode: after at least six months of recovery, 150% to decline"
+                }
+              },
+              {
+                "disease_name": "Transient Ischemic Attack (TIA)",
+                "definition": "A temporary stroke-like event with rapid recovery, often caused by arteriosclerosis or atrial fibrillation. Treated as a stroke.",
+                "underwriting_focus": [
+                  "Age diagnosed (higher risk in earlier ages if related to arteriosclerosis)",
+                  "Control of risk factors",
+                  "Compliance with recommended treatment and medical follow-up",
+                  "Disease progression despite treatment",
+                  "Other co-morbid conditions (e.g., diabetes, coronary artery disease, kidney damage, atrial fibrillation)",
+                  "Residual damage, i.e., paralysis",
+                  "Tobacco use"
+                ],
+                "requirements": [
+                  "Attending physician’s statement",
+                  "Blood profile",
+                  "Urinalysis",
+                  "Vitals, height, weight",
+                  "Paramedical/tele-paramedical exam"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Single mild to moderate episode: after at least three months of recovery, 150% to decline\n- More than one occurrence: see stroke"
+                }
+              },
+              {
+                "disease_name": "Ulcerative Colitis",
+                "definition": "A chronic inflammatory bowel disease that causes inflammation and ulcers in the lining of the large bowel.",
+                "underwriting_focus": [
+                  "Age diagnosed",
+                  "Date of last major attack",
+                  "Medications",
+                  "Surgery",
+                  "Results of investigations, including colonoscopy",
+                  "Severity of symptoms, and how they have impacted quality of life"
+                ],
+                "requirements": [
+                  "Colitis questionnaire",
+                  "Attending physician’s statement"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Most cases: standard to 200%\n- Rating depends on:\n  - Age\n  - Length of diagnosis\n  - Severity of disease\n- Clients with severe disease, surgery less than six months prior to application, or multiple complications: postpone or decline"
+                }
+              }
+        ]
+     },
+     {
+        "company_name":"ManuLife",
+        "data":[
+            {
+                "disease_name": "Alcohol Misuse and Alcoholism",
+                "definition": "Alcohol consumption considered excessive including alcohol abuse, dependence, or heavy use.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Amount of alcohol declared and pattern of use",
+                  "Any diagnosis of abuse or dependence",
+                  "How long applicant has been consuming in moderation or abstinent",
+                  "Any relapses",
+                  "Membership in a self-help group",
+                  "Treatment with medication",
+                  "Any co-morbid conditions or mental/emotional concerns",
+                  "Any related complications",
+                  "Pattern of use: daily, binge drinking, etc.",
+                  "Driving history",
+                  "Any association with drug use or emotional disorder"
+                ],
+                "requirements": [
+                  "APS",
+                  "MVR",
+                  "Blood and urine tests",
+                  "Alcohol usage questionnaire"
+                ],
+                "underwriting_action": {
+                  "life": "Ratings depend primarily on applicant’s age, time since last use, pattern of use, and any co-morbid factors.\n- Best case (over age 30 & >5 years since last consumption): standard\n- Typical case: 150–200%\n- Worst case: Decline"
+                }
+              },
+              {
+                "disease_name": "Anemia",
+                "definition": "A reduction in the number of normal red blood cells due to blood loss, failure of the bone marrow to produce sufficient cells or premature destruction of the cells.",
+                "underwriting_focus": [
+                  "Type of anemia",
+                  "Cause of anemia, if known",
+                  "Details from blood tests",
+                  "Details of investigations",
+                  "Details of ongoing surveillance of the condition",
+                  "Treatment and medications",
+                  "Complications",
+                  "Any concurrent impairment"
+                ],
+                "requirements": [
+                  "Possibly APS",
+                  "Details of investigation",
+                  "Details of ongoing surveillance (including blood tests, electrophoresis)"
+                ],
+                "underwriting_action": {
+                  "life": "Ratings depend on type of anemia, age and decision can range from standard to decline.\n- Iron deficiency anemia: usually standard with low investigation and no underlying condition identified\n- Aplastic anemia: Usually decline but could reconsider once resolved\n- Hemolytic anemia: standard–200%, but rating could be higher depending on type and severity\n- Sickle cell disease: standard to decline"
+                }
+              },
+              {
+                "disease_name": "Aneurysm",
+                "definition": "Abnormal dilation of an artery.",
+                "underwriting_focus": [
+                  "Type or location of aneurysm",
+                  "Date of diagnosis",
+                  "Cause",
+                  "Size and stability of aneurysm",
+                  "Current symptoms",
+                  "Treatment history",
+                  "Surgical or non-surgical follow-up",
+                  "Blood pressure control",
+                  "Follow-up notes",
+                  "Co-morbid conditions such as diabetes, alcohol misuse, COPD, smoking"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of all tests and details of any investigations",
+                  "Details of blood pressure and follow-up surveillance",
+                  "Smoking history",
+                  "Any residuals (good level of activity)"
+                ],
+                "underwriting_action": {
+                  "life": "Can consider on a rated basis 6–12 months post-op depending on the type of aneurysm:\n\n- **Abdominal**:\n  - Unoperated: Decline\n  - Small, stable x 2 years: Standard to 200%\n  - Large (>5 cm): decline\n  - Operated: average rating 150%\n\n- **Cerebral**:\n  - Unruptured, small, no surgery: Standard to Postpone\n  - Unruptured, large, no surgery: Decline\n  - Unruptured, small with surgery: Standard to Postpone\n  - Unruptured, large, with surgery: High rating\n  - Ruptured aneurysm or AVM must have no residual deficit otherwise increase rating or Decline\n\n- **Thoracic**:\n  - Unoperated: Decline\n  - Operated: 200% to Decline"
+                }
+              },
+              {
+                "disease_name": "Apnea/Sleep Apnea",
+                "definition": "Breathing stops for a short period during sleep.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Type of apnea (obstructive, central or mixed)",
+                  "Severity",
+                  "Treatment (CPAP or surgery)",
+                  "Compliance with treatment",
+                  "Date of last sleep study",
+                  "Current height and weight",
+                  "Concurrent impairments such as CAD, arrhythmia, PVD, hypertension",
+                  "Smoking history",
+                  "Alcohol use",
+                  "Any history of accident"
+                ],
+                "requirements": [
+                  "APS if moderate or severe apnea",
+                  "Details of sleep studies, treatment and compliance",
+                  "Details of risk factor control (e.g., build, medications and lifestyle modification such as smoking, tranquilizers, alcohol use and misuse)"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Mild symptoms and no complications: Standard\n- Moderate symptoms and no complications: Standard to 200%\n- Severe symptoms and no complications: 150%–decline\n- Higher ratings if applicant < age 50"
+                }
+              },
+              {
+                "disease_name": "Asthma",
+                "definition": "Chronic inflammatory condition of the airways causing shortness of breath, which is triggered by allergens, irritants, cold air or exercise.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Frequency of attacks (day or night)",
+                  "Severity",
+                  "Use of oral medications",
+                  "Medication side effects",
+                  "Hospitalizations or ER visits",
+                  "Limitations on daily living",
+                  "Inhaler use",
+                  "Smoking history",
+                  "Concurrent impairments such as COPD, psychiatric disorder, alcohol abuse, CAD, underweight"
+                ],
+                "requirements": [
+                  "APS selectively",
+                  "Details of recent pulmonary function tests, hospitalizations",
+                  "Details of lifestyle modifications (such as smoking cessation)",
+                  "Level of activity and any limitations of daily activities",
+                  "Asthma questionnaire",
+                  "Asthma control"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Minimal and mild: standard to 150%\n- Moderate: 150% to 200%\n- Severe: 250% to decline\n\nChildren:\n- Minimal to mild: standard to 150% if diagnosis was more than 12 months ago\n- Moderate or severe: 200% to decline"
+                }
+              },
+              {
+                "disease_name": "Atrial Fibrillation/Atrial Flutter",
+                "definition": "Arrhythmia of the atria where it contracts chaotically.",
+                "underwriting_focus": [
+                  "Date of diagnosis and age at onset",
+                  "Age of applicant",
+                  "Frequency of attacks",
+                  "Fully investigated",
+                  "Paroxysmal vs Chronic",
+                  "Treatment",
+                  "Complications from treatment (e.g., drug toxicity or hemorrhage from anticoagulant)",
+                  "Any underlying heart disease",
+                  "Complications (e.g., stroke or congestive heart failure)",
+                  "Any concurrent impairment (e.g., history of alcohol abuse, CAD, valvular disease, TIA, high blood pressure, diabetes, obesity, or stroke)"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of all cardiac investigations",
+                  "Details of any prophylactic treatment (e.g., blood thinners)",
+                  "Outline any lifestyle modification",
+                  "Current level of activity",
+                  "Symptoms",
+                  "Frequency of attacks"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- New diagnosis or new finding on insurance exam must be declined\n- If there are underlying heart disorders it will be rated according to the cause\n- Well controlled Paroxysmal Atrial Fibrillation (PAF) with minimal attacks: fully investigated:\n  > 4 attacks/year: standard\n  > ≤ 4 attacks: 150%\n- If there is no CAD or other underlying heart disease: rating ranges from 150% to 200% depending on age\n- If treated with ablation, could be standard\n- The older the client, the lower the possible rating"
+                }
+              },
+              {
+                "disease_name": "Bariatric Surgery",
+                "definition": "Surgery for morbid obesity, most commonly known as 'stomach stapling.'",
+                "underwriting_focus": [
+                  "Pre-operative weight",
+                  "Any co-morbid conditions (such as diabetes, hypertension, coronary disease, depression)",
+                  "Date of surgery",
+                  "Type of surgery",
+                  "Any surgical complications",
+                  "Current status (weight loss, improvement of risk factors)"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of surgery and follow up",
+                  "Illustrate positive improvements in lifestyle"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Unable to consider until 6 months after surgery\n- Assuming no complications:\n  > 6–12 months: rating based on pre-surgery weight minus half of any weight loss\n  > >1 year: rating based on current weight and any complications and residual co-morbid conditions"
+                }
+              },
+              {
+                "disease_name": "Barrett’s Esophagus",
+                "definition": "Disorder in which the cells normally lining the lower esophagus are replaced by cells normally found lining the stomach. May occur due to esophageal injury caused by reflux. Barrett’s esophagus may be a pre-malignant condition for esophageal cancer.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Ongoing risk factors",
+                  "Endoscopic findings and results (pathology, biopsy)",
+                  "Stable course",
+                  "Response to medication treatment",
+                  "Compliance with medical treatment and follow-up",
+                  "Complications (such as hemorrhage, perforation)",
+                  "Any surgery"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of ongoing follow up (e.g., endoscopy)",
+                  "Details of lifestyle modification (smoking cessation and alcohol use)",
+                  "Medication to control reflux"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Best case: standard if no dysplasia and good follow up done on a regular basis\n- Average ratings: standard\n- Worst case: decline (if history of high-grade dysplasia and treated with medication only)"
+                }
+              },
+              {
+                "disease_name": "Cancer: Basal Cell Carcinoma (Skin)",
+                "definition": "A type of skin cancer that rarely spreads; more common in people with a history of sun exposure.",
+                "underwriting_focus": [
+                  "Date of diagnosis",
+                  "Pathology confirmation of basal cell carcinoma",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Confirmation that tumour has been removed completely",
+                  "Ongoing risk factors like multiple dysplastic nevi and a propensity to develop other skin cancers",
+                  "Any serious complications from treatment"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of the doctor who has the pathology report",
+                  "Details of follow-up",
+                  "Details of lifestyle modification (sun screen, smoking cessation)"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Incompletely removed: postpone\n- Complete excision: standard immediately on removal"
+                }
+              },
+              {
+                "disease_name": "Cancer: Breast",
+                "definition": "Breast cancer is the most frequently diagnosed cancer in women and the second most frequent cause of cancer death.",
+                "underwriting_focus": [
+                  "Date of diagnosis",
+                  "Type and stage of cancer",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Time since treatment ended",
+                  "Reduced/mitigated risk factors (e.g., ongoing screening)",
+                  "Any complications from treatment",
+                  "Follow-ups including any tests"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details (and date) of treatment, including any surgery or radiation",
+                  "Pathology and hospital reports",
+                  "Details of follow-up (e.g., mammograms, bone scan, etc.)"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Carcinoma in-situ: can consider standard ≥ 3 years after treatment\n- Underwriting can only be done once treatment has been completed and if there is low likelihood of recurrence\n- On higher stage/grade tumours, may only be able to rate up to 10 years after last treatment\n- Combining both path and reducing as a permanent rating can be offered"
+                }
+              },
+              {
+                "disease_name": "Cancer: Colorectal",
+                "definition": "Second most diagnosed in males, third in females.",
+                "underwriting_focus": [
+                  "Date of diagnosis",
+                  "Pathology report including type, grade and stage",
+                  "Date treatments completed",
+                  "Any recurrence or spreading",
+                  "Complications from treatment",
+                  "Any co-morbid conditions"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of the doctor who has pathology report",
+                  "Hospital treatment reports",
+                  "Details of follow-ups",
+                  "Family history"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Lowest grades might be insurable right away\n- Best case is $10.00/mil × 4 years"
+                }
+              },
+              {
+                "disease_name": "Cancer: Leukemia",
+                "definition": "A progressive, malignant disease of the blood cells and blood-forming organs (i.e. bone marrow and spleen).",
+                "underwriting_focus": [
+                  "Date of diagnosis",
+                  "Type of leukemia and stage",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Any recurrence or secondary cancer"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of the doctor who has pathology report",
+                  "Hospital treatment reports",
+                  "Evidence of regular follow-up"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Most common type seen in underwriting is Chronic Lymphocytic Leukemia (CLL) which is insurable, if stable, and diagnosed after 2 years post-diagnosis\n- Other types of leukemia, depending on the type, coverage may not be available for 5 or more years following diagnosis\n- Very few cases can be offered\n- Best case: 150–200% 5–10 years post treatment"
+                }
+              },
+              {
+                "disease_name": "Cancer: Lung",
+                "definition": "The most common type of cancer death for both men and women. The two main types are small cell and non-small cell.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Type and stage of cancer",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Any recurrence or spread",
+                  "Reduced/mitigated risk factors (e.g., quit smoking and quit date)",
+                  "Any concurrent impairment (e.g., emphysema, COPD, or chronic bronchitis)",
+                  "Any serious complications from treatment"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of the doctor who has pathology report",
+                  "Hospital treatment reports",
+                  "Evidence of regular follow up (CT scans, etc.)",
+                  "Smoking habits"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Only stage I is insurable. At best, would be postponed for 3 years from end of treatment\n- Best case (stable, no recurrence, not smoking): $15.00/mil × 5 years"
+                }
+              },
+              {
+                "disease_name": "Cancer: Prostate",
+                "definition": "The most common internal malignancy found in males. Lifetime risk is 12.8% and it’s the 3rd leading cause of death for males.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Type of treatment",
+                  "Date treatment completed or if active surveillance",
+                  "Stage and Gleason score",
+                  "Any recurrence or spread",
+                  "Current PSA reading",
+                  "Any serious complications from treatment"
+                ],
+                "requirements": [
+                  "APS",
+                  "Blood profile to include PSA if current results are not available",
+                  "Details of the doctor who has pathology report",
+                  "Hospital treatment reports",
+                  "Details of the type of treatment, regular follow up and PSA testing",
+                  "Biopsy results"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- < age 70: coverage depends on stage, Gleason grade, tumour type and treatment\n- Best case: treated, PSA undetectable — Standard\n- Typical case: prostatectomy or radiation, PSA favourable — $5.00/mil for 3 years\n- Active surveillance: possible depending on age and documented follow-ups"
+                }
+              },
+              {
+                "disease_name": "Cancer: Skin Borderline Malignancy",
+                "definition": "Includes Paget’s disease, Bowen’s disease (not genital), dysplastic nevus, Lentigo Maligna, Hutchinson’s melanotic freckle.",
+                "underwriting_focus": [
+                  "Date of diagnosis",
+                  "Pathology",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Confirmation that tumour has been removed completely",
+                  "Any recurrence or spread",
+                  "Ongoing risk factors like multiple dysplastic nevi and a propensity to develop other skin cancers",
+                  "Any serious complications from treatment",
+                  "Family history"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of the doctor who has pathology report",
+                  "Hospital treatment reports",
+                  "Details of ongoing follow-up",
+                  "Details of lifestyle modification (sun screen, smoking)",
+                  "Any recurrences"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Incomplete excision: postpone\n- Completely excised: standard immediately on removal; may qualify for preferred"
+                }
+              },
+              {
+                "disease_name": "Cancer: Skin Malignant",
+                "definition": "Malignant change in the skin becomes more common with increasing age. Exposure to sunlight is an important predisposing factor in fair-skinned people.",
+                "underwriting_focus": [
+                  "Date of diagnosis",
+                  "Type of cancer/tumour",
+                  "Depth and thickness of tumour",
+                  "Type of treatment",
+                  "Date treatment completed",
+                  "Any recurrence or spread",
+                  "Ongoing risk factors like multiple dysplastic nevi and a propensity to develop other skin cancers",
+                  "Any serious complications from treatment"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of the doctor who has pathology report",
+                  "Hospital treatment reports",
+                  "Details of regular dermatology follow-up",
+                  "Family history",
+                  "Date of diagnosis",
+                  "Any recurrences"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Malignant melanoma:\n  - If in-situ: standard\n  - Best cases: postponed for 1 year\n  - $12.00/mil × 4 years applies after 1 year wait"
+                }
+              },
+              {
+                "disease_name": "Cancer: Thyroid",
+                "definition": "The most common malignancy of the endocrine system, generally more common in women. 5th most diagnosed cancer in females.",
+                "underwriting_focus": [
+                  "Type of thyroid cancer (papillary, follicular, anaplastic, etc.)",
+                  "Pathology",
+                  "Age of applicant",
+                  "Type of treatment and dates performed",
+                  "Any remission and for how long",
+                  "Any recurrence",
+                  "Any complications from treatment"
+                ],
+                "requirements": [
+                  "APS including pathology report and copies of lab tests",
+                  "Details of the doctor who has pathology report",
+                  "Hospital treatment reports",
+                  "Details of regular follow-up"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Best case: lowest grade papillary tumour — standard 3 years after treatment\n- Better case: low to moderate grade papillary tumour — standard after 5–6 years\n- Worst case: decline if anaplastic tumour\n- Reconsideration may apply if initial postponement of thyroid nodule is proven benign"
+                }
+              },
+              {
+                "disease_name": "Congenital Heart Disease",
+                "definition": "A variety of malformations of the heart that vary significantly in severity.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Specific congenital abnormality",
+                  "Treatment including dates of any surgery",
+                  "Medications",
+                  "Smoking history",
+                  "Any concurrent serious impairment",
+                  "Any underlying coronary artery disease",
+                  "Active lifestyle",
+                  "Blood pressure and cholesterol readings",
+                  "Family history"
+                ],
+                "requirements": [
+                  "APS to include echocardiogram",
+                  "Details of investigations, surgery, post-operative reports (e.g., serial echos, EKGs)",
+                  "Details of lifestyle modification",
+                  "Activity level",
+                  "Surgery",
+                  "Symptoms, recurrences"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Less serious abnormalities such as small ASD, VSD, Patent Foramen Ovale: may be standard\n- More serious abnormalities (ASD, VSD, coarctation of aorta, tetralogy of fallot): ratings apply\n- Congenital valve disorders (two years after surgical correction): postpone minimum 6 months, 150% to 300% minimum"
+                }
+              },
+              {
+                "disease_name": "Chronic Obstructive Pulmonary Disease (COPD)",
+                "definition": "A variety of diseases that cause chronic progressive irreversible airway obstruction.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Smoking history and current tobacco use",
+                  "Build, any current weight loss",
+                  "Response to treatment",
+                  "Severity of symptoms",
+                  "Speed of disease progression",
+                  "Alpha-1 antitrypsin deficiency or other biochemical abnormality",
+                  "Other concurrent impairment (e.g., CAD, cancer, depression, malnutrition)",
+                  "Any hospitalization",
+                  "Pulmonary function tests (PFTs) including FEV1"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of lifestyle modification",
+                  "Recent pulmonary function test",
+                  "Level of activity",
+                  "Exacerbations frequency",
+                  "Severity",
+                  "Stability"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating (younger the applicant, the higher the rating):\n- Chronic bronchitis or Emphysema:\n  - Mild (FEV1 60–59): Standard–200%\n  - Moderate (FEV1 50–59): 50%–decline\n  - Severe (FEV1 40–49): 250%–decline\n  - Very Severe (FEV1 ≤ 39): decline\n- Any use of oxygen is a decline"
+                }
+              },
+              {
+                "disease_name": "Coronary Artery Disease (CAD)",
+                "definition": "The coronary arteries are unable to supply sufficient blood to the heart due to progressive narrowing of the arteries, thrombosis, or vascular spasm.",
+                "underwriting_focus": [
+                  "Date of diagnosis and age at onset",
+                  "Severity of disease (how many vessels and which ones)",
+                  "Current symptoms",
+                  "Medications",
+                  "Smoking history",
+                  "Any co-morbid conditions (e.g., diabetes, depression, other serious conditions)",
+                  "History of congestive heart failure or arrhythmia",
+                  "Ejection fraction",
+                  "Lifestyle",
+                  "Blood pressure and cholesterol readings",
+                  "Family history"
+                ],
+                "requirements": [
+                  "APS to include recent cardiac test results (e.g., angiogram, recent stress test)",
+                  "Details of medications",
+                  "Details on activity level"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Decline if age at onset is ≤ 35\n- Decline if Class 4 (heart failure, ejection fraction <40%)\n\nBest possible ratings Class 2 CAD:\n- Age 49–59: 225%\n- 50–69: 150%\n- 70–85: 100%\n\nAverage ratings Class 2 CAD:\n- Age 49–59: 275%–300%\n- 50–69: 200%\n- 70–85: 150%–175%"
+                }
+              },
+              {
+                "disease_name": "Crohn’s Disease",
+                "definition": "A chronic inflammatory disease affecting any part of the GI tract. It has an unpredictable course and may require surgery. The disease is generally chronic and relapsing.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Age of diagnosis",
+                  "Severity of disease",
+                  "Frequency of flare-ups",
+                  "Medication use",
+                  "Surgery",
+                  "Weight stable or loss",
+                  "Limitations on occupation or lifestyle",
+                  "Complications or concurrent impairment (e.g., cancer, arthritis)",
+                  "Extra-intestinal symptoms"
+                ],
+                "requirements": [
+                  "APS",
+                  "Colonoscopy",
+                  "Sensitivity test",
+                  "Evidence of regular GI follow-up",
+                  "Details of exacerbations and frequency",
+                  "Lifestyle",
+                  "Active symptoms"
+                ],
+                "underwriting_action": {
+                  "life": "Typical rating:\n- Mild: Standard–150%–225%\n- Moderate (incl. steroid treatment): 200%–250%\n- Severe disease: 300%–postpone, depending on age of client"
+                }
+              },
+              {
+                "disease_name": "Diabetes",
+                "definition": "A group of metabolic disorders caused by inadequate production or use of insulin. It can lead to complications such as cardiovascular disease, kidney disease, and reduced life expectancy.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis and age at diagnosis",
+                  "Type of diabetes",
+                  "Treatment",
+                  "Medication",
+                  "Degree of control – blood sugar readings",
+                  "Complications – retinopathy, neuropathy, nephropathy",
+                  "Current weight and weight history",
+                  "Blood pressure",
+                  "Smoking habits"
+                ],
+                "requirements": [
+                  "APS",
+                  "Blood tests including HbA1c, urine tests (microalbumin/creatinine ratio)",
+                  "ECG if standard not met",
+                  "Details of control from lab records and other doctors",
+                  "Details of all treatment since onset",
+                  "Details of blood sugar control (logbook if client tests at home)",
+                  "Active lifestyle"
+                ],
+                "underwriting_action": {
+                  "life": "For all diabetics: if currently smoking, then it's an individual consideration.\n\nType 1 (Insulin Dependent Diabetes Mellitus):\n- Best case: Excellent control, no complications: 200%\n- Typical: 250%\n- Worst case: Complications, poor or uncontrolled: decline\n\nType 2 (Non-Insulin Dependent or Adult Onset):\n- Best case: (CP age ≥ 45), excellent control, no complications, treated by diet or oral medication, normal ECG: standard\n- Typical: 150%\n- Worst: decline"
+                }
+              },
+              {
+                "disease_name": "Hypertension",
+                "definition": "Primary or essential hypertension is the most common type and accounts for 95% of cases. It may be influenced by demographics, family history, and environment.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Severity of readings",
+                  "Type of hypertension (essential or secondary)",
+                  "Response to treatment",
+                  "Medication tolerance",
+                  "Reading history and investigation results",
+                  "Compliance with medical treatment and follow-up",
+                  "Any complications (e.g., CAD, stroke, kidney disease)"
+                ],
+                "requirements": [
+                  "Vitals",
+                  "Record of blood pressure readings",
+                  "Details of any cardiac investigation",
+                  "Details of risk factor modification",
+                  "Active lifestyle"
+                ],
+                "underwriting_action": {
+                  "life": "Rating depends on severity of hypertension:\n- Most cases can be offered standard if well-controlled and compliant with treatment"
+                }
+              },
+              {
+                "disease_name": "Pulmonary Nodule",
+                "definition": "A small shadow found on chest X-ray that may be caused by a benign cyst, infection, abscess, or granuloma.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Any treatment",
+                  "Follow-up investigation",
+                  "Size of nodule and associated risks",
+                  "Any concurrent impairment (e.g., emphysema or chronic bronchitis)"
+                ],
+                "requirements": [
+                  "APS",
+                  "Follow-up and investigation details",
+                  "Size of nodule if known"
+                ],
+                "underwriting_action": {
+                  "life": "Underwriter must investigate thoroughly.\nRating depends on size and nature of the nodule:\n- Standard to postpone"
+                }
+              },
+              {
+                "disease_name": "Stroke",
+                "definition": "Permanent (>24 hrs) damage to the brain caused by vascular thrombosis or hemorrhage, resulting in permanent neurological deficit.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis and age at onset",
+                  "Current symptoms/extent of neurological deficit",
+                  "Cause of stroke",
+                  "Medications",
+                  "History of strokes",
+                  "Smoking history",
+                  "Active lifestyle",
+                  "Blood pressure and cholesterol readings",
+                  "Any co-morbid conditions such as diabetes, depression, coronary artery disease or other concurrent serious impairment"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of the doctor who has provided follow-up",
+                  "Other doctors involved in treatment",
+                  "Current function (how active)",
+                  "Lifestyle modifications"
+                ],
+                "underwriting_action": {
+                  "life": "Depending on severity, may not be able to consider until 6 to 12 months after stroke.\n- If currently smoking and <50, decline unless otherwise well investigated\n- Multiple strokes: usually decline\n- Average rating for a well worked-up stroke with minimal residuals: 150%–200%\n- Younger applicant and fewer/milder strokes = better rating"
+                }
+              },
+              {
+                "disease_name": "Transient Ischemic Attack (TIA)",
+                "definition": "An episode of neurological dysfunction lasting less than 24 hours with no permanent neurological deficit.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis and age at onset",
+                  "Any neurological deficit or related episodes",
+                  "Treatment",
+                  "Medications",
+                  "History of strokes",
+                  "Smoking history",
+                  "Test results",
+                  "Active lifestyle",
+                  "Blood pressure and cholesterol readings",
+                  "Any co-morbid conditions such as diabetes, hypertension, coronary artery disease, depression or other concurrent impairments"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of the doctor who has followed the client",
+                  "Other doctors involved in treatment",
+                  "Current function (how active)",
+                  "Lifestyle modifications"
+                ],
+                "underwriting_action": {
+                  "life": "Unable to consider until 6 months after the episode and must have been investigated.\nDepending on age and severity, could be:\n- Standard to 250%\n- Average rating: 150%"
+                }
+              },
+              {
+                "disease_name": "Ulcerative Colitis or Ulcerative Proctitis",
+                "definition": "Chronic inflammatory ulceration of the colon (relapsing-remitting type disorder).",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis",
+                  "Severity of symptoms",
+                  "Medication",
+                  "Surgery",
+                  "Weight stability or loss",
+                  "Use of steroids",
+                  "Complications or concurrent illnesses (e.g., colon cancer, other inflammatory diseases)",
+                  "Any surgery",
+                  "Extra-intestinal symptoms"
+                ],
+                "requirements": [
+                  "APS",
+                  "Details of regular GI surveillance (colonoscopy, hospitalizations)",
+                  "Active lifestyle",
+                  "Details and frequency of flare-ups or attacks"
+                ],
+                "underwriting_action": {
+                  "life": "The younger the age and milder the course, the more favourable the outcome.\n- Mild: 150% to 250%\n- Moderate: 150%–200%\n- Severe: 200% to 300% or postponement depending on control and number of episodes"
+                }
+              },
+              {
+                "disease_name": "Angina Pectoris",
+                "definition": "Chest pain caused by reduced blood flow to the heart due to coronary artery disease.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis and age at onset",
+                  "Severity of the disease (how many vessels and which ones)",
+                  "Current symptoms",
+                  "Treatment or surgery",
+                  "Medications",
+                  "Smoking history",
+                  "Any co-morbid conditions such as diabetes, hypertension, coronary disease, depression or other concurrent serious impairment",
+                  "Any history of congestive heart failure or arrhythmia",
+                  "Active lifestyle",
+                  "Blood pressure and cholesterol readings",
+                  "Family history"
+                ],
+                "requirements": [
+                  "APS to include recent cardiac test results (e.g. angiogram, recent stress tests, perfusion)",
+                  "Details of the doctor who has complete records",
+                  "Detailed list of medication",
+                  "Details of any lifestyle change",
+                  "Details on activity level"
+                ],
+                "underwriting_action": {
+                  "life": "Unable to consider until 6 months after onset or treatment"
+                }
+              },
+              {
+                "disease_name": "Angioplasty",
+                "definition": "A procedure to restore blood flow through the artery by inflating a balloon inside the blocked vessel.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis and age at onset",
+                  "Severity of the disease (how many vessels and which ones)",
+                  "Current symptoms",
+                  "Treatment or surgery",
+                  "Medications",
+                  "Smoking history",
+                  "Any co-morbid conditions such as diabetes, hypertension, coronary disease, depression or other concurrent serious impairment",
+                  "Any history of congestive heart failure or arrhythmia",
+                  "Active lifestyle",
+                  "Blood pressure and cholesterol readings",
+                  "Family history"
+                ],
+                "requirements": [
+                  "APS to include recent cardiac test results (e.g. angiogram, recent stress tests, perfusion)",
+                  "Details of the doctor who has complete records",
+                  "Detailed list of medication",
+                  "Details of any lifestyle change",
+                  "Details on activity level"
+                ],
+                "underwriting_action": {
+                  "life": "Unable to consider until 6 months after surgery"
+                }
+              },
+              {
+                "disease_name": "Arteriosclerosis",
+                "definition": "Thickening and hardening of the artery walls, often leading to restricted blood flow and potential complications such as stroke or heart attack.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis and age at onset",
+                  "Severity of the disease (how many vessels and which ones)",
+                  "Current symptoms",
+                  "Treatment or surgery",
+                  "Medications",
+                  "Smoking history",
+                  "Any co-morbid conditions such as diabetes, hypertension, coronary disease, depression or other concurrent serious impairment",
+                  "Any history of congestive heart failure or arrhythmia",
+                  "Active lifestyle",
+                  "Blood pressure and cholesterol readings",
+                  "Family history"
+                ],
+                "requirements": [
+                  "APS to include recent cardiac test results (e.g. angiogram, recent stress tests, perfusion)",
+                  "Details of the doctor who has complete records",
+                  "Detailed list of medication",
+                  "Details of any lifestyle change",
+                  "Details on activity level"
+                ],
+                "underwriting_action": {
+                  "life": "Unable to consider until 6 months after onset or treatment"
+                }
+              },
+              {
+                "disease_name": "Atherosclerosis",
+                "definition": "A condition where plaque builds up inside the arteries, leading to narrowed or blocked arteries that can cause serious health problems such as heart attacks and strokes.",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis and age at onset",
+                  "Severity of the disease (how many vessels and which ones)",
+                  "Current symptoms",
+                  "Treatment or surgery",
+                  "Medications",
+                  "Smoking history",
+                  "Any co-morbid conditions such as diabetes, hypertension, coronary disease, depression or other concurrent serious impairment",
+                  "Any history of congestive heart failure or arrhythmia",
+                  "Active lifestyle",
+                  "Blood pressure and cholesterol readings",
+                  "Family history"
+                ],
+                "requirements": [
+                  "APS to include recent cardiac test results (e.g. angiogram, recent stress tests, perfusion)",
+                  "Details of the doctor who has complete records",
+                  "Detailed list of medication",
+                  "Details of any lifestyle change",
+                  "Details on activity level"
+                ],
+                "underwriting_action": {
+                  "life": "Unable to consider until 6 months after treatment"
+                }
+              },
+              {
+                "disease_name": "Bypass surgery",
+                "definition": "",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis and age at onset",
+                  "Severity of the disease (how many vessels and which ones)",
+                  "Current symptoms",
+                  "Treatment or surgery",
+                  "Medications",
+                  "Smoking history",
+                  "Any co-morbid conditions such as diabetes, hypertension, coronary disease, depression or other concurrent serious impairment",
+                  "Any history of congestive heart failure or arrhythmia",
+                  "Active lifestyle",
+                  "Blood pressure and cholesterol readings",
+                  "Family history"
+                ],
+                "requirements": [
+                  "APS to include recent cardiac test results (e.g. angiogram, recent stress tests, perfusion)",
+                  "Details of the doctor who has complete records",
+                  "Detailed list of medication",
+                  "Details of any lifestyle change",
+                  "Details on activity level"
+                ],
+                "underwriting_action": {
+                  "life": "Unable to consider until 6 months after surgery"
+                }
+              },
+              {
+                "disease_name": "Heart Attack",
+                "definition": "",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis and age at onset",
+                  "Severity of the disease (how many vessels and which ones)",
+                  "Current symptoms",
+                  "Treatment or surgery",
+                  "Medications",
+                  "Smoking history",
+                  "Any co-morbid conditions such as diabetes, hypertension, coronary disease, depression or other concurrent serious impairment",
+                  "Any history of congestive heart failure or arrhythmia",
+                  "Active lifestyle",
+                  "Blood pressure and cholesterol readings",
+                  "Family history"
+                ],
+                "requirements": [
+                  "APS to include recent cardiac test results (e.g. angiogram, recent stress tests, perfusion)",
+                  "Details of the doctor who has complete records",
+                  "Detailed list of medication",
+                  "Details of any lifestyle change",
+                  "Details on activity level"
+                ],
+                "underwriting_action": {
+                  "life": "Unable to consider until 6 months after treatment (bypass surgery, etc)\nDecline if age at onset is ≤ 35\nDecline if Class 4 (heart failure, ejection fraction <40%)\nClass 2 CAD (average severity):\n- Age ≤ 49: 225%\n- Age 50–69: 200%\n- Age 70–85: 150%\nAverage ratings:\n- Age ≤ 49: 225%–300%\n- Age 50–69: 200%\n- Age 70–85: 150%–175%"
+                }
+              },
+              {
+                "disease_name": "Myocardial Infarction",
+                "definition": "",
+                "underwriting_focus": [
+                  "Current age",
+                  "Date of diagnosis and age at onset",
+                  "Severity of the disease (how many vessels and which ones)",
+                  "Current symptoms",
+                  "Treatment or surgery",
+                  "Medications",
+                  "Smoking history",
+                  "Any co-morbid conditions such as diabetes, hypertension, coronary disease, depression or other concurrent serious impairment",
+                  "Any history of congestive heart failure or arrhythmia",
+                  "Active lifestyle",
+                  "Blood pressure and cholesterol readings",
+                  "Family history"
+                ],
+                "requirements": [
+                  "APS to include recent cardiac test results (e.g. angiogram, recent stress tests, perfusion)",
+                  "Details of the doctor who has complete records",
+                  "Detailed list of medication",
+                  "Details of any lifestyle change",
+                  "Details on activity level"
+                ],
+                "underwriting_action": {
+                  "life": "Unable to consider until 6 months after treatment (bypass surgery, etc)\nDecline if age at onset is ≤ 35\nDecline if Class 4 (heart failure, ejection fraction <40%)\nClass 2 CAD (average severity):\n- Age ≤ 49: 225%\n- Age 50–69: 200%\n- Age 70–85: 150%\nAverage ratings:\n- Age ≤ 49: 225%–300%\n- Age 50–69: 200%\n- Age 70–85: 150%–175%"
+                }
+              }
+        ]
+     }
  ]
