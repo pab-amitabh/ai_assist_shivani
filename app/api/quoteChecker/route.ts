@@ -146,19 +146,18 @@ If projected age was not provided, here's what your plan might look like:
   })
 
   const naturalLanguageSummary = aiRes.choices[0].message.content
-  const graphData = matches
-  .filter(entry => entry.projected_age && entry.projected_death_benefit)
-  .map(entry => ({
-    age: entry.projected_age,
-    deathBenefit: entry.projected_death_benefit,
-    premium
-  }))
-    .sort((a, b) => a.age - b.age)
+//   const graphData = matches
+//   .filter(entry => entry.projected_age && entry.projected_death_benefit)
+//   .map(entry => ({
+//     age: entry.projected_age,
+//     deathBenefit: entry.projected_death_benefit,
+//     premium
+//   }))
+//     .sort((a, b) => a.age - b.age)
 
-    console.log(graphData)
+    // console.log(graphData)
   return NextResponse.json({
     extracted,
-    message: naturalLanguageSummary,
-    graphData
+    message: naturalLanguageSummary
   })
 }
