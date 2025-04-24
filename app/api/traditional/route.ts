@@ -3,6 +3,8 @@ import { readFile } from 'fs/promises'
 import path from 'path'
 import OpenAI from 'openai'
 
+export const maxDuration = 60;
+export const dynamic = 'force-dynamic';
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 
 interface ProductEntry {
