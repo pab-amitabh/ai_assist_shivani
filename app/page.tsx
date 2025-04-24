@@ -15,9 +15,9 @@ export default function Home() {
         {/* <div className=" text-white p-2 w-full">
             <img src="/policyadvisor-logo.svg" className="w-48"></img>
         </div> */}
-        {/* <HomePage /> */}
+        <HomePage />
         {/* <AudioRecorder/> */}
-        <CommandActivation/>
+        {/* <CommandActivation/> */}
         {/* <button onClick={() => signIn()}>sign in</button> */}
     </div>
   );

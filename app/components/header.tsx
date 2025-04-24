@@ -42,7 +42,7 @@ export default function Header() {
         {/* Desktop nav */}
         <nav className="hidden md:flex space-x-2 items-center">
           <a href="/home" target="_blank" className={`${linkBaseClasses} ${isActive('/home')}`}>Home</a>
-          <a href="/" target="_blank" className={`${linkBaseClasses} ${isActive('/')}`}>AI Assist</a>
+          <a href="/assist" target="_blank" className={`${linkBaseClasses} ${isActive('/assist')}`}>AI Assist</a>
           <a href="/eligibilitychecker" target="_blank" className={`${linkBaseClasses} ${isActive('/eligibilitychecker')}`}>Eligibility Checker AI</a>
           <a href="/traditional" target="_blank" className={`${linkBaseClasses} ${isActive('/traditional')}`}>Traditional Underwriting AI</a>
           <a href="/quotechecker" target="_blank" className={`${linkBaseClasses} ${isActive('/quotechecker')}`}>Quote Checker AI</a>
@@ -72,7 +72,7 @@ export default function Header() {
       {/* Mobile dropdown */}
       {menuOpen && (
         <div className="md:hidden bg-white shadow-md border-t border-gray-200 px-4 py-3 space-y-2">
-          <a href="/" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/')}`}>AI Assist</a>
+          <a href="/assist" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/assist')}`}>AI Assist</a>
           <a href="/eligibilitychecker" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/eligibilitychecker')}`}>Eligibility Checker</a>
           <a href="/traditional" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/traditional')}`}>Traditional Underwriting</a>
           {session && (
