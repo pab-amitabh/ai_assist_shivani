@@ -24,7 +24,7 @@ export default function ConvaiPage() {
 
       {/* Convai widget container */}
       <div className="absolute inset-0 z-10 flex items-center justify-center">
-        <elevenlabs-convai agent-id="knmH1YgvDqj5peR8fDSt" />
+        <elevenlabs-convai agent-id="dbxJf73tbWbNu9qR8UqB" />
       </div>
     </div>
   )
