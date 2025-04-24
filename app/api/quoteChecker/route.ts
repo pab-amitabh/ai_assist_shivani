@@ -3,6 +3,10 @@ import { OpenAI } from 'openai'
 import fs from 'fs/promises'
 import path from 'path'
 
+// FOR VERCEL DEPLOYMENT, increases API TIMEOUT LIMIT TO 60 SECONDS
+export const maxDuration = 60;
+export const dynamic = 'force-dynamic';
+
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 
 function getCombinations(gender: string | null, smoker: string | null, premium: number | null, paymentType: string | null) {
