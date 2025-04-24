@@ -1,24 +1,28 @@
 'use client'
-import Image from "next/image";
-import { useReactMediaRecorder } from "react-media-recorder-2";
-import { useState, useCallback, useRef, useEffect } from "react";
-import AudioRecorder from "./components/AudioRecorder";
-import { ChatVertexAI } from "@langchain/google-vertexai";
-import CommandActivation from "./components/commandActivation";
+
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import HomePage from "./components/HomePage";
 
-
 export default function Home() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    // Once authenticated, redirect to /eligibilitychecker
+    if (status === "authenticated") {
+      router.push("/eligibilitychecker");
+    }
+  }, [status, router]);
 
   return (
     <div className="w-full h-screen">
-        {/* <div className=" text-white p-2 w-full">
-            <img src="/policyadvisor-logo.svg" className="w-48"></img>
-        </div> */}
+      {status === "loading" ? (
+        <div className="text-center mt-20 text-blue-800 text-xl">Loading...</div>
+      ) : (
         <HomePage />
-        {/* <AudioRecorder/> */}
-        {/* <CommandActivation/> */}
-        {/* <button onClick={() => signIn()}>sign in</button> */}
+      )}
     </div>
   );
 }

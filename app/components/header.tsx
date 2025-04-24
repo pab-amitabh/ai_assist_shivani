@@ -47,6 +47,7 @@ export default function Header() {
           <a href="/traditional" target="_blank" className={`${linkBaseClasses} ${isActive('/traditional')}`}>Traditional Underwriting AI</a>
           <a href="/quotechecker" target="_blank" className={`${linkBaseClasses} ${isActive('/quotechecker')}`}>Quote Checker AI</a>
           <a href="/training" target="_blank" className={`${linkBaseClasses} ${isActive('/training')}`}>Training AI</a>
+          <a href="/service" target="_blank" className={`${linkBaseClasses} ${isActive('/service')}`}>Service AI</a>
 
           {session && (
             <button
