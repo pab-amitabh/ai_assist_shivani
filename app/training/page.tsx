@@ -17,7 +17,7 @@ export default function ConvaiPage() {
   return (
     <div className="fixed inset-0 overflow-hidden">
       <img
-        src="/service.png"
+        src="/Training_final.png"
         alt="Background"
         className="w-full h-full object-cover object-top" 
       />
