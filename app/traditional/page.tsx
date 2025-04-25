@@ -24,7 +24,9 @@ export default function Home() {
   const allowedEmails = [
     "amitabh@policyadvisor.com",
     "jiten@policyadvisor.com",
-    "shivani@policyadvisor.com"
+    "shivani@policyadvisor.com",
+    "heena@policyadvisor.com",
+    "pankaj@policyadvisor.com"
   ]
 
   const { data: session, status } = useSession()
