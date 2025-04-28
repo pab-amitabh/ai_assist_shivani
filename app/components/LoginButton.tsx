@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react';
 
 export default function LoginButton() {
   const searchParams = useSearchParams();
-  const rawCallback = searchParams.get("callbackUrl") || "/eligibilitychecker";
+  const rawCallback = searchParams.get("callbackUrl") || "/assist";
 
   const callbackUrl =
     typeof window !== "undefined"

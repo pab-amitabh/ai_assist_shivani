@@ -26,17 +26,36 @@ export default function QuoteCheckerPage() {
   const [graphData, setGraphData] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [showAuthMessage, setShowAuthMessage] = useState(false)
 
   useEffect(() => {
     const isUnauthorized =
-      status === 'unauthenticated' ||
-      (status === 'authenticated' && session && !allowedEmails.includes(session.user?.email || ''))
+      status === "unauthenticated" ||
+      (status === "authenticated" && session && !allowedEmails.includes(session.user?.email || ""))
 
     if (isUnauthorized) {
-      const currentPath = window.location.pathname
-      router.push(`/?callbackUrl=${encodeURIComponent(currentPath)}`)
+      // Show authorization message
+      setShowAuthMessage(true)
+      
+      // Redirect after 2 seconds
+      const timer = setTimeout(() => {
+        router.push('/assist')
+      }, 2000)
+      
+      return () => clearTimeout(timer)
     }
   }, [status, session, router])
+
+  if (showAuthMessage) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-blue-50">
+        <div className="bg-white p-8 rounded-lg shadow-md text-center">
+          <p className="text-xl text-red-400 font-bold">You do not have sufficient privileges</p>
+          <p className="mt-2 text-gray-600">Redirecting you to assistance page...</p>
+        </div>
+      </div>
+    )
+  }
 
   if (
     status === 'loading' ||
