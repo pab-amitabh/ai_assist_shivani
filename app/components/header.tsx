@@ -41,7 +41,7 @@ export default function Header() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex space-x-2 items-center">
-          <a href="/home" target="_blank" className={`${linkBaseClasses} ${isActive('/home')}`}>Home</a>
+          <a href="/" target="_blank" className={`${linkBaseClasses} ${isActive('/')}`}>Home</a>
           <a href="/assist" target="_blank" className={`${linkBaseClasses} ${isActive('/assist')}`}>AI Assist</a>
           <a href="/eligibilitychecker" target="_blank" className={`${linkBaseClasses} ${isActive('/eligibilitychecker')}`}>Eligibility Checker AI</a>
           <a href="/traditional" target="_blank" className={`${linkBaseClasses} ${isActive('/traditional')}`}>Traditional Underwriting AI</a>

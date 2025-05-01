@@ -50,13 +50,13 @@ export default function ConvaiPage() {
   return (
     <div className="fixed inset-0 overflow-hidden">
       <img
-        src="/11lapse.png"
+        src="/Training_final.png"
         alt="Background"
         className="w-full h-full object-cover object-top"
       />
       {/* Convai widget container */}
       <div className="absolute inset-0 z-10 flex items-center justify-center">
-        <elevenlabs-convai agent-id="knmH1YgvDqj5peR8fDSt" />
+        <elevenlabs-convai agent-id="R6zR7e4gUnXg9YYlurEG"/>
       </div>
     </div>
   )
