@@ -29,6 +29,8 @@ import { AIMessage, HumanMessage } from "@langchain/core/messages";
 import { ScoreThresholdRetriever } from "langchain/retrievers/score_threshold";
 import OpenAI from "openai";
 import fs from "fs/promises";
+import path from 'path'
+import { readFile } from 'fs/promises'
 
 export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
@@ -419,8 +421,9 @@ export async function POST(req: Request) {
 
 
         } else {
-            const travelRulesRaw = await fs.readFile("app/data/travel_rules.json", "utf-8");
-            const travelPlans = JSON.parse(travelRulesRaw);
+            const filePath = path.resolve(process.cwd(), 'app/data/travel_rules.json')
+            const data = await readFile(filePath, 'utf-8')
+            const travelPlans = JSON.parse(data);
 
             const extractedInfo = await extractUserInfoFromAI(query, chatHistory);
             console.log(extractedInfo)
