@@ -18,11 +18,40 @@ interface Message {
     id: string;
     rating: number;
     reviewComments: string;
+    modelType: string;  // <<< ADDED
     commentAddedAt?: Date | null;
     createdAt?: Date | null;
-} 
+}
 
-export default function ChatHistory( { currentChat, setCurrentChat, currChatId, setCurrChatId, chatHistory, setChatHistory } : { currentChat: { message: string; sender: string; messageType: string; messageId: string; rating: number;reviewComments: string;commentAddedAt?: Date | null;}[], setCurrentChat: React.Dispatch<React.SetStateAction<{ message: string; sender: string; messageType: string; messageId: string; rating: number;reviewComments: string;commentAddedAt?: Date | null;}[]>>, currChatId: string, setCurrChatId: Function, chatHistory: Chat[], setChatHistory: Function }) {
+export default function ChatHistory( { currentChat, setCurrentChat, currChatId, setCurrChatId, chatHistory, setChatHistory } : { 
+    currentChat: { 
+        message: string; 
+        sender: string; 
+        messageType: string; 
+        messageId: string; 
+        rating: number;
+        reviewComments: string;
+        modelType: string;    // <<< ADDED
+        commentAddedAt?: Date | null;
+        createdAt?: Date | null;
+    }[], 
+    setCurrentChat: React.Dispatch<React.SetStateAction<{
+        message: string; 
+        sender: string; 
+        messageType: string; 
+        messageId: string; 
+        rating: number;
+        reviewComments: string;
+        modelType: string;   // <<< ADDED
+        commentAddedAt?: Date | null;
+        createdAt?: Date | null;
+    }[]>>, 
+    currChatId: string, 
+    setCurrChatId: Function, 
+    chatHistory: Chat[], 
+    setChatHistory: Function 
+})
+ {
 	
 	const { data: session } = useSession();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -89,15 +118,17 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
                 const messages = userChatHistory.userChats[0].messages;
                 // console.log('get chat history::',messages);
                 const messageList = messages.map((message: Message) => ({
-                    message: message.content,  
-                    sender: message.sender,    
-                    messageType: message.messageType, 
-                    messageId: message.id,      
+                    message: message.content,
+                    sender: message.sender,
+                    messageType: message.messageType,
+                    messageId: message.id,
                     rating: message.rating,
                     reviewComments: message.reviewComments,
+                    modelType: message.modelType,   // <<< ADD this line
                     commentAddedAt: message.commentAddedAt,
                     createdAt: message.createdAt
                 }));
+                
 				await setCurrentChat(messageList);
 				await setChatHistory(userChatHistory.userChats);
 				await setCurrChatId(userChatHistory.userChats[0].id);
@@ -118,15 +149,17 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
             const messages=chatHistory[index].messages
 
             const messageList = messages.map((message: Message) => ({
-                message: message.content,  
-                sender: message.sender,    
-                messageType: message.messageType, 
-                messageId: message.id,      
+                message: message.content,
+                sender: message.sender,
+                messageType: message.messageType,
+                messageId: message.id,
                 rating: message.rating,
                 reviewComments: message.reviewComments,
+                modelType: message.modelType,    // <<< ADD this line
                 commentAddedAt: message.commentAddedAt,
                 createdAt: message.createdAt
             }));
+            
 			await setCurrentChat(messageList);
 			await setCurrChatId(chatHistory[index].id);
             console.log("Changed Chat: ", currentChat)
@@ -160,9 +193,11 @@ export default function ChatHistory( { currentChat, setCurrentChat, currChatId, 
                 messageId: message.id,
                 rating: message.rating,
                 reviewComments: message.reviewComments,
+                modelType: message.modelType,   // <<< ADD this line
                 commentAddedAt: message.commentAddedAt,
                 createdAt: message.createdAt
             }));
+            
 			await setCurrentChat(messageList);
 			await setCurrChatId(updatedChatHistory.userChats[updatedChatHistory.userChats.length - 1].id);
             if (session && session.user && session.user.email) {

@@ -10,9 +10,8 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    // Once authenticated, redirect to /eligibilitychecker
     if (status === "authenticated") {
-      router.push("/eligibilitychecker");
+      router.push("/");
     }
   }, [status, router]);
 

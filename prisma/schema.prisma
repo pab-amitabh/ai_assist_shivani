@@ -88,4 +88,5 @@ model Message {
   reviewAdvisorComments String?
   reviewAdvisorCommentedOn DateTime?
   reviewerAction String?
+  modelType String @default("chatbot")
 }
