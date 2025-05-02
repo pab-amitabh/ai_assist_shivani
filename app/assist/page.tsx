@@ -27,6 +27,8 @@ export default function CommandActivation() {
     const [contentCopy, setContentCopy] = useState<boolean>(false);
     const [travelMode, setTravelMode] = useState<boolean>(false);
     const [modelType, setModelType] = useState("chatbot")
+    const [showTravelInput, setShowTravelInput] = useState<boolean>(false);
+    const [eligibilityWelcomeText, setEligibilityWelcomeText] = useState("Eligibility GPT");
 
     useEffect(() => {
         if (travelMode === true) {
@@ -50,7 +52,7 @@ export default function CommandActivation() {
         id: string;
         rating: number;
         reviewComments: string;
-        modelType: string;    
+        modelType: string;
         commentAddedAt?: Date | null;
         createdAt?: Date | null;
     }
@@ -727,7 +729,7 @@ export default function CommandActivation() {
                                 <label className="inline-flex items-center cursor-pointer ml-4">
                                     <input type="checkbox" checked={travelMode} className="sr-only peer" onChange={(event) => changeTravelMode(event.target.checked)} />
                                     <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[rgb(22,184,216)] dark:peer-checked:bg-[rgb(22,184,216)]"></div>
-                                    <span className="ms-1 text-sm font-medium text-gray-900 dark:text-gray-300">Travel Eligibility</span>
+                                    <span className="ms-1 text-sm font-medium text-gray-900 dark:text-gray-300">Eligibility Mode</span>
                                 </label>
                                 {!travelMode &&
                                     <label className="inline-flex items-center cursor-pointer">
@@ -797,7 +799,9 @@ export default function CommandActivation() {
                             <>
                                 <div className="mt-24 w-full bg-white rounded-lg flex flex-col md:flex-row text-center">
                                     <div className="md:ml-6 flex-1">
-                                        <h2 className="text-2xl font-extrabold text-gray-900">{!travelMode ? "Welcome to AdvisorGPT" : "Welcome to Travel Eligibility GPT"}</h2>
+                                        <h2 className="text-2xl font-extrabold text-gray-900">
+                                            {!travelMode ? "Welcome to AdvisorGPT" : `Welcome to ${eligibilityWelcomeText}`}
+                                        </h2>
                                         <p className="text-gray-300 mt-1">Version 1.0.0</p>
                                     </div>
                                 </div>
@@ -943,7 +947,7 @@ export default function CommandActivation() {
                         }
 
                         {/* Chat Input Box */}
-                        <form onSubmit={getResponse} className={`sticky bottom-0 ${currentChat.length === 1 ? "mt-20" : "mt-2 mb-2"} w-full max-w-4xl flex items-center bg-white border border-gray-300 rounded-lg shadow-md p-3`} >
+                        {/* <form onSubmit={getResponse} className={`sticky bottom-0 ${currentChat.length === 1 ? "mt-20" : "mt-2 mb-2"} w-full max-w-4xl flex items-center bg-white border border-gray-300 rounded-lg shadow-md p-3`} >
                             <input type="text" value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeydown} placeholder={loading ? 'Analyzing...' : travelMode ? "Enter client info including age & condition..." : "Type your message here..."} className="w-full p-2 outline-none text-gray-700" readOnly={loading ? true : false} />
                             <button className="ml-4 px-4 py-2 rounded-lg bg-[rgb(226,245,250)]" disabled={sendDisabled}>
                                 {!loading ?
@@ -962,7 +966,52 @@ export default function CommandActivation() {
                                 </svg>
 
                             </button>
-                        </form>
+                        </form> */}
+                        {travelMode && !showTravelInput && (
+                            <div className="w-full flex justify-between items-center bg-white p-4 rounded-lg">
+                                <div className="flex m-auto">
+                                    <button
+                                        type="button"
+                                        className={`rounded-full m-2 px-5 py-2 border-2 border-gray-200`}
+                                        style={{ background: "linear-gradient(to right, #5DE0E6, #004AAD)", color: "white" }}
+                                        onClick={() => {
+                                            setShowTravelInput(true);
+                                            setEligibilityWelcomeText("Travel Eligibility GPT");
+                                        }}
+                                    >
+                                        Travel Eligibility
+                                    </button>
+
+                                </div>
+                            </div>
+                        )}
+
+
+                        {/* Input box shows only when eligibility mode is OFF or Travel Eligibility button is clicked */}
+                        {(!travelMode || showTravelInput) && (
+                            <form onSubmit={getResponse} className={`sticky bottom-0 ${currentChat.length === 1 ? "mt-20" : "mt-2 mb-2"} w-full max-w-4xl flex items-center bg-white border border-gray-300 rounded-lg shadow-md p-3`}>
+                                <input
+                                    type="text"
+                                    value={input}
+                                    onChange={e => setInput(e.target.value)}
+                                    onKeyDown={handleKeydown}
+                                    placeholder={loading ? 'Analyzing...' : travelMode ? "Enter client info including age & condition..." : "Type your message here..."}
+                                    className="w-full p-2 outline-none text-gray-700"
+                                    readOnly={loading}
+                                />
+                                <button className="ml-4 px-4 py-2 rounded-lg bg-[rgb(226,245,250)]" disabled={sendDisabled}>
+                                    <svg width="18" height="25" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.56322 4.8854C1.02122 5.1129 0.684804 5.5179 0.679721 6.09123C0.676221 6.49206 0.94672 7.03041 1.48872 7.25041C1.71197 7.34125 4.84655 7.76291 4.84655 7.76291C4.84655 7.76291 5.67622 10.3854 5.97522 11.3071C6.0618 11.5737 6.11114 11.7046 6.30114 11.8787C6.62347 12.1737 7.16839 12.0813 7.40405 11.8446C8.02755 11.2196 9.01305 10.2554 9.01305 10.2554L9.4278 10.5929C9.4278 10.5929 11.2696 12.0621 12.2763 12.7537C12.8691 13.1612 13.2805 13.5862 13.9476 13.5887C14.2875 13.5904 14.8326 13.4212 15.1929 13.0087C15.431 12.7362 15.5837 12.3004 15.6428 11.9096C15.7771 11.0221 17.3531 1.42541 17.3464 1.08957C17.3357 0.553738 16.885 0.252065 16.5103 0.255398C16.275 0.257898 16.0811 0.326241 15.6496 0.457908C12.3117 1.47708 1.7843 4.7929 1.56322 4.8854ZM14.0131 2.7554C14.0131 2.7554 9.61472 6.58374 7.85714 8.34541C7.29405 8.90958 7.2543 9.8779 7.2543 9.8779L6.34581 6.97123L14.0131 2.7554Z" fill="rgb(22,184,216)" />
+                                    </svg>
+                                </button>
+                                <button className="ml-4 text-white px-4 py-2 rounded-lg bg-gray-100" onClick={startListening} disabled={isListening}>
+                                    <svg width="18" height="25" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.66504 8.31428C1.88656 9.83637 2.64869 11.2278 3.81199 12.2341C4.9753 13.2403 6.462 13.7941 8.00012 13.7941M8.00012 13.7941C9.53825 13.7941 11.025 13.2403 12.1883 12.2341C13.3516 11.2278 14.1137 9.83637 14.3352 8.31428M8.00012 13.7941V17M8.00104 1C7.27359 1 6.57593 1.28898 6.06155 1.80336C5.54716 2.31775 5.25818 3.01541 5.25818 3.74286V7.4C5.25818 8.12745 5.54716 8.82511 6.06155 9.33949C6.57593 9.85388 7.27359 10.1429 8.00104 10.1429C8.72849 10.1429 9.42615 9.85388 9.94053 9.33949C10.4549 8.82511 10.7439 8.12745 10.7439 7.4V3.74286C10.7439 3.01541 10.4549 2.31775 9.94053 1.80336C9.42615 1.28898 8.72849 1 8.00104 1Z" stroke="#919191" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </button>
+                            </form>
+                        )}
+
                         {currentChat.length > 1 ?
                             <div className='justify-center items-center text-gray-400 text-xs m-2'>{!travelMode ? "AdvisorGPT" : "Travel Eligibility GPT"} can make mistakes. Please check important info.</div> : ''}
                     </div>
