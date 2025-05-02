@@ -1,14 +1,72 @@
 "use client";
 
-import React, { useState, Suspense } from 'react';
-import { useSession, signOut } from "next-auth/react";
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import LoginButton from './LoginButton'; // Make sure the path is correct
+import LoginButton from './LoginButton';
 import Header from '../components/header';
 
 const HomePage = () => {
     const { data: session } = useSession();
     const [createdFirstChat, setCreatedFirstChat] = useState<boolean>(false);
+
+    // Username/Password gate state
+    const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [error, setError] = useState<string>("");
+
+    const VALID_USERNAME = "PAB";
+    const VALID_PASSWORD = "Policy@2018$Advisor";
+
+    useEffect(() => {
+        const unlocked = sessionStorage.getItem("unlocked");
+        if (unlocked === "true") {
+            setIsUnlocked(true);
+        }
+    }, []);
+
+    const handleUnlock = () => {
+        if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+            setIsUnlocked(true);
+            setError("");
+            sessionStorage.setItem("unlocked", "true");
+        } else {
+            setError("Invalid credentials. Try again.");
+        }
+    };
+
+    // Show credential prompt first
+    if (!isUnlocked) {
+        return (
+            <div className="flex flex-col items-center justify-center h-screen bg-gray-100 px-4">
+                <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-sm">
+                    <h2 className="text-xl font-semibold mb-4 text-center">Enter Access Credentials</h2>
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        className="w-full mb-3 px-4 py-2 border rounded-lg"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        className="w-full mb-3 px-4 py-2 border rounded-lg"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+                    <button
+                        onClick={handleUnlock}
+                        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     if (session && session.user) {
         const tools = [
@@ -25,7 +83,10 @@ const HomePage = () => {
                 ]
             },
             {
-                name: "AI Assist", route: "/assist", description: "Your AI-powered assistant", allowedEmails: [
+                name: "AI Assist",
+                route: "/assist",
+                description: "Your AI-powered assistant",
+                allowedEmails: [
                     "amitabh.bhatia@gmail.com", "jitenpuri@gmail.com", "anushae.hassan@gmail.com",
                     "ulkeshak23@gmail.com", "heenabanka@gmail.com", "shivani.lpu71096@gmail.com",
                     "pollardryan525@gmail.com", "amitabh@policyadvisor.com", "jiten@policyadvisor.com",
@@ -41,7 +102,9 @@ const HomePage = () => {
                 ]
             },
             {
-                name: "Eligibility Checker AI", route: "/eligibilitychecker", description: "Check insurance eligibility instantly",
+                name: "Eligibility Checker AI",
+                route: "/eligibilitychecker",
+                description: "Check insurance eligibility instantly",
                 allowedEmails: [
                     "amitabh@policyadvisor.com",
                     "jiten@policyadvisor.com",
@@ -51,7 +114,9 @@ const HomePage = () => {
                 ]
             },
             {
-                name: "Traditional Underwriting AI", route: "/traditional", description: "Traditional life insurance checks",
+                name: "Traditional Underwriting AI",
+                route: "/traditional",
+                description: "Traditional life insurance checks",
                 allowedEmails: [
                     "amitabh@policyadvisor.com",
                     "jiten@policyadvisor.com",
@@ -61,7 +126,9 @@ const HomePage = () => {
                 ]
             },
             {
-                name: "Quote Checker AI", route: "/quotechecker", description: "Compare and analyze quotes",
+                name: "Quote Checker AI",
+                route: "/quotechecker",
+                description: "Compare and analyze quotes",
                 allowedEmails: [
                     "amitabh@policyadvisor.com",
                     "jiten@policyadvisor.com",
@@ -71,7 +138,9 @@ const HomePage = () => {
                 ]
             },
             {
-                name: "Training AI", route: "/training", description: "Train yourself with insurance scenarios",
+                name: "Training AI",
+                route: "/training",
+                description: "Train yourself with insurance scenarios",
                 allowedEmails: [
                     "amitabh@policyadvisor.com",
                     "jiten@policyadvisor.com",
@@ -81,7 +150,9 @@ const HomePage = () => {
                 ]
             },
             {
-                name: "Service AI", route: "/service", description: "AI to help with servicing policies",
+                name: "Service AI",
+                route: "/service",
+                description: "AI to help with servicing policies",
                 allowedEmails: [
                     "amitabh@policyadvisor.com",
                     "jiten@policyadvisor.com",
@@ -92,14 +163,13 @@ const HomePage = () => {
             }
         ];
 
-
         const allowedTools = tools.filter(tool =>
             tool.allowedEmails.includes(session?.user?.email ?? "")
         );
 
         return (
             <>
-            <Header></Header>
+                <Header />
                 <div className='pl-10 pr-10'>
                     <h1 className="text-2xl font-semibold text-gray-800 mt-20 mb-6">
                         Hi {session.user.name?.split(" ")[0]}, Welcome to your AI world...
@@ -133,8 +203,7 @@ const HomePage = () => {
                 </Suspense>
             </div>
         );
-
     }
-}
+};
 
 export default HomePage;

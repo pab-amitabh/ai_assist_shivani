@@ -33,7 +33,7 @@ const authOptions: NextAuthOptions = {
           "parmeet@policyadvisor.com", "priyanka@policyadvisor.com", "reidc@policyadvisor.com",
           "ripenjeet@policyadvisor.com", "ruchita@policyadvisor.com", "ryanp@policyadvisor.com",
           "subir@policyadvisor.com", "ulkesha@policyadvisor.com", "vanessa@policyadvisor.com",
-          "visnu@policyadvisor.com","pankaj@policyadvsior.com"
+          "visnu@policyadvisor.com","pankaj@policyadvsior.com","mayank@policyadvisor.com"
         ];
         return allowedEmails.includes(profile?.email || "");
       }
