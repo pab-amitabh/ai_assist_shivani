@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 				},
                 messages: {
                     create:{
-                        content: "Hello, I am PolicyAdvisor AI Assitant. What can I help you with?",
+                        content: "Hello, I am PolicyAdvisor AI Assistant. What can I help you with?",
                         sender: "AI",
                         messageType: "ANSWER",
                         isResolved: false

@@ -40,14 +40,15 @@ export default function Header() {
         </a>
 
         {/* Desktop nav */}
+        <div className='text-xs'>
         <nav className="hidden md:flex space-x-2 items-center">
           <a href="/" target="_blank" className={`${linkBaseClasses} ${isActive('/')}`}>Home</a>
           <a href="/assist" target="_blank" className={`${linkBaseClasses} ${isActive('/assist')}`}>AI Assist</a>
-          <a href="/eligibilitychecker" target="_blank" className={`${linkBaseClasses} ${isActive('/eligibilitychecker')}`}>Eligibility Checker AI</a>
-          <a href="/traditional" target="_blank" className={`${linkBaseClasses} ${isActive('/traditional')}`}>Traditional Underwriting AI</a>
-          <a href="/quotechecker" target="_blank" className={`${linkBaseClasses} ${isActive('/quotechecker')}`}>Quote Checker AI</a>
-          <a href="/training" target="_blank" className={`${linkBaseClasses} ${isActive('/training')}`}>Training AI</a>
-          <a href="/service" target="_blank" className={`${linkBaseClasses} ${isActive('/service')}`}>Service AI</a>
+          <a href="/eligibilitychecker" target="_blank" className={`${linkBaseClasses} ${isActive('/eligibilitychecker')}`}>Simplified Life AI</a>
+          <a href="/traditional" target="_blank" className={`${linkBaseClasses} ${isActive('/traditional')}`}>Traditional Life AI</a>
+          <a href="/quotechecker" target="_blank" className={`${linkBaseClasses} ${isActive('/quotechecker')}`}>Quotes Checker (Life) AI</a>
+          <a href="/training" target="_blank" className={`${linkBaseClasses} ${isActive('/training')}`}>Product Training (Group) AI</a>
+          <a href="/service" target="_blank" className={`${linkBaseClasses} ${isActive('/service')}`}>Policy Servicing AI</a>
 
           {session && (
             <button
@@ -58,6 +59,7 @@ export default function Header() {
             </button>
           )}
         </nav>
+        </div>
 
         {/* Mobile menu icon */}
         <button
@@ -74,8 +76,9 @@ export default function Header() {
       {menuOpen && (
         <div className="md:hidden bg-white shadow-md border-t border-gray-200 px-4 py-3 space-y-2">
           <a href="/assist" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/assist')}`}>AI Assist</a>
-          <a href="/eligibilitychecker" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/eligibilitychecker')}`}>Eligibility Checker</a>
-          <a href="/traditional" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/traditional')}`}>Traditional Underwriting</a>
+          <a href="/eligibilitychecker" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/eligibilitychecker')}`}>Eligibility checker (Simplified Life) AI</a>
+          <a href="/traditional" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/traditional')}`}>Eligibility Checker (Traditional Life)  AI</a>
+          <a href="/quotechecker" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/quotechecker')}`}>Quotes Checker (Life) AI</a>
           {session && (
             <button
               onClick={handleLogout}

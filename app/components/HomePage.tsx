@@ -71,9 +71,9 @@ const HomePage = () => {
     if (session && session.user) {
         const tools = [
             {
-                name: "Home",
+                name: "Product Information (All) AI",
                 route: "/home",
-                description: "Main dashboard",
+                description: "Product information for clients",
                 allowedEmails: [
                     "amitabh@policyadvisor.com",
                     "jiten@policyadvisor.com",
@@ -102,7 +102,7 @@ const HomePage = () => {
                 ]
             },
             {
-                name: "Eligibility Checker AI",
+                name: "Eligibility checker (Simplified Life) AI",
                 route: "/eligibilitychecker",
                 description: "Check insurance eligibility instantly",
                 allowedEmails: [
@@ -114,7 +114,7 @@ const HomePage = () => {
                 ]
             },
             {
-                name: "Traditional Underwriting AI",
+                name: "Eligibility Checker (Traditional Life)  AI",
                 route: "/traditional",
                 description: "Traditional life insurance checks",
                 allowedEmails: [
@@ -126,7 +126,7 @@ const HomePage = () => {
                 ]
             },
             {
-                name: "Quote Checker AI",
+                name: "Quotes Checker (Life) AI",
                 route: "/quotechecker",
                 description: "Compare and analyze quotes",
                 allowedEmails: [
@@ -138,7 +138,7 @@ const HomePage = () => {
                 ]
             },
             {
-                name: "Training AI",
+                name: "Product Training (Group) AI",
                 route: "/training",
                 description: "Train yourself with insurance scenarios",
                 allowedEmails: [
@@ -150,7 +150,7 @@ const HomePage = () => {
                 ]
             },
             {
-                name: "Service AI",
+                name: "Policy Servicing AI",
                 route: "/service",
                 description: "AI to help with servicing policies",
                 allowedEmails: [
