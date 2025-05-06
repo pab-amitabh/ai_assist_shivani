@@ -20,10 +20,11 @@ export default function Header() {
       ? 'bg-blue-100 text-blue-800 shadow-sm border border-blue-200'
       : 'text-gray-700 hover:bg-gray-100 hover:text-blue-800'
 
-  const handleLogout = () => {
-    setMenuOpen(false)
-    signOut()
-  }
+    const handleLogout = () => {
+    setMenuOpen(false);
+    localStorage.removeItem("unlocked"); // Clear stored password gate if you want
+    signOut({ callbackUrl: "/" });
+    };
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -43,12 +44,12 @@ export default function Header() {
         <div className='text-xs'>
         <nav className="hidden md:flex space-x-2 items-center">
           <a href="/" target="_blank" className={`${linkBaseClasses} ${isActive('/')}`}>Home</a>
-          <a href="/assist" target="_blank" className={`${linkBaseClasses} ${isActive('/assist')}`}>AI Assist</a>
+          {/* <a href="/assist" target="_blank" className={`${linkBaseClasses} ${isActive('/assist')}`}>AI Assist</a>
           <a href="/eligibilitychecker" target="_blank" className={`${linkBaseClasses} ${isActive('/eligibilitychecker')}`}>Simplified Life AI</a>
           <a href="/traditional" target="_blank" className={`${linkBaseClasses} ${isActive('/traditional')}`}>Traditional Life AI</a>
           <a href="/quotechecker" target="_blank" className={`${linkBaseClasses} ${isActive('/quotechecker')}`}>Quotes Checker (Life) AI</a>
           <a href="/training" target="_blank" className={`${linkBaseClasses} ${isActive('/training')}`}>Product Training (Group) AI</a>
-          <a href="/service" target="_blank" className={`${linkBaseClasses} ${isActive('/service')}`}>Policy Servicing AI</a>
+          <a href="/service" target="_blank" className={`${linkBaseClasses} ${isActive('/service')}`}>Policy Servicing AI</a> */}
 
           {session && (
             <button
@@ -75,10 +76,10 @@ export default function Header() {
       {/* Mobile dropdown */}
       {menuOpen && (
         <div className="md:hidden bg-white shadow-md border-t border-gray-200 px-4 py-3 space-y-2">
-          <a href="/assist" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/assist')}`}>AI Assist</a>
+          {/* <a href="/assist" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/assist')}`}>AI Assist</a>
           <a href="/eligibilitychecker" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/eligibilitychecker')}`}>Eligibility checker (Simplified Life) AI</a>
           <a href="/traditional" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/traditional')}`}>Eligibility Checker (Traditional Life)  AI</a>
-          <a href="/quotechecker" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/quotechecker')}`}>Quotes Checker (Life) AI</a>
+          <a href="/quotechecker" onClick={() => setMenuOpen(false)} className={`${linkBaseClasses} ${isActive('/quotechecker')}`}>Quotes Checker (Life) AI</a> */}
           {session && (
             <button
               onClick={handleLogout}
