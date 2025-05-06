@@ -9,6 +9,18 @@ const EligibilityPage = () => {
 
     const eligibilityTools = [
         {
+            name: "Travel Eligibility Checker",
+            route: "/travel",
+            description: "Quick eligibility checker for travel",
+            allowedEmails: [
+                "amitabh@policyadvisor.com",
+                "jiten@policyadvisor.com",
+                "heena@policyadvisor.com",
+                "pankaj@policyadvisor.com",
+                "shivani@policyadvisor.com",
+            ]
+        },
+        {
             name: "Simplified Life Checker",
             route: "/eligibilitychecker",
             description: "Quick eligibility checker for simplified life",
