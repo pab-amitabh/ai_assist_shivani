@@ -167,7 +167,7 @@ export default function CommandActivation() {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ chatId: currChatId, message: newMessage, messageType: messageType, sender: sender, questionId: questionId, isResolved: isResolved })
+                    body: JSON.stringify({ chatId: currChatId, message: newMessage, messageType: messageType, sender: sender, questionId: questionId, isResolved: isResolved,modelType: modelType })
                 })
                 const data = await response.json();
                 return data.question_id;
@@ -195,7 +195,6 @@ export default function CommandActivation() {
                     );
                 }
             };
-
             updateBothChats();
             setLlmDone(false);
             setAIResponse(false);
@@ -234,7 +233,7 @@ export default function CommandActivation() {
         scrollToBottom();
         setSendDisabled(true);
         loadingVar = true;
-
+        console.log(modelType)
         try {
             const response = await fetch('/api/getLLMResponse', {
                 method: 'POST',
@@ -676,15 +675,14 @@ export default function CommandActivation() {
 
                         {currentChat.length === 1 ?
                             <>
-                                <div className="mt-24 w-full bg-white rounded-lg flex flex-col md:flex-row text-center">
+                                <div className="mt-32 w-full bg-white rounded-lg flex flex-col md:flex-row text-center">
                                     <div className="md:ml-6 flex-1">
-                                        <h2 className="text-2xl font-extrabold text-gray-900">
+                                        <h2 className="text-3xl font-extrabold text-gray-900">
                                             Welcome to {eligibilityWelcomeText}
                                         </h2>
-                                        <p className="text-gray-300 mt-1">Version 1.0.0</p>
+                                        <p className="text-gray-300 ">Version 1.0.0</p>
                                     </div>
                                 </div>
-                                
                             </>
                             :
                             <div className="overflow-y-auto flex-1 w-full flex flex-col rounded-3xl text-center">
@@ -698,104 +696,108 @@ export default function CommandActivation() {
                                     // style={!isAIMessage ? {background: "linear-gradient(to right, #5DE0E6, #004AAD)"} : {}}
                                     return (
                                         <>
-                                            {!isAIMessage && <div className='flex justify-end w-full pr-8 text-gray-400'>{message_time ? formatMessageTime(message_time.toLocaleString()) : ""}</div>}
-                                            <div key={message.messageId || `chat-${index}`} ref={index === currentChat.length - 1 ? currentChatRef : null} className={`flex w-full my-1 ${isAIMessage ? "justify-start" : "justify-end"}`}>
+                                            {message.modelType === 'travel' && 
+                                                <>
+                                                    {!isAIMessage && <div className='flex justify-end w-full pr-8 text-gray-400'>{message_time ? formatMessageTime(message_time.toLocaleString()) : ""}</div>}
+                                                    <div key={message.messageId || `chat-${index}`} ref={index === currentChat.length - 1 ? currentChatRef : null} className={`flex w-full my-1 ${isAIMessage ? "justify-start" : "justify-end"}`}>
 
-                                                <div className={`ml-8 mr-8 mt-1 mb-1 rounded-lg ${isAIMessage ? " text-gray-900" : "text-black bg-gray-100"}`}>
-                                                    <div className='flex'>
-                                                        {isAIMessage && (
-                                                            <img src="/PA ICON.png" className="icon rounded mt-4" />
-                                                        )}
+                                                        <div className={`ml-8 mr-8 mt-1 mb-1 rounded-lg ${isAIMessage ? " text-gray-900" : "text-black bg-gray-100"}`}>
+                                                            <div className='flex'>
+                                                                {isAIMessage && (
+                                                                    <img src="/PA ICON.png" className="icon rounded mt-4" />
+                                                                )}
 
-                                                        <ReactMarkdown remarkPlugins={[remarkGfm]} className={`markdown text-gray-700 max-w-4xl text-justify ${isAIMessage ? "px-3" : "px-6"}`}>
-                                                            {messageWithoutSources}
-                                                        </ReactMarkdown>
-                                                    </div>
-
-                                                    {isAIMessage && index !== 0 && (
-                                                        <div className={`relative ml-11 ${sources.length > 0 ? "mt-2" : ""} `}>
-                                                            <div className="flex">
-                                                                {sources.length > 0 &&
-                                                                    <>
-                                                                        <button
-                                                                            className="px-2 py-4 bg-[rgb(250,226,237)] text-[rgb(216,22,113)] mr-2 hover:scale-105 rounded-lg h-6 text-sm flex items-center gap-1 "
-                                                                            data-id={`thumbs_down_${message.messageId}`}
-                                                                            onClick={(event) => elaborateMessage(message.messageId, event, detailMode)}
-                                                                        >
-                                                                            {detailMode === false ?
-                                                                                <><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`size-4`}>
-                                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
-                                                                                </svg>
-                                                                                    Elaborate</> :
-                                                                                <><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`size-4`}>
-                                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181" />
-                                                                                </svg>
-                                                                                    Summarize</>
-                                                                            }
-
-                                                                        </button>
-                                                                        <button
-                                                                            className="px-2 py-4 bg-[rgb(226,245,250)] text-[rgb(22,184,216)] mr-auto hover:scale-105 rounded-lg h-6 text-sm flex items-center gap-1 "
-                                                                            data-id={`sources_${message.messageId}`}
-                                                                            onClick={(event) => showSources(sources, event)}
-                                                                        >
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
-                                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
-                                                                            </svg>
-                                                                            Sources
-                                                                        </button>
-                                                                    </>
-                                                                }
-                                                                <button className={`px-2 mr-2 hover:text-green-600 hover:scale-105 bg-gray-100 hover:shadow  ${message.rating === 5 ? "text-white" : "border-gray-300"} rounded-md h-6 text-sm flex items-center gap-1`} data-id={`thumbs_up_${message.messageId}`} onClick={() => updateRating(message.messageId, 5)} disabled={message.rating === 5 ? true : false}>
-                                                                    {/* <img src="/thumbsUp.svg" className="w-4" /> */}
-                                                                    {message.rating === 5 ? <img src="/thumbsDownColored.svg" className="w-4 scale-y-[-1] scale-x-[-1]" /> : <img src="/thumbsDownNonColored.svg" className="w-4 scale-y-[-1] scale-x-[-1]" />}
-                                                                </button>
-
-                                                                <button className={`px-2 mr-2 hover:scale-105 hover:shadow bg-gray-100 cursor-pointer ${message.rating === 0 ? "bg-[rgb(216,22,113)] text-[rgb(216,22,113)]" : "border-gray-300 text-black"} rounded-md h-6 text-sm flex items-center gap-1`} data-id={`thumbs_down_${message.messageId}`} onClick={() => updateRating(message.messageId, 0)} disabled={message.rating === 0 ? true : false}
-                                                                >
-                                                                    {message.rating === 0 ? <img src="/thumbsDownColored.svg" className="w-4 " /> : <img src="/thumbsDownNonColored.svg" className="w-4" />}
-                                                                </button>
-
-                                                                <button className={`px-2 mr-2 hover:scale-105 hover:shadow bg-gray-100 cursor-pointer rounded-md h-6 text-sm flex items-center gap-1`} data-id={`copy_${message.messageId}`} onClick={(e) => copyContent(e, messageWithoutSources)} >
-                                                                    {!contentCopy ?
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                                            strokeWidth="1.5" stroke="currentColor" className="w-4 text-gray-400">
-                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5A3.375 3.375 0 0 0 6.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0 0 15 2.25h-1.5a2.251 2.251 0 0 0-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 0 0-9-9Z" />
-                                                                        </svg> :
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 text-gray-400">
-                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                                                        </svg>
-                                                                    }
-                                                                </button>
+                                                                <ReactMarkdown remarkPlugins={[remarkGfm]} className={`markdown text-gray-700 max-w-4xl text-justify ${isAIMessage ? "px-3" : "px-6"}`}>
+                                                                    {messageWithoutSources}
+                                                                </ReactMarkdown>
                                                             </div>
-                                                            <div className='mt-2'>
-                                                                {message.rating === 0 && <>
-                                                                    <div className='gap-sm p-md pt-sm relative flex w-full flex-col rounded-md border border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50  dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-transparent h-50'>
-                                                                        <div className="absolute -top-4 mr-8 right-1 -translate-x-1/2">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="0.3" stroke="gray" className="size-6">
-                                                                                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-                                                                            </svg>
-                                                                        </div>
-                                                                        <span className='text-gray-500 text-left pl-2 pt-2'>What didn't you like about this response (optional)?</span>
-                                                                        <div className='flex'>
-                                                                            <input type="text" value={commentMessage[message.messageId] || message.reviewComments} onChange={(e) => handleComment(message.messageId, e)} id={`textInput_${index}`} className={`w-full h-8 resize-none  focus:outline-none bg-white mt-2 mb-2 ml-2 pl-2 pr-2 border border-[rgb(0,182,228)]-200 ${!comment_hrs ? '' : ''}`} autoComplete='off' placeholder='Type you message here...' disabled={comment_hrs ? true : false} />
-                                                                            {!comment_hrs &&
-                                                                                <button className="text-white px-2 mb-2 mt-2 mr-2  bg-[rgb(226,245,250)]" data-id={`comment_${message.messageId}`} onClick={() => openCommentBox(message.messageId)}>
-                                                                                    <svg width="18" height="25" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path d="M1.56322 4.8854C1.02122 5.1129 0.684804 5.5179 0.679721 6.09123C0.676221 6.49206 0.94672 7.03041 1.48872 7.25041C1.71197 7.34125 4.84655 7.76291 4.84655 7.76291C4.84655 7.76291 5.67622 10.3854 5.97522 11.3071C6.0618 11.5737 6.11114 11.7046 6.30114 11.8787C6.62347 12.1737 7.16839 12.0813 7.40405 11.8446C8.02755 11.2196 9.01305 10.2554 9.01305 10.2554L9.4278 10.5929C9.4278 10.5929 11.2696 12.0621 12.2763 12.7537C12.8691 13.1612 13.2805 13.5862 13.9476 13.5887C14.2875 13.5904 14.8326 13.4212 15.1929 13.0087C15.431 12.7362 15.5837 12.3004 15.6428 11.9096C15.7771 11.0221 17.3531 1.42541 17.3464 1.08957C17.3357 0.553738 16.885 0.252065 16.5103 0.255398C16.275 0.257898 16.0811 0.326241 15.6496 0.457908C12.3117 1.47708 1.7843 4.7929 1.56322 4.8854ZM14.0131 2.7554C14.0131 2.7554 9.61472 6.58374 7.85714 8.34541C7.29405 8.90958 7.2543 9.8779 7.2543 9.8779L6.34581 6.97123L14.0131 2.7554Z" fill="rgb(22,184,216)" />
-                                                                                    </svg>
+
+                                                            {isAIMessage && index !== 0 && (
+                                                                <div className={`relative ml-11 ${sources.length > 0 ? "mt-2" : ""} `}>
+                                                                    <div className="flex">
+                                                                        {sources.length > 0 &&
+                                                                            <>
+                                                                                <button
+                                                                                    className="px-2 py-4 bg-[rgb(250,226,237)] text-[rgb(216,22,113)] mr-2 hover:scale-105 rounded-lg h-6 text-sm flex items-center gap-1 "
+                                                                                    data-id={`thumbs_down_${message.messageId}`}
+                                                                                    onClick={(event) => elaborateMessage(message.messageId, event, detailMode)}
+                                                                                >
+                                                                                    {detailMode === false ?
+                                                                                        <><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`size-4`}>
+                                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+                                                                                        </svg>
+                                                                                            Elaborate</> :
+                                                                                        <><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`size-4`}>
+                                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181" />
+                                                                                        </svg>
+                                                                                            Summarize</>
+                                                                                    }
+
                                                                                 </button>
+                                                                                <button
+                                                                                    className="px-2 py-4 bg-[rgb(226,245,250)] text-[rgb(22,184,216)] mr-auto hover:scale-105 rounded-lg h-6 text-sm flex items-center gap-1 "
+                                                                                    data-id={`sources_${message.messageId}`}
+                                                                                    onClick={(event) => showSources(sources, event)}
+                                                                                >
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+                                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                                                                                    </svg>
+                                                                                    Sources
+                                                                                </button>
+                                                                            </>
+                                                                        }
+                                                                        <button className={`px-2 mr-2 hover:text-green-600 hover:scale-105 bg-gray-100 hover:shadow  ${message.rating === 5 ? "text-white" : "border-gray-300"} rounded-md h-6 text-sm flex items-center gap-1`} data-id={`thumbs_up_${message.messageId}`} onClick={() => updateRating(message.messageId, 5)} disabled={message.rating === 5 ? true : false}>
+                                                                            {/* <img src="/thumbsUp.svg" className="w-4" /> */}
+                                                                            {message.rating === 5 ? <img src="/thumbsDownColored.svg" className="w-4 scale-y-[-1] scale-x-[-1]" /> : <img src="/thumbsDownNonColored.svg" className="w-4 scale-y-[-1] scale-x-[-1]" />}
+                                                                        </button>
+
+                                                                        <button className={`px-2 mr-2 hover:scale-105 hover:shadow bg-gray-100 cursor-pointer ${message.rating === 0 ? "bg-[rgb(216,22,113)] text-[rgb(216,22,113)]" : "border-gray-300 text-black"} rounded-md h-6 text-sm flex items-center gap-1`} data-id={`thumbs_down_${message.messageId}`} onClick={() => updateRating(message.messageId, 0)} disabled={message.rating === 0 ? true : false}
+                                                                        >
+                                                                            {message.rating === 0 ? <img src="/thumbsDownColored.svg" className="w-4 " /> : <img src="/thumbsDownNonColored.svg" className="w-4" />}
+                                                                        </button>
+
+                                                                        <button className={`px-2 mr-2 hover:scale-105 hover:shadow bg-gray-100 cursor-pointer rounded-md h-6 text-sm flex items-center gap-1`} data-id={`copy_${message.messageId}`} onClick={(e) => copyContent(e, messageWithoutSources)} >
+                                                                            {!contentCopy ?
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                                                    strokeWidth="1.5" stroke="currentColor" className="w-4 text-gray-400">
+                                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5A3.375 3.375 0 0 0 6.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0 0 15 2.25h-1.5a2.251 2.251 0 0 0-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 0 0-9-9Z" />
+                                                                                </svg> :
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 text-gray-400">
+                                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                                                </svg>
                                                                             }
-                                                                        </div>
+                                                                        </button>
                                                                     </div>
-                                                                </>
-                                                                }
-                                                            </div>
+                                                                    <div className='mt-2'>
+                                                                        {message.rating === 0 && <>
+                                                                            <div className='gap-sm p-md pt-sm relative flex w-full flex-col rounded-md border border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50  dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-transparent h-50'>
+                                                                                <div className="absolute -top-4 mr-8 right-1 -translate-x-1/2">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="0.3" stroke="gray" className="size-6">
+                                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+                                                                                    </svg>
+                                                                                </div>
+                                                                                <span className='text-gray-500 text-left pl-2 pt-2'>What didn't you like about this response (optional)?</span>
+                                                                                <div className='flex'>
+                                                                                    <input type="text" value={commentMessage[message.messageId] || message.reviewComments} onChange={(e) => handleComment(message.messageId, e)} id={`textInput_${index}`} className={`w-full h-8 resize-none  focus:outline-none bg-white mt-2 mb-2 ml-2 pl-2 pr-2 border border-[rgb(0,182,228)]-200 ${!comment_hrs ? '' : ''}`} autoComplete='off' placeholder='Type you message here...' disabled={comment_hrs ? true : false} />
+                                                                                    {!comment_hrs &&
+                                                                                        <button className="text-white px-2 mb-2 mt-2 mr-2  bg-[rgb(226,245,250)]" data-id={`comment_${message.messageId}`} onClick={() => openCommentBox(message.messageId)}>
+                                                                                            <svg width="18" height="25" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                                <path d="M1.56322 4.8854C1.02122 5.1129 0.684804 5.5179 0.679721 6.09123C0.676221 6.49206 0.94672 7.03041 1.48872 7.25041C1.71197 7.34125 4.84655 7.76291 4.84655 7.76291C4.84655 7.76291 5.67622 10.3854 5.97522 11.3071C6.0618 11.5737 6.11114 11.7046 6.30114 11.8787C6.62347 12.1737 7.16839 12.0813 7.40405 11.8446C8.02755 11.2196 9.01305 10.2554 9.01305 10.2554L9.4278 10.5929C9.4278 10.5929 11.2696 12.0621 12.2763 12.7537C12.8691 13.1612 13.2805 13.5862 13.9476 13.5887C14.2875 13.5904 14.8326 13.4212 15.1929 13.0087C15.431 12.7362 15.5837 12.3004 15.6428 11.9096C15.7771 11.0221 17.3531 1.42541 17.3464 1.08957C17.3357 0.553738 16.885 0.252065 16.5103 0.255398C16.275 0.257898 16.0811 0.326241 15.6496 0.457908C12.3117 1.47708 1.7843 4.7929 1.56322 4.8854ZM14.0131 2.7554C14.0131 2.7554 9.61472 6.58374 7.85714 8.34541C7.29405 8.90958 7.2543 9.8779 7.2543 9.8779L6.34581 6.97123L14.0131 2.7554Z" fill="rgb(22,184,216)" />
+                                                                                            </svg>
+                                                                                        </button>
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            )}
                                                         </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                            {isAIMessage && index !== 0 && <hr className="border-gray-200 my-2 mx-8" />}
+                                                    </div>
+                                                    {isAIMessage && index !== 0 && <hr className="border-gray-200 my-2 mx-8" />}
+                                                </>
+                                            }
                                         </>
                                     );
                                 })}
