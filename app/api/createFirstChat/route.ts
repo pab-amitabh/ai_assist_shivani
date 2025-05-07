@@ -4,14 +4,15 @@ import prisma from "../../libs/prismadb"
 
 export async function POST(req: Request) {
 	const res = await req.json()
-	const { email } = res
-
+	const { email,mode } = res
 	const userChats = await prisma.user.findUnique({
-		where: {
-			email: email
-		},
+		where: { email },
 		include: {
-			chats: true,
+			chats: {
+				where: {
+					chatType: mode
+				}
+			}
 		}
 	})
 	if (!userChats || userChats.chats.length === 0) {
@@ -29,13 +30,10 @@ export async function POST(req: Request) {
                         messageType: "ANSWER",
                         isResolved: false
                     }
-                }
+                },
+                chatType: mode
 			}
 		})
-
-        
 	}
 	return NextResponse.json({})
-
-	
 }

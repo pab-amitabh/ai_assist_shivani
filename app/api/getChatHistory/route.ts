@@ -3,7 +3,7 @@ import prisma from '../../libs/prismadb'
 
 export async function POST(req:Request) {
 	const res = await req.json()
-	const { email } = res
+	const { email, mode } = res
 
 	let userChats = await prisma.user.findUnique({
 		where: {
@@ -12,7 +12,8 @@ export async function POST(req:Request) {
 		include: {
 			chats: {
                 where: {
-                    archieve: false 
+                    archieve: false,
+                    chatType: mode 
                 },
                 include: {
                     messages: true
