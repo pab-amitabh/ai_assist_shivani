@@ -19,7 +19,8 @@ const ConversationalAIPage = () => {
                 "jiten@policyadvisor.com",
                 "shivani@policyadvisor.com",
                 "heena@policyadvisor.com",
-                "pankaj@policyadvisor.com"
+                "pankaj@policyadvisor.com",
+                "hemin@policyadvisor.com"
             ]
         },
         {
@@ -31,7 +32,8 @@ const ConversationalAIPage = () => {
                 "jiten@policyadvisor.com",
                 "shivani@policyadvisor.com",
                 "heena@policyadvisor.com",
-                "pankaj@policyadvisor.com"
+                "pankaj@policyadvisor.com",
+                "hemin@policyadvisor.com"
             ]
         },
         {
@@ -43,7 +45,10 @@ const ConversationalAIPage = () => {
                 "jiten@policyadvisor.com",
                 "shivani@policyadvisor.com",
                 "heena@policyadvisor.com",
-                "pankaj@policyadvisor.com"
+                "pankaj@policyadvisor.com",
+                "hemin@policyadvisor.com",
+                "cole@policyadvisor.com",
+                "mirab@policyadvisor.com"
             ]
         }
     ];
