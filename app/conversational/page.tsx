@@ -35,7 +35,7 @@ const ConversationalAIPage = () => {
             ]
         },
         {
-            name: "Product Training (Group) AI",
+            name: "Product Training (Travel) AI",
             route: "/training",
             description: "Train using insurance scenarios",
             allowedEmails: [
