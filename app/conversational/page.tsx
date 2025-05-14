@@ -48,7 +48,7 @@ const ConversationalAIPage = () => {
                 "pankaj@policyadvisor.com",
                 "hemin@policyadvisor.com",
                 "cole@policyadvisor.com",
-                "mirab@policyadvisor.com"
+                "merab@policyadvisor.com"
             ]
         }
     ];

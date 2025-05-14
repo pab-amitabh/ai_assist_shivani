@@ -16,7 +16,7 @@ export default function ConvaiPage() {
     "pankaj@policyadvisor.com",
     "hemin@policyadvisor.com",
     "cole@policyadvisor.com",
-    "mirab@policyadvisor.com"
+    "merab@policyadvisor.com"
   ]
 
   useEffect(() => {
