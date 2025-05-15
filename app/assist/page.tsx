@@ -64,7 +64,7 @@ export default function CommandActivation() {
     const [sectionQuestion,setSectionQuestion]=useState<{[key:string]:string[]}>({
         'Life Insurance':[
             "What are the key differences between term life and whole life insurance?",
-            "How does a life insurance policy’s cash value work?",
+            "How does a life insurance policy's cash value work?",
             "What factors determine the premium rates for life insurance?",
             "Can a life insurance policy be transferred to another person?",
             "What happens if I outlive my term life insurance policy?",
@@ -104,16 +104,13 @@ export default function CommandActivation() {
         ]
     });
 
-    
-    
     const [finalSectionQuestions,setFinalSectionQuestions]=useState<string[]>([
             "What are the key differences between term life and whole life insurance?",
-            "How does a life insurance policy’s cash value work?",
+            "How does a life insurance policy's cash value work?",
             "What factors determine the premium rates for life insurance?",
             "Can a life insurance policy be transferred to another person?",
             "What happens if I outlive my term life insurance policy?",
             "Are life insurance benefits taxable for the beneficiaries?"]);
-    
     
     const [homepageButton,setHomepageButton]=useState<[string,string,string,string,string]>(['Life Insurance','Critical Insurance','Disability Insurance','Group Health','Mortgage Insurance']);
     const [loading, setLoading] = useState<boolean>(false);
@@ -784,7 +781,10 @@ export default function CommandActivation() {
                                                                     <img src="/PA ICON.png" className="icon rounded mt-4" />
                                                                     )}
                                                                     
-                                                                    <ReactMarkdown remarkPlugins={[remarkGfm]} className={`markdown text-gray-700 max-w-4xl text-justify ${isAIMessage ? "px-3" : "px-6"}`}>
+                                                                    <ReactMarkdown
+                                                                        remarkPlugins={[remarkGfm]}
+                                                                        className={`markdown chatbot-markdown text-gray-700 max-w-4xl text-justify ${isAIMessage ? "px-3" : "px-6"}`}
+                                                                    >
                                                                         {messageWithoutSources}
                                                                     </ReactMarkdown>
                                                                 </div>
