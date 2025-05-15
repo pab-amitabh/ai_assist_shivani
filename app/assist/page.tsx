@@ -13,6 +13,8 @@ import { stringify } from 'querystring';
 import SourceLink from '../components/SourceLink';
 import { title } from 'process';
 import { Lato } from 'next/font/google';
+import { marked } from 'marked';
+
 export default function CommandActivation() {
     const [isListening, setIsListening] = useState(false);
     const [message, setMessage] = useState(false);
@@ -50,17 +52,27 @@ export default function CommandActivation() {
     const { data : session, status } = useSession();
     const [input, setInput] = useState("");
     // const [currentChat, setCurrentChat] = useState<string[]>(["Hello, I am PolicyAdvisor AI Assitant. What can I help you with?"]);
-    const [currentChat, setCurrentChat] = useState<{ 
-        message: string;
-        sender: string;
-        messageType: string;
-        messageId: string;
-        rating: number;
-        reviewComments: string;
-        modelType: string; 
-        commentAddedAt?: Date | null;
-        createdAt?: Date | null;
-    }[]>([{ message: "Hello, I am PolicyAdvisor AI Assistant. What can I help you with?", sender: "AI", messageType: "ANSWER", messageId: "", rating: -1, reviewComments: "",modelType: modelType,commentAddedAt: null, createdAt: null}]);
+    const [currentChat, setCurrentChat] = useState<Array<{
+        message: string,
+        sender: string,
+        messageType: string,
+        messageId: string,
+        rating: number,
+        reviewComments: string,
+        modelType: string,
+        commentAddedAt?: Date | null,
+        createdAt?: Date | null
+    }>>([{
+        message: "Hello, I am PolicyAdvisor AI Assistant. What can I help you with?",
+        sender: "AI",
+        messageType: "ANSWER",
+        messageId: "",
+        rating: -1,
+        reviewComments: "",
+        modelType: modelType,
+        commentAddedAt: null,
+        createdAt: null
+    }]);
     const [sectionQuestion,setSectionQuestion]=useState<{[key:string]:string[]}>({
         'Life Insurance':[
             "What are the key differences between term life and whole life insurance?",
@@ -635,15 +647,45 @@ export default function CommandActivation() {
         setDetailMode((prev)=>isChecked);
     }
 
-    const copyContent = async(event:any,message:string) => {
+    const copyContent = async (event: any, message: string) => {
         try {
+            // Only for chatbot modelType
+            if (currentChat[currentChat.length - 1]?.modelType === 'chatbot') {
+                // Check if message contains a markdown table
+                if (/\|.*\|/.test(message) && /\n\|.*\|/.test(message)) {
+                    // Convert markdown to HTML
+                    let html = await marked.parse(message);
+
+                    // Add border styles to tables
+                    html = html.replace(
+                        /<table>/g,
+                        `<table style="border-collapse:collapse;width:100%;"><tbody>`
+                    ).replace(
+                        /<th>/g,
+                        `<th style="border:1px solid #888;padding:6px;background:#f2f6fa;">`
+                    ).replace(
+                        /<td>/g,
+                        `<td style="border:1px solid #888;padding:6px;">`
+                    );
+
+                    // Copy as HTML
+                    const blob = new Blob([html], { type: "text/html" });
+                    const data = [new ClipboardItem({ "text/html": blob })];
+                    await navigator.clipboard.write(data);
+
+                    setContentCopy(true);
+                    setTimeout(() => setContentCopy(false), 2000);
+                    return;
+                }
+            }
+            // Fallback: copy as plain text
             await navigator.clipboard.writeText(message);
-            setContentCopy(true)
+            setContentCopy(true);
             setTimeout(() => setContentCopy(false), 2000);
         } catch (err) {
             console.error("Failed to copy: ", err);
         }
-    }
+    };
 
     const scrollToBottom = () => {
         if (currentChatRef.current) {
