@@ -85,3 +85,27 @@ text-decoration: underline;
     0% { width: 0%; }
     100% { width: 100%; }
 }
+
+/* Add this to your global styles or a relevant CSS file */
+.chatbot-markdown table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 0.97em;
+}
+
+.chatbot-markdown th,
+.chatbot-markdown td {
+    /* border: 1px solid #513939; */
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.chatbot-markdown th {
+    background: #F3F4F6;
+    font-weight: bold;
+}
+
+.chatbot-markdown tr:nth-child(even) {
+    background: #F3F4F6;
+}
