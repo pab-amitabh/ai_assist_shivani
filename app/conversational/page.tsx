@@ -50,6 +50,19 @@ const ConversationalAIPage = () => {
                 "colep@policyadvisor.com",
                 "merab@policyadvisor.com"
             ]
+        },
+        {
+            name: "Group Training AI",
+            route: "/grouptraining",
+            description: "Group Training using insurance scenarios",
+            allowedEmails: [
+                "amitabh@policyadvisor.com",
+                "jiten@policyadvisor.com",
+                "shivani@policyadvisor.com",
+                "heena@policyadvisor.com",
+                "pankaj@policyadvisor.com",
+                "hemin@policyadvisor.com",
+            ]
         }
     ];
 
