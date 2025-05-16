@@ -87,8 +87,16 @@ text-decoration: underline;
 }
 
 /* Add this to your global styles or a relevant CSS file */
+/* .chatbot-markdown table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 0.97em;
+} */
+
 .chatbot-markdown table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
     margin: 1em 0;
     font-size: 0.97em;
@@ -96,7 +104,8 @@ text-decoration: underline;
 
 .chatbot-markdown th,
 .chatbot-markdown td {
-    /* border: 1px solid #513939; */
+    width: 50%; /* For two columns */
+    min-width: 120px;
     padding: 8px 12px;
     text-align: left;
 }

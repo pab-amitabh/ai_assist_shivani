@@ -827,7 +827,9 @@ export default function CommandActivation() {
                                                                         remarkPlugins={[remarkGfm]}
                                                                         className={`markdown chatbot-markdown text-gray-700 max-w-4xl text-justify ${isAIMessage ? "px-3" : "px-6"}`}
                                                                     >
-                                                                        {messageWithoutSources}
+                                                                        {convertInlinePipeTableToMarkdown(
+                                                                            convertBoxDrawingTableToMarkdown(messageWithoutSources)
+                                                                        )}
                                                                     </ReactMarkdown>
                                                                 </div>
 
@@ -984,5 +986,60 @@ export default function CommandActivation() {
             </div>
     )
 
+}
+
+// Utility: Convert inline pipe-separated pseudo-table to markdown table
+function convertInlinePipeTableToMarkdown(text: string): string {
+    // Only process if there are at least 4 pipes and not already a markdown table
+    const pipeCount = (text.match(/\|/g) || []).length;
+    if (pipeCount < 4 || /\n\|.*\|/.test(text)) return text;
+
+    // Split by | and trim
+    const cells = text.split('|').map(cell => cell.trim()).filter(Boolean);
+    // Try to guess number of columns (assume first row is header, fallback to 2)
+    let colCount = 2;
+    for (let n = 2; n <= 5; n++) {
+        if (cells.length % n === 0) { colCount = n; break; }
+    }
+    // Build markdown table
+    let md = '';
+    for (let i = 0; i < cells.length; i += colCount) {
+        md += '| ' + cells.slice(i, i + colCount).join(' | ') + ' |\n';
+        if (i === 0) {
+            md += '| ' + Array(colCount).fill('---').join(' | ') + ' |\n';
+        }
+    }
+    return md;
+}
+
+function convertBoxDrawingTableToMarkdown(text: string): string {
+    // Detect if it looks like a box-drawing table
+    if (!/[╔╦╩╚╣╠═║╬╤╧╨╞╡]/.test(text)) return text;
+
+    // Remove top/bottom borders and split into lines
+    const lines = text
+        .split('\n')
+        .filter(line => line.trim().startsWith('║') && line.includes('║'));
+
+    if (lines.length === 0) return text;
+
+    // Extract cell values
+    const rows = lines.map(line =>
+        line
+            .replace(/^[^║]*║/, '') // Remove leading border
+            .replace(/║[^║]*$/, '') // Remove trailing border
+            .split('║')
+            .map(cell => cell.trim())
+    );
+
+    // Build markdown table
+    let md = '';
+    rows.forEach((row, i) => {
+        md += '| ' + row.join(' | ') + ' |\n';
+        if (i === 0) {
+            md += '| ' + row.map(() => '---').join(' | ') + ' |\n';
+        }
+    });
+    return md;
 }
 
