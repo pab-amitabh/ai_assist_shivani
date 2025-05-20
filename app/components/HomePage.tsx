@@ -18,6 +18,7 @@ const HomePage = () => {
     const VALID_USERNAME = "PAB";
     const VALID_PASSWORD = "Policy@2018$Advisor";
 
+    
     useEffect(() => {
         const unlocked = localStorage.getItem("unlocked");
         if (unlocked === "true") {

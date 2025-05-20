@@ -9,12 +9,18 @@ export default function ConvaiPage() {
   const router = useRouter()
 
   const allowedEmails = [
-    "amitabh@policyadvisor.com",
-    "jiten@policyadvisor.com",
-    "shivani@policyadvisor.com",
-    "heena@policyadvisor.com",
-    "pankaj@policyadvisor.com",
-    "hemin@policyadvisor.com"
+    "amitabh.bhatia@gmail.com", "jitenpuri@gmail.com", "anushae.hassan@gmail.com",
+    "ulkeshak23@gmail.com", "heenabanka@gmail.com", "shivani.lpu71096@gmail.com",
+    "pollardryan525@gmail.com", "amitabh@policyadvisor.com", "jiten@policyadvisor.com",
+    "shivani@policyadvisor.com", "anushae@policyadvisor.com", "babita@policyadvisor.com",
+    "brandon@policyadvisor.com", "carly@policyadvisor.com", "colep@policyadvisor.com",
+    "diarmuid@policyadvisor.com", "harshmeet@policyadvisor.com", "heena@policyadvisor.com",
+    "hemin@policyadvisor.com", "jason@policyadvisor.com", "khaleel@policyadvisor.com",
+    "matthewc@policyadvisor.com", "merab@policyadvisor.com", "nikal@policyadvisor.com",
+    "parmeet@policyadvisor.com", "priyanka@policyadvisor.com", "reidc@policyadvisor.com",
+    "ripenjeet@policyadvisor.com", "ruchita@policyadvisor.com", "ryanp@policyadvisor.com",
+    "subir@policyadvisor.com", "ulkesha@policyadvisor.com", "vanessa@policyadvisor.com",
+    "visnu@policyadvisor.com", "pankaj@policyadvsior.com", "mayank@policyadvisor.com"
   ]
 
   useEffect(() => {
@@ -51,13 +57,13 @@ export default function ConvaiPage() {
   return (
     <div className="fixed inset-0 overflow-hidden">
       <img
-        src="/Training_final.png"
+        src="/group_training.png"
         alt="Background"
         className="w-full h-full object-cover object-top"
       />
       {/* Convai widget container */}
       <div className="absolute inset-0 z-10 flex items-center justify-center">
-        <elevenlabs-convai agent-id="R6zR7e4gUnXg9YYlurEG"/>
+        <elevenlabs-convai agent-id="agent_01jvd8q756frg9saprfc7rmm2d"/>
       </div>
     </div>
   )
