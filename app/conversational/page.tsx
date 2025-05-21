@@ -41,14 +41,18 @@ const ConversationalAIPage = () => {
             route: "/training",
             description: "Train using insurance scenarios",
             allowedEmails: [
-                "amitabh@policyadvisor.com",
-                "jiten@policyadvisor.com",
-                "shivani@policyadvisor.com",
-                "heena@policyadvisor.com",
-                "pankaj@policyadvisor.com",
-                "hemin@policyadvisor.com",
-                "colep@policyadvisor.com",
-                "merab@policyadvisor.com"
+            "amitabh.bhatia@gmail.com", "jitenpuri@gmail.com", "anushae.hassan@gmail.com",
+            "ulkeshak23@gmail.com", "heenabanka@gmail.com", "shivani.lpu71096@gmail.com",
+            "pollardryan525@gmail.com", "amitabh@policyadvisor.com", "jiten@policyadvisor.com",
+            "shivani@policyadvisor.com", "anushae@policyadvisor.com", "babita@policyadvisor.com",
+            "brandon@policyadvisor.com", "carly@policyadvisor.com", "colep@policyadvisor.com",
+            "diarmuid@policyadvisor.com", "harshmeet@policyadvisor.com", "heena@policyadvisor.com",
+            "hemin@policyadvisor.com", "jason@policyadvisor.com", "khaleel@policyadvisor.com",
+            "matthewc@policyadvisor.com", "merab@policyadvisor.com", "nikal@policyadvisor.com",
+            "parmeet@policyadvisor.com", "priyanka@policyadvisor.com", "reidc@policyadvisor.com",
+            "ripenjeet@policyadvisor.com", "ruchita@policyadvisor.com", "ryanp@policyadvisor.com",
+            "subir@policyadvisor.com", "ulkesha@policyadvisor.com", "vanessa@policyadvisor.com",
+            "visnu@policyadvisor.com", "pankaj@policyadvsior.com", "mayank@policyadvisor.com"
             ]
         },
         {
