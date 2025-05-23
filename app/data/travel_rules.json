@@ -1,0 +1,225 @@
+[
+    {
+       "company_name":"Destination Canada",
+       "product_name":"Visitors to Canada Plan",
+       "eligibility_rules":[
+          "Diagnosed with terminal illness",
+          "Diagnosed with or treated for pancreatic, liver, or metastatic cancer",
+          "Used or prescribed home oxygen therapy in < 12 months",
+          "Diagnosed with congestive heart failure (CHF)",
+          "Had major organ transplant (heart, kidney, liver, or lung)",
+          "Received kidney dialysis treatment in < 12 months",
+          "Diagnosed with unrepaired aneurysm ≥ 4 cm in length or diameter",
+          "Advised by physician not to travel",
+          "Age < 15 days at policy effective date",
+          "Requires help with ADLs (eating, bathing, dressing, mobility, toileting)",
+          "Aware of reason to seek medical attention during coverage",
+          "Covered under or eligible for Canadian Government Health Insurance Plan (GHIP)"
+       ]
+    },
+    {
+       "company_name":"Blue Cross",
+       "product_name":"Visitors to Canada Plan",
+       "eligibility_rules":[
+          "Must be: immigrant/permanent resident awaiting GHIP, foreign worker with valid permit, international student, returning Canadian citizen, or visitor",
+          "Age ≥ 31 days and ≤ 79 years at time of purchase",
+          "Advised by physician not to travel",
+          "Diagnosed with terminal illness",
+          "Diagnosed with kidney failure treated with dialysis",
+          "Diagnosed with or treated for metastatic cancer (any type)",
+          "Diagnosed with, treated for, or took medication for cancer (excluding basal cell carcinoma) in < 12 months",
+          "Diagnosed with heart failure or cardiomyopathy",
+          "Awaiting organ transplant (kidney, lung, liver, heart, bone marrow, or pancreas)",
+          "Used home oxygen or oral cortisone for pulmonary condition in < 24 months"
+       ]
+    },
+    {
+       "company_name":"21st Century",
+       "product_name":"Basic Plan",
+       "eligibility_rules":[
+          "Advised by physician not to travel",
+          "Diagnosed with terminal illness with life expectancy < 2 years",
+          "Diagnosed with or treated for pancreatic, lung, brain, or liver cancer in < 24 months",
+          "Diagnosed with metastatic cancer (spread to other organs)",
+          "Had or awaiting organ/bone marrow transplant (excluding corneal)",
+          "Diagnosed with congestive heart failure (ever)",
+          "Used or prescribed home oxygen in < 12 months",
+          "Requires kidney dialysis",
+          "Requires help with ADLs (eating, bathing, dressing, mobility, toileting)"
+       ]
+    },
+    {
+       "company_name":"21st Century",
+       "product_name":"Standard Plan",
+       "eligibility_rules":[
+          "Advised by physician not to travel",
+          "Diagnosed with terminal illness with life expectancy < 2 years",
+          "Diagnosed with or treated for pancreatic, lung, brain, or liver cancer in < 24 months",
+          "Diagnosed with metastatic cancer (spread to other organs)",
+          "Had or awaiting organ/bone marrow transplant (excluding corneal)",
+          "Diagnosed with congestive heart failure (ever)",
+          "Used or prescribed home oxygen in < 12 months",
+          "Requires kidney dialysis",
+          "Requires help with ADLs (eating, bathing, dressing, mobility, toileting)",
+          "Age ≥ 86 years"
+       ]
+    },
+    {
+       "company_name":"21st Century",
+       "product_name":"Enhanced Plan",
+       "eligibility_rules":[
+          "Advised by physician not to travel",
+          "Diagnosed with terminal illness with life expectancy < 2 years",
+          "Diagnosed/treated for pancreatic, lung, brain, or liver cancer in < 24 months",
+          "Diagnosed with metastatic cancer (spread to other organs)",
+          "Had or awaiting organ/bone marrow transplant (excluding corneal)",
+          "Diagnosed with congestive heart failure (ever)",
+          "Used or prescribed home oxygen in < 12 months",
+          "Requires kidney dialysis",
+          "Requires help with ADLs (eating, bathing, dressing, mobility, toileting)",
+          "Age ≥ 86 years",
+          "Insurer reserves right to decline any application",
+          "Age 55–85: new heart/lung condition or stroke/TIA/shortness of breath event in < 12 months (change in meds, treatment, specialist referral, or hospitalization)",
+          "Age 55–85: had heart bypass/valve surgery/angioplasty > 10 years ago",
+          "Age 55–85: diagnosed/treated for internal bleeding in < 12 months",
+          "Age 55–85: hospitalized for GI disease/disorder in < 12 months",
+          "Age 55–85: treated for new/recurrent cancer (excluding basal/squamous skin or hormone-only breast cancer) in < 12 months",
+          "Age 55–85: prescribed/taken prednisone for lung condition in < 12 months",
+          "Age 55–85: prescribed/taken nitroglycerin for angina (even as-needed) in < 12 months",
+          "Age 55–85: on medication for both diabetes + heart condition concurrently in < 12 months"
+       ]
+    },
+    {
+       "company_name":"MSH",
+       "product_name":"Visitors to Canada Plan",
+       "eligibility_rules":[
+          "Applicant must be: visitor, valid work/student visa holder, or Canadian citizen/immigrant without GHIP",
+          "Age ≥ 15 days and ≤ 90 years at policy effective date",
+          "Advised by physician not to travel",
+          "Diagnosed with terminal illness or congestive heart failure",
+          "Experiencing new/undiagnosed symptoms or aware of need for medical attention",
+          "Requires help with ADLs (eating, bathing, dressing, mobility, toileting)"
+       ]
+    },
+    {
+       "company_name":"Secure Travel",
+       "product_name":"Visitors to Canada Plan",
+       "eligibility_rules":[
+          "Applicant must be: visitor, valid work/student visa holder, or Canadian citizen/immigrant without GHIP",
+          "Age ≥ 15 days and < 90 years at policy effective date",
+          "Advised by physician not to travel",
+          "Diagnosed with terminal illness or life expectancy < 2 years",
+          "Experiencing new/undiagnosed symptoms or aware of need for medical attention",
+          "Requires help with ADLs (eating, bathing, dressing, mobility, toileting)",
+          "Diagnosed with or treated for pancreatic, liver, lung, brain, or metastasized cancer",
+          "Diagnosed/treated for kidney condition needing dialysis in past ≤ 24 months",
+          "Diagnosed/treated for bone marrow or organ transplant in past ≤ 24 months",
+          "Used home oxygen for medical condition in past ≤ 12 months"
+       ]
+    },
+    {
+       "company_name":"Travelance",
+       "product_name":"Essential & Premier Plan",
+       "eligibility_rules":[
+          "Age > 14 days and < 86 years for entire coverage duration",
+          "Age ≥ 70 and < 86 eligible for max $100,000 coverage only",
+          "Advised against travel by physician",
+          "Diagnosed with surgically untreated aneurysm",
+          "Diagnosed/treated for pancreatic, liver, or metastasized cancer",
+          "Diagnosed/treated for kidney condition needing dialysis",
+          "Diagnosed/treated for bone marrow or organ transplant",
+          "Diagnosed/treated for congestive heart failure",
+          "Diagnosed with terminal illness",
+          "Residing in nursing home, assisted living, hospice, rehab, or convalescent facility at time of purchase",
+          "Needs help with daily activities (eating, bathing, dressing, mobility, toileting) — except children < 12",
+          "Prescribed oral steroids or used home oxygen for lung condition in past ≤ 12 months",
+          "Diagnosed/treated for ≥ 2 of the following in past ≤ 12 months: coronary artery disease, valvular heart disease, heart arrhythmia, lung condition needing daily meds, insulin-dependent diabetes, stroke/TIA, aneurysm, blood clots, GI bleeding",
+          "Hospitalized in past ≤ 12 months for any condition listed above"
+       ]
+    },
+    {
+       "company_name":"TuGo",
+       "product_name":"Visitors to Canada Plan",
+       "eligibility_rules":[
+          "Aware of reason to seek medical attention during coverage period",
+          "Travelling against advice of physician or registered medical practitioner",
+          "Diagnosed with terminal condition",
+          "Requires help with ADLs (eating, bathing, dressing, mobility, toileting)",
+          "Diagnosed with COPD (e.g., emphysema) requiring home oxygen",
+          "Diagnosed with pancreatic, liver, or metastasized cancer, or required bone marrow transplant",
+          "Kidney disease requiring dialysis",
+          "Received or awaiting organ transplant",
+          "Diagnosed with congestive heart failure (pulmonary edema)"
+       ]
+    },
+    {
+       "company_name":"Manulife",
+       "product_name":"Plan A",
+       "eligibility_rules":[
+          "Travelling against advice of physician",
+          "Diagnosed with terminal illness (life expectancy < 2 years)",
+          "Kidney condition requiring dialysis",
+          "Used home oxygen therapy in past 12 months",
+          "Diagnosed with Alzheimer's or any form of dementia",
+          "Age < 30 days or > 85 years at time of application",
+          "Seeking $150,000 emergency medical coverage and age > 69",
+          "Residing in nursing home, home for aged, long-term care, or rehab centre",
+          "Requires help with ADLs (eating, bathing, dressing, mobility, toileting)"
+       ]
+    },
+    {
+       "company_name":"Manulife",
+       "product_name":"Plan B",
+       "eligibility_rules":[
+          "Travelling against advice of physician",
+          "Diagnosed with terminal illness (life expectancy < 2 years)",
+          "Kidney condition requiring dialysis",
+          "Used home oxygen therapy in past 12 months",
+          "Diagnosed with Alzheimer's or any form of dementia",
+          "Age < 30 days or > 85 years at time of application",
+          "Seeking $150,000 emergency medical coverage and age > 69",
+          "Residing in nursing home, home for aged, long-term care, or rehab centre",
+          "Requires help with ADLs (eating, bathing, dressing, mobility, toileting)",
+          "Age ≥ 40 and pre-existing condition not stable for ≥ 180 consecutive days",
+          "Age ≥ 40 and had heart bypass or valve surgery > 10 years ago",
+          "Age ≥ 40 and has both diabetes (requiring medication) + heart condition",
+          "Age ≥ 40 and received organ transplant at any time in past",
+          "Age ≥ 40 and prescribed Lasix or furosemide in past 2 years",
+          "Age ≥ 40 and diagnosed with or treated for CHF in past 2 years",
+          "Age ≥ 40 and treated with oxygen or prednisone for lung issue in past 2 years",
+          "Age ≥ 40 and diagnosed/treated for heart attack, stroke, TIA, mini-stroke, or internal bleeding in past 12 months",
+          "Age ≥ 40 and diagnosed with cancer or received chemo/radio/other cancer treatment in past 12 months",
+          "Age ≥ 40 and hospitalized ≥ 24 hours for GI disease/disorder in past 12 months"
+       ]
+    },
+    {
+       "company_name":"GMS",
+       "product_name":"Visitors to Canada Plan",
+       "eligibility_rules":[
+          "Known reason to seek medical treatment (except routine chronic care or visa exams)",
+          "Residing in Canada and declined comparable insurance by licensed Canadian insurer",
+          "Residing in Canada with medical treatment expenses > $5000 in past 12 months",
+          "Awaiting/undergoing treatment or diagnostic testing for heart disease",
+          "Taking heart medication + insulin for diabetes concurrently",
+          "Implanted cardioverter defibrillator (ICD)",
+          "≥ 2 unexplained fainting/falling episodes without diagnosis (syncope)",
+          "Requires home oxygen therapy for medical condition",
+          "Taking oral steroid medication for lung condition",
+          "Currently undergoing treatment for cancer or diagnosed with metastatic cancer",
+          "Diagnosed with unrepaired vascular aneurysm",
+          "History of heart valve replacement surgery",
+          "Undergone or currently receiving kidney (renal) dialysis",
+          "Received organ transplant at any time",
+          "Diagnosed/treated/medication modified for congestive heart failure in past 12 months",
+          "Diagnosed/treated/medication modified for atrial flutter in past 12 months",
+          "Diagnosed/treated/medication modified for atrial or ventricular fibrillation in past 12 months",
+          "Diagnosed/treated/medication modified for peripheral vascular disease in past 12 months",
+          "Diagnosed/treated/medication modified for stroke or TIA in past 12 months",
+          "Diagnosed/treated/medication modified for AIDS in past 12 months",
+          "Diagnosed/treated/medication modified for terminal illness in past 12 months",
+          "Diagnosed/treated/medication modified for blood clots in past 12 months",
+          "Diagnosed/treated/medication modified for gastrointestinal bleeding in past 12 months",
+          "Age ≥ 70 and ≤ 79 and requires help with ADLs (eating, bathing, dressing, mobility, toileting)"
+       ]
+    }
+ ]
