@@ -49,6 +49,18 @@ const EligibilityPage = () => {
                 "pankaj@policyadvisor.com",
                 "shivani@policyadvisor.com",
             ]
+        },
+        {
+            name: "Whole Life Quote Checker",
+            route: "/wholelifequote",
+            description: "Check quotes for whole life",
+            allowedEmails: [
+                "amitabh@policyadvisor.com",
+                "jiten@policyadvisor.com",
+                "heena@policyadvisor.com",
+                "pankaj@policyadvisor.com",
+                "shivani@policyadvisor.com",
+            ]
         }
     ];
 
@@ -63,7 +75,7 @@ const EligibilityPage = () => {
         <>
             <Header />
             <div className="p-10">
-                <h1 className="text-2xl font-semibold mb-6 text-gray-800">Eligibility Tools</h1>
+                <h1 className="text-2xl font-semibold mb-6 text-gray-800">Eligibility & Quote Checker Tools</h1>
                 {visibleTools.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {visibleTools.map((tool) => (

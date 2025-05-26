@@ -93,7 +93,7 @@ const HomePage = () => {
                 allowed: aiAssistAllowedEmails.includes(userEmail)
             },
             {
-                name: "Eligibility Checker",
+                name: "Eligibility & Quote Checker",
                 route: "/eligibility",
                 description: "Check insurance eligibility",
                 allowed: true
