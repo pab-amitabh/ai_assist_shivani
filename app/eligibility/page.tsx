@@ -18,7 +18,8 @@ const EligibilityPage = () => {
                 "heena@policyadvisor.com",
                 "pankaj@policyadvisor.com",
                 "shivani@policyadvisor.com",
-            ]
+            ],
+            allowedDomain: "@policyadvisor.com"
         },
         {
             name: "Simplified Life Checker",
@@ -48,7 +49,7 @@ const EligibilityPage = () => {
                 "heena@policyadvisor.com",
                 "pankaj@policyadvisor.com",
                 "shivani@policyadvisor.com",
-            ]
+            ],
         },
         {
             name: "Whole Life Quote Checker",
@@ -60,7 +61,8 @@ const EligibilityPage = () => {
                 "heena@policyadvisor.com",
                 "pankaj@policyadvisor.com",
                 "shivani@policyadvisor.com",
-            ]
+            ],
+            allowedDomain: "@policyadvisor.com"
         }
     ];
 
