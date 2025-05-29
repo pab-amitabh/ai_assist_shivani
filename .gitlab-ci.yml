@@ -4,5 +4,4 @@ stages:
 deploy_to_ec2:
   stage: deploy
   script:
-    - git pull origin main
-    - pm2 reload all
+    - ssh shivani@15.223.139.111 "cd /home/shivani/ai_assist && git pull origin main && pm2 reload all"
