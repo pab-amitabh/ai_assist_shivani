@@ -1,0 +1,8 @@
+stages:
+  - deploy
+
+deploy_to_ec2:
+  stage: deploy
+  script:
+    - git pull origin main
+    - pm2 reload all
