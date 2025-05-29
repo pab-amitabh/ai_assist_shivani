@@ -236,6 +236,9 @@ export default function Home() {
                     >
                         {loading ? 'Checking...' : 'Check Eligibility'}
                     </button>
+                    <div className="mt-4 text-center text-gray-500 text-sm">
+                        Insurance Eligibility Checker can make mistakes. Please check important info.
+                    </div>
                 </div>
 
                 {factors.length > 0 && (
