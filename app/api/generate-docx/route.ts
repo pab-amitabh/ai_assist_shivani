@@ -11,24 +11,40 @@ export async function POST(request: NextRequest) {
     const lines = content.split('\n');
     const children: Paragraph[] = [];
 
-    // Add logo and header information first (like the Flask app does)
+    // Add logo and header information first
     try {
-      const logoPath = path.join(process.cwd(), 'public', 'policyadvisorlogo.png');
-      if (fs.existsSync(logoPath)) {
-        const logoBuffer = fs.readFileSync(logoPath);
+      // Try to use the SVG logo first, fallback to PNG if available
+      const svgLogoPath = path.join(process.cwd(), 'public', 'policyadvisor-logo.svg');
+      const pngLogoPath = path.join(process.cwd(), 'public', 'policyadvisorlogo.png');
+      
+      let logoBuffer = null;
+      let logoType = '';
+      
+      if (fs.existsSync(svgLogoPath)) {
+        // For SVG, we need to convert or use PNG fallback
+        if (fs.existsSync(pngLogoPath)) {
+          logoBuffer = fs.readFileSync(pngLogoPath);
+          logoType = 'png';
+        }
+      } else if (fs.existsSync(pngLogoPath)) {
+        logoBuffer = fs.readFileSync(pngLogoPath);
+        logoType = 'png';
+      }
+      
+      if (logoBuffer) {
         children.push(new Paragraph({
           children: [
             new ImageRun({
               data: logoBuffer,
               transformation: {
-                width: 200,
-                height: 80,
+                width: 300,
+                height: 100,
               },
-              type: 'png',
+              type: logoType as any,
             }),
           ],
           alignment: AlignmentType.CENTER,
-          spacing: { after: 200 },
+          spacing: { after: 400 }, // Double spacing after logo
         }));
       }
     } catch {
@@ -37,12 +53,13 @@ export async function POST(request: NextRequest) {
         children: [
           new TextRun({
             text: "🏛️ policyadvisor.com",
-            size: 24,
+            size: 28, // 14pt = 28 half-points
             bold: true,
+            font: 'Garamond',
           }),
         ],
         alignment: AlignmentType.CENTER,
-        spacing: { after: 100 },
+        spacing: { after: 200 },
       }));
     }
 
@@ -50,11 +67,12 @@ export async function POST(request: NextRequest) {
       children: [
         new TextRun({
           text: "Simple, Quick, Online Insurance",
-          size: 18,
+          size: 22, // 11pt = 22 half-points
+          font: 'Garamond',
         }),
       ],
       alignment: AlignmentType.CENTER,
-      spacing: { after: 400 }, // Add more space after header
+      spacing: { after: 480 }, // Double spacing after header
     }));
 
     for (const line of lines) {
@@ -62,118 +80,154 @@ export async function POST(request: NextRequest) {
       if (!trimmedLine) {
         // Add empty paragraph for spacing
         children.push(new Paragraph({
-          children: [new TextRun({ text: "" })],
-          spacing: { after: 100 },
+          children: [new TextRun({ text: "", font: 'Garamond' })],
+          spacing: { after: 120 }, // Single spacing
         }));
         continue;
       }
 
-      // Handle different formatting based on content (matching Flask app logic)
+      // Handle different formatting based on content
       if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**')) {
         // Bold headers
         const header = trimmedLine.replace(/\*\*/g, '');
         if (header.includes('Explanation of Advantages and Disadvantages')) {
+          // Main title
           children.push(new Paragraph({
             children: [
               new TextRun({
                 text: header,
                 bold: true,
-                size: 32,
+                size: 28, // 14pt bold
+                font: 'Garamond',
               }),
             ],
             heading: HeadingLevel.HEADING_1,
             alignment: AlignmentType.CENTER,
-            spacing: { before: 200, after: 200 },
+            spacing: { before: 240, after: 240 }, // Double spacing
           }));
-        } else if (!header.startsWith('Section ') && !['Header Section:', 'Opening:'].includes(header)) {
-          // Make subheadings bold and underlined (like Flask app) - LARGER font
+        } else if (
+          header.includes('Summary of policy replacement') ||
+          header.includes('Why doesn\'t the existing policy meet your needs?') ||
+          header.includes('How does the new policy meet your needs?') ||
+          header.includes('What are the risks associated with the proposed replacement?') ||
+          header.includes('More Information')
+        ) {
+          // Subheadings - 14pt bold
           children.push(new Paragraph({
             children: [
               new TextRun({
                 text: header,
                 bold: true,
-                underline: {
-                  type: UnderlineType.SINGLE,
-                },
-                size: 32, // Much larger for subheadings
+                size: 28, // 14pt = 28 half-points
+                font: 'Garamond',
               }),
             ],
-            spacing: { before: 300, after: 150 }, // More spacing around headers
+            spacing: { before: 480, after: 240 }, // Double spacing before, single after
           }));
         }
-        // Skip Section headers like Flask app does
+        // Skip other section headers
       } else if (trimmedLine.startsWith('Client Name:') || trimmedLine.startsWith('Existing Insurance') || trimmedLine.startsWith('Company Issuing')) {
-        // Header info lines - make them bold
+        // Header info lines - make them bold, 11pt
         children.push(new Paragraph({
           children: [
             new TextRun({
               text: trimmedLine,
               bold: true,
-              size: 26, // Slightly larger for client info
+              size: 22, // 11pt = 22 half-points
+              font: 'Garamond',
             }),
           ],
-          spacing: { after: 150 },
+          spacing: { after: 120 }, // Single spacing
         }));
       } else if (trimmedLine.startsWith('Dear ')) {
-        // Greeting - add space before (like Flask app)
+        // Greeting - add double space before
         children.push(new Paragraph({
-          children: [new TextRun({ text: "" })],
-          spacing: { after: 100 },
+          children: [new TextRun({ text: "", font: 'Garamond' })],
+          spacing: { after: 240 }, // Double spacing
         }));
         children.push(new Paragraph({
           children: [
             new TextRun({
               text: trimmedLine,
-              size: 22, // Regular body text size
+              size: 22, // 11pt body text
+              font: 'Garamond',
             }),
           ],
-          spacing: { after: 200 },
+          spacing: { after: 240 }, // Double spacing after greeting
         }));
       } else if (trimmedLine.match(/^\d+\./) || trimmedLine.startsWith('•') || trimmedLine.startsWith('- ')) {
-        // List items - use bullet style like Flask app
+        // List items - 11pt
         children.push(new Paragraph({
           children: [
             new TextRun({
               text: trimmedLine,
-              size: 22, // Regular body text size
+              size: 22, // 11pt body text
+              font: 'Garamond',
             }),
           ],
           bullet: {
             level: 0,
           },
-          spacing: { after: 120 },
+          spacing: { after: 120 }, // Single spacing
         }));
       } else if (trimmedLine.startsWith('_____')) {
-        // Signature line - add space before like Flask app
+        // Signature line - add double space before
         children.push(new Paragraph({
-          children: [new TextRun({ text: "" })],
-          spacing: { after: 100 },
+          children: [new TextRun({ text: "", font: 'Garamond' })],
+          spacing: { after: 240 }, // Double spacing
         }));
         children.push(new Paragraph({
           children: [
             new TextRun({
               text: trimmedLine,
-              size: 22, // Regular body text size
+              size: 22, // 11pt body text
+              font: 'Garamond',
             }),
           ],
-          spacing: { after: 200 },
+          spacing: { after: 240 }, // Double spacing after signature section
+        }));
+      } else if (trimmedLine.includes('________________________________________________________________________________________')) {
+        // Separator line - add double spacing before and after
+        children.push(new Paragraph({
+          children: [new TextRun({ text: "", font: 'Garamond' })],
+          spacing: { after: 240 }, // Double spacing before
+        }));
+        children.push(new Paragraph({
+          children: [
+            new TextRun({
+              text: trimmedLine,
+              size: 22, // 11pt body text
+              font: 'Garamond',
+            }),
+          ],
+          spacing: { after: 240 }, // Double spacing after
         }));
       } else {
-        // Regular paragraph - SMALLER font for body text
+        // Regular paragraph - 11pt body text
         children.push(new Paragraph({
           children: [
             new TextRun({
               text: trimmedLine,
-              size: 22, // Smaller body text
+              size: 22, // 11pt = 22 half-points
+              font: 'Garamond',
             }),
           ],
-          spacing: { after: 180 }, // Good spacing between paragraphs
+          spacing: { after: 120 }, // Single spacing between paragraphs
         }));
       }
     }
 
-    // Create a new document with single section (fixing page numbering)
+    // Create a new document with single section and Garamond font
     const doc = new Document({
+      styles: {
+        default: {
+          document: {
+            run: {
+              font: 'Garamond',
+            },
+          },
+        },
+      },
       sections: [{
         properties: {},
         children: children,

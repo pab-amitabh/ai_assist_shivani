@@ -87,32 +87,42 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ content, formData, onCo
         const trimmedLine = line.trim();
         if (!trimmedLine) return '<div style="margin: 10px 0;"><br></div>';
         
-        // Format headers with proper hierarchy - using relative sizes
+        // Format headers with proper hierarchy - using Garamond font and correct sizes
         if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**')) {
           const header = trimmedLine.replace(/\*\*/g, '');
           if (header.includes('Explanation of Advantages and Disadvantages')) {
-            return `<h1 style="text-align: center; font-weight: bold; font-size: 1.8em; margin: 25px 0; color: #1a1a1a;">${header}</h1>`;
-          } else if (!header.startsWith('Section ') && !['Header Section:', 'Opening:'].includes(header)) {
-            return `<h2 style="font-weight: bold; text-decoration: underline; font-size: 1.4em; margin: 20px 0 12px 0; color: #2c2c2c;">${header}</h2>`;
+            return `<h1 style="text-align: center; font-weight: bold; font-size: 14pt; margin: 24px 0; color: #1a1a1a; font-family: Garamond, serif;">${header}</h1>`;
+          } else if (
+            header.includes('Summary of policy replacement') ||
+            header.includes('Why doesn\'t the existing policy meet your needs?') ||
+            header.includes('How does the new policy meet your needs?') ||
+            header.includes('What are the risks associated with the proposed replacement?') ||
+            header.includes('More Information')
+          ) {
+            // Subheadings - 14pt bold
+            return `<h2 style="font-weight: bold; font-size: 14pt; margin: 24px 0 12px 0; color: #2c2c2c; font-family: Garamond, serif;">${header}</h2>`;
           }
         }
-        // Format client info headers
+        // Format client info headers - 11pt bold
         else if (trimmedLine.startsWith('Client Name:') || trimmedLine.startsWith('Existing Insurance') || trimmedLine.startsWith('Company Issuing')) {
-          return `<div style="font-weight: bold; margin: 15px 0; color: #1a1a1a; font-size: 1.1em;">${trimmedLine}</div>`;
+          return `<div style="font-weight: bold; margin: 12px 0; color: #1a1a1a; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
         }
-        // Format lists with proper indentation
+        // Format lists - 11pt
         else if (trimmedLine.match(/^\d+\./) || trimmedLine.startsWith('•') || trimmedLine.startsWith('- ')) {
-          return `<div style="margin-left: 25px; margin: 8px 0 8px 25px; line-height: 1.6; font-size: 1em;">${trimmedLine}</div>`;
+          return `<div style="margin-left: 25px; margin: 6px 0 6px 25px; line-height: 1.4; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
         }
-        // Format signature lines
+        // Format signature lines - 11pt
         else if (trimmedLine.startsWith('_____')) {
-          return `<div style="margin: 25px 0; font-size: 1em;">${trimmedLine}</div>`;
+          return `<div style="margin: 24px 0; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
         }
-        // Regular paragraphs with better typography
+        // Separator line
+        else if (trimmedLine.includes('________________________________________________________________________________________')) {
+          return `<div style="margin: 24px 0; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
+        }
+        // Regular paragraphs - 11pt body text
         else {
-          return `<div style="margin: 15px 0; line-height: 1.7; text-align: justify; font-size: 1em;">${trimmedLine}</div>`;
+          return `<div style="margin: 12px 0; line-height: 1.4; text-align: justify; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
         }
-        return `<div style="margin: 10px 0; line-height: 1.6; font-size: 1em;">${trimmedLine}</div>`;
       })
       .join('');
   };

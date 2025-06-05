@@ -103,51 +103,66 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ content, formData, on
         const trimmedLine = line.trim();
         if (!trimmedLine) return <div key={index} className="h-4" />;
         
-        // Format headers with proper hierarchy
+        // Format headers with proper hierarchy - using Garamond font and correct sizes
         if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**')) {
           const header = trimmedLine.replace(/\*\*/g, '');
           if (header.includes('Explanation of Advantages and Disadvantages')) {
             return (
-              <h1 key={index} className="text-2xl font-bold text-center mb-8 mt-8 text-gray-900">
+              <h1 key={index} className="text-center mb-8 mt-8 text-gray-900" style={{ fontFamily: 'Garamond, serif', fontSize: '14pt', fontWeight: 'bold' }}>
                 {header}
               </h1>
             );
-          } else if (!header.startsWith('Section ') && !['Header Section:', 'Opening:'].includes(header)) {
+          } else if (
+            header.includes('Summary of policy replacement') ||
+            header.includes('Why doesn\'t the existing policy meet your needs?') ||
+            header.includes('How does the new policy meet your needs?') ||
+            header.includes('What are the risks associated with the proposed replacement?') ||
+            header.includes('More Information')
+          ) {
+            // Subheadings - 14pt bold
             return (
-              <h2 key={index} className="text-xl font-bold underline mb-6 mt-8 text-gray-800">
+              <h2 key={index} className="mb-6 mt-8 text-gray-800" style={{ fontFamily: 'Garamond, serif', fontSize: '14pt', fontWeight: 'bold' }}>
                 {header}
               </h2>
             );
           }
         }
-        // Format client info headers
+        // Format client info headers - 11pt bold
         else if (trimmedLine.startsWith('Client Name:') || trimmedLine.startsWith('Existing Insurance') || trimmedLine.startsWith('Company Issuing')) {
           return (
-            <div key={index} className="font-bold mb-3 text-gray-900 text-base">
+            <div key={index} className="mb-3 text-gray-900" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', fontWeight: 'bold' }}>
               {trimmedLine}
             </div>
           );
         }
-        // Format lists with proper indentation and styling
+        // Format lists - 11pt
         else if (trimmedLine.match(/^\d+\./) || trimmedLine.startsWith('•') || trimmedLine.startsWith('- ')) {
           return (
-            <div key={index} className="ml-8 mb-3 text-gray-700 leading-relaxed">
+            <div key={index} className="ml-8 mb-3 text-gray-700" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', lineHeight: '1.4' }}>
               {trimmedLine}
             </div>
           );
         }
-        // Format signature lines
+        // Format signature lines - 11pt
         else if (trimmedLine.startsWith('_____')) {
           return (
-            <div key={index} className="my-8 text-gray-700">
+            <div key={index} className="my-8 text-gray-700" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt' }}>
               {trimmedLine}
             </div>
           );
         }
-        // Regular paragraphs with better typography
+        // Separator line - 11pt
+        else if (trimmedLine.includes('________________________________________________________________________________________')) {
+          return (
+            <div key={index} className="my-8 text-gray-700" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt' }}>
+              {trimmedLine}
+            </div>
+          );
+        }
+        // Regular paragraphs - 11pt body text
         else {
           return (
-            <p key={index} className="mb-5 leading-relaxed text-gray-700 text-justify">
+            <p key={index} className="mb-5 text-gray-700 text-justify" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', lineHeight: '1.4' }}>
               {trimmedLine}
             </p>
           );
