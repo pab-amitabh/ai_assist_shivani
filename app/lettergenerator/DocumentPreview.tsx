@@ -101,14 +101,14 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ content, formData, on
       .split('\n')
       .map((line, index) => {
         const trimmedLine = line.trim();
-        if (!trimmedLine) return <div key={index} className="h-4" />;
+        if (!trimmedLine) return <div key={index} className="h-1" />;
         
         // Format headers with proper hierarchy - using Garamond font and correct sizes
         if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**')) {
           const header = trimmedLine.replace(/\*\*/g, '');
           if (header.includes('Explanation of Advantages and Disadvantages')) {
             return (
-              <h1 key={index} className="text-center mb-8 mt-8 text-gray-900" style={{ fontFamily: 'Garamond, serif', fontSize: '14pt', fontWeight: 'bold' }}>
+              <h1 key={index} className="text-center mb-4 mt-4 text-gray-900" style={{ fontFamily: 'Garamond, serif', fontSize: '14pt', fontWeight: 'bold' }}>
                 {header}
               </h1>
             );
@@ -119,26 +119,26 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ content, formData, on
             header.includes('What are the risks associated with the proposed replacement?') ||
             header.includes('More Information')
           ) {
-            // Subheadings - 14pt bold
+            // Subheadings - 14pt bold with appropriate spacing
             return (
-              <h2 key={index} className="mb-6 mt-8 text-gray-800" style={{ fontFamily: 'Garamond, serif', fontSize: '14pt', fontWeight: 'bold' }}>
+              <h2 key={index} className="mb-2 mt-4 text-gray-800" style={{ fontFamily: 'Garamond, serif', fontSize: '14pt', fontWeight: 'bold' }}>
                 {header}
               </h2>
             );
           }
         }
-        // Format client info headers - 11pt bold
+        // Format client info headers - 11pt bold with tight spacing
         else if (trimmedLine.startsWith('Client Name:') || trimmedLine.startsWith('Existing Insurance') || trimmedLine.startsWith('Company Issuing')) {
           return (
-            <div key={index} className="mb-3 text-gray-900" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', fontWeight: 'bold' }}>
+            <div key={index} className="mb-1 text-gray-900" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', fontWeight: 'bold' }}>
               {trimmedLine}
             </div>
           );
         }
-        // Format lists - 11pt
+        // Format lists - 11pt with tight spacing
         else if (trimmedLine.match(/^\d+\./) || trimmedLine.startsWith('•') || trimmedLine.startsWith('- ')) {
           return (
-            <div key={index} className="ml-8 mb-3 text-gray-700" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', lineHeight: '1.4' }}>
+            <div key={index} className="ml-8 mb-1 text-gray-700" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', lineHeight: '1.2' }}>
               {trimmedLine}
             </div>
           );
@@ -146,7 +146,7 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ content, formData, on
         // Format signature lines - 11pt
         else if (trimmedLine.startsWith('_____')) {
           return (
-            <div key={index} className="my-8 text-gray-700" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt' }}>
+            <div key={index} className="my-2 text-gray-700" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt' }}>
               {trimmedLine}
             </div>
           );
@@ -154,15 +154,15 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ content, formData, on
         // Separator line - 11pt
         else if (trimmedLine.includes('________________________________________________________________________________________')) {
           return (
-            <div key={index} className="my-8 text-gray-700" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt' }}>
+            <div key={index} className="my-3 text-gray-700" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt' }}>
               {trimmedLine}
             </div>
           );
         }
-        // Regular paragraphs - 11pt body text
+        // Regular paragraphs - 11pt body text with tight spacing (0.5)
         else {
           return (
-            <p key={index} className="mb-5 text-gray-700 text-justify" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', lineHeight: '1.4' }}>
+            <p key={index} className="mb-1 text-gray-700 text-justify" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', lineHeight: '1.2' }}>
               {trimmedLine}
             </p>
           );

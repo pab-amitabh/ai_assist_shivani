@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Document, Packer, Paragraph, TextRun, AlignmentType, HeadingLevel, UnderlineType, ImageRun } from 'docx';
+import { Document, Packer, Paragraph, TextRun, AlignmentType, HeadingLevel, Header, ImageRun } from 'docx';
 import fs from 'fs';
 import path from 'path';
 
@@ -7,89 +7,62 @@ export async function POST(request: NextRequest) {
   try {
     const { content, formData } = await request.json();
     
+    console.log('DOCX Generation - Creating document with uniform spacing...');
+    
     // Process content line by line
     const lines = content.split('\n');
     const children: Paragraph[] = [];
 
-    // Add logo and header information first
+    // Standard spacing for everything (0.5 spacing = 30 half-points)
+    const standardSpacing = 30;
+
+    // Create header with logo (matching template structure)
+    let headerParagraphs: Paragraph[] = [];
     try {
-      // Try to use the SVG logo first, fallback to PNG if available
-      const svgLogoPath = path.join(process.cwd(), 'public', 'policyadvisor-logo.svg');
       const pngLogoPath = path.join(process.cwd(), 'public', 'policyadvisorlogo.png');
       
-      let logoBuffer = null;
-      let logoType = '';
-      
-      if (fs.existsSync(svgLogoPath)) {
-        // For SVG, we need to convert or use PNG fallback
-        if (fs.existsSync(pngLogoPath)) {
-          logoBuffer = fs.readFileSync(pngLogoPath);
-          logoType = 'png';
-        }
-      } else if (fs.existsSync(pngLogoPath)) {
-        logoBuffer = fs.readFileSync(pngLogoPath);
-        logoType = 'png';
-      }
-      
-      if (logoBuffer) {
-        children.push(new Paragraph({
+      if (fs.existsSync(pngLogoPath)) {
+        const logoBuffer = fs.readFileSync(pngLogoPath);
+        headerParagraphs.push(new Paragraph({
           children: [
             new ImageRun({
               data: logoBuffer,
               transformation: {
-                width: 300,
-                height: 100,
+                // Correct dimensions: 1.3cm height = 37 points, 6.95cm width = 197 points
+                width: 197,  // 6.95cm in points (28.35 points per cm)
+                height: 37,  // 1.3cm in points (28.35 points per cm)
               },
-              type: logoType as any,
+              type: 'png',
             }),
           ],
           alignment: AlignmentType.CENTER,
-          spacing: { after: 400 }, // Double spacing after logo
         }));
       }
-    } catch {
-      console.log('Logo not found, adding text header instead');
-      children.push(new Paragraph({
-        children: [
-          new TextRun({
-            text: "🏛️ policyadvisor.com",
-            size: 28, // 14pt = 28 half-points
-            bold: true,
-            font: 'Garamond',
-          }),
-        ],
-        alignment: AlignmentType.CENTER,
-        spacing: { after: 200 },
-      }));
+    } catch (error) {
+      console.log('Logo not found for header');
     }
 
-    children.push(new Paragraph({
-      children: [
-        new TextRun({
-          text: "Simple, Quick, Online Insurance",
-          size: 22, // 11pt = 22 half-points
-          font: 'Garamond',
-        }),
-      ],
-      alignment: AlignmentType.CENTER,
-      spacing: { after: 480 }, // Double spacing after header
-    }));
-
-    for (const line of lines) {
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
       const trimmedLine = line.trim();
+      
       if (!trimmedLine) {
-        // Add empty paragraph for spacing
+        // Empty lines with standard spacing
         children.push(new Paragraph({
           children: [new TextRun({ text: "", font: 'Garamond' })],
-          spacing: { after: 120 }, // Single spacing
+          spacing: { after: standardSpacing },
         }));
         continue;
       }
+
+      console.log(`Processing line ${i}: "${trimmedLine.substring(0, 50)}..."`);
 
       // Handle different formatting based on content
       if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**')) {
         // Bold headers
         const header = trimmedLine.replace(/\*\*/g, '');
+        console.log(`Found header: "${header}"`);
+        
         if (header.includes('Explanation of Advantages and Disadvantages')) {
           // Main title
           children.push(new Paragraph({
@@ -103,7 +76,7 @@ export async function POST(request: NextRequest) {
             ],
             heading: HeadingLevel.HEADING_1,
             alignment: AlignmentType.CENTER,
-            spacing: { before: 240, after: 240 }, // Double spacing
+            spacing: { before: 120, after: standardSpacing }, // Same spacing as body
           }));
         } else if (
           header.includes('Summary of policy replacement') ||
@@ -112,7 +85,8 @@ export async function POST(request: NextRequest) {
           header.includes('What are the risks associated with the proposed replacement?') ||
           header.includes('More Information')
         ) {
-          // Subheadings - 14pt bold
+          // Subheadings - 14pt bold with SAME spacing as body text
+          console.log(`Found subheading: "${header}"`);
           children.push(new Paragraph({
             children: [
               new TextRun({
@@ -122,11 +96,11 @@ export async function POST(request: NextRequest) {
                 font: 'Garamond',
               }),
             ],
-            spacing: { before: 480, after: 240 }, // Double spacing before, single after
+            spacing: { before: standardSpacing, after: standardSpacing }, // Same as body spacing
           }));
         }
         // Skip other section headers
-      } else if (trimmedLine.startsWith('Client Name:') || trimmedLine.startsWith('Existing Insurance') || trimmedLine.startsWith('Company Issuing')) {
+      } else if (trimmedLine.startsWith('Client Name:') || trimmedLine.startsWith('Existing Insurance') || trimmedLine.startsWith('Company Issuing') || trimmedLine.startsWith('Current Policy Number:')) {
         // Header info lines - make them bold, 11pt
         children.push(new Paragraph({
           children: [
@@ -137,14 +111,10 @@ export async function POST(request: NextRequest) {
               font: 'Garamond',
             }),
           ],
-          spacing: { after: 120 }, // Single spacing
+          spacing: { after: standardSpacing },
         }));
       } else if (trimmedLine.startsWith('Dear ')) {
-        // Greeting - add double space before
-        children.push(new Paragraph({
-          children: [new TextRun({ text: "", font: 'Garamond' })],
-          spacing: { after: 240 }, // Double spacing
-        }));
+        // Greeting - standard spacing
         children.push(new Paragraph({
           children: [
             new TextRun({
@@ -153,14 +123,15 @@ export async function POST(request: NextRequest) {
               font: 'Garamond',
             }),
           ],
-          spacing: { after: 240 }, // Double spacing after greeting
+          spacing: { after: standardSpacing },
         }));
       } else if (trimmedLine.match(/^\d+\./) || trimmedLine.startsWith('•') || trimmedLine.startsWith('- ')) {
-        // List items - 11pt
+        // List items - 11pt with standard spacing
+        const listText = trimmedLine.replace(/^[\d\.\-•\s]+/, '').trim(); // Remove leading bullets/numbers and spaces
         children.push(new Paragraph({
           children: [
             new TextRun({
-              text: trimmedLine,
+              text: listText,
               size: 22, // 11pt body text
               font: 'Garamond',
             }),
@@ -168,30 +139,25 @@ export async function POST(request: NextRequest) {
           bullet: {
             level: 0,
           },
-          spacing: { after: 120 }, // Single spacing
+          spacing: { after: standardSpacing },
         }));
-      } else if (trimmedLine.startsWith('_____')) {
-        // Signature line - add double space before
-        children.push(new Paragraph({
-          children: [new TextRun({ text: "", font: 'Garamond' })],
-          spacing: { after: 240 }, // Double spacing
-        }));
+      } else if (trimmedLine.startsWith('_____') || trimmedLine === '__________________________') {
+        // Signature line - exactly 26 underscores with standard spacing
         children.push(new Paragraph({
           children: [
             new TextRun({
-              text: trimmedLine,
+              text: '__________________________',  // Exactly 26 underscores
               size: 22, // 11pt body text
               font: 'Garamond',
             }),
           ],
-          spacing: { after: 240 }, // Double spacing after signature section
+          spacing: { after: standardSpacing },
         }));
       } else if (trimmedLine.includes('________________________________________________________________________________________')) {
-        // Separator line - add double spacing before and after
-        children.push(new Paragraph({
-          children: [new TextRun({ text: "", font: 'Garamond' })],
-          spacing: { after: 240 }, // Double spacing before
-        }));
+        // Skip separator lines - we only want one set of dashes from signature lines above
+        continue;
+      } else if (trimmedLine.includes('I understand the explanation provided')) {
+        // Signature acknowledgment
         children.push(new Paragraph({
           children: [
             new TextRun({
@@ -200,10 +166,46 @@ export async function POST(request: NextRequest) {
               font: 'Garamond',
             }),
           ],
-          spacing: { after: 240 }, // Double spacing after
+          spacing: { after: standardSpacing },
+        }));
+      } else if (trimmedLine === formData.client_name || (formData.spouse_name && trimmedLine === formData.spouse_name)) {
+        // Client signature names
+        children.push(new Paragraph({
+          children: [
+            new TextRun({
+              text: trimmedLine,
+              size: 22, // 11pt body text
+              font: 'Garamond',
+            }),
+          ],
+          spacing: { after: standardSpacing },
+        }));
+      } else if (trimmedLine.startsWith('Date:') || trimmedLine === 'Date:') {
+        // Date line
+        children.push(new Paragraph({
+          children: [
+            new TextRun({
+              text: trimmedLine,
+              size: 22, // 11pt body text
+              font: 'Garamond',
+            }),
+          ],
+          spacing: { after: standardSpacing },
+        }));
+      } else if (trimmedLine === formData.agent_name || trimmedLine === 'Advisor') {
+        // Agent name or title
+        children.push(new Paragraph({
+          children: [
+            new TextRun({
+              text: trimmedLine,
+              size: 22, // 11pt body text
+              font: 'Garamond',
+            }),
+          ],
+          spacing: { after: standardSpacing },
         }));
       } else {
-        // Regular paragraph - 11pt body text
+        // Regular paragraph - 11pt body text with standard spacing
         children.push(new Paragraph({
           children: [
             new TextRun({
@@ -212,12 +214,14 @@ export async function POST(request: NextRequest) {
               font: 'Garamond',
             }),
           ],
-          spacing: { after: 120 }, // Single spacing between paragraphs
+          spacing: { after: standardSpacing },
         }));
       }
     }
 
-    // Create a new document with single section and Garamond font
+    console.log(`Generated ${children.length} paragraphs for DOCX`);
+
+    // Create a new document with header and uniform spacing
     const doc = new Document({
       styles: {
         default: {
@@ -230,6 +234,11 @@ export async function POST(request: NextRequest) {
       },
       sections: [{
         properties: {},
+        headers: {
+          default: new Header({
+            children: headerParagraphs,
+          }),
+        },
         children: children,
       }],
     });

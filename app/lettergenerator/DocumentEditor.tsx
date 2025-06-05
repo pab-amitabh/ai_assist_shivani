@@ -85,13 +85,13 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ content, formData, onCo
       .split('\n')
       .map((line) => {
         const trimmedLine = line.trim();
-        if (!trimmedLine) return '<div style="margin: 10px 0;"><br></div>';
+        if (!trimmedLine) return '<div style="margin: 3px 0;"><br></div>';
         
         // Format headers with proper hierarchy - using Garamond font and correct sizes
         if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**')) {
           const header = trimmedLine.replace(/\*\*/g, '');
           if (header.includes('Explanation of Advantages and Disadvantages')) {
-            return `<h1 style="text-align: center; font-weight: bold; font-size: 14pt; margin: 24px 0; color: #1a1a1a; font-family: Garamond, serif;">${header}</h1>`;
+            return `<h1 style="text-align: center; font-weight: bold; font-size: 14pt; margin: 18px 0; color: #1a1a1a; font-family: Garamond, serif;">${header}</h1>`;
           } else if (
             header.includes('Summary of policy replacement') ||
             header.includes('Why doesn\'t the existing policy meet your needs?') ||
@@ -99,29 +99,29 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ content, formData, onCo
             header.includes('What are the risks associated with the proposed replacement?') ||
             header.includes('More Information')
           ) {
-            // Subheadings - 14pt bold
-            return `<h2 style="font-weight: bold; font-size: 14pt; margin: 24px 0 12px 0; color: #2c2c2c; font-family: Garamond, serif;">${header}</h2>`;
+            // Subheadings - 14pt bold with appropriate spacing
+            return `<h2 style="font-weight: bold; font-size: 14pt; margin: 18px 0 6px 0; color: #2c2c2c; font-family: Garamond, serif;">${header}</h2>`;
           }
         }
-        // Format client info headers - 11pt bold
+        // Format client info headers - 11pt bold with tight spacing
         else if (trimmedLine.startsWith('Client Name:') || trimmedLine.startsWith('Existing Insurance') || trimmedLine.startsWith('Company Issuing')) {
-          return `<div style="font-weight: bold; margin: 12px 0; color: #1a1a1a; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
+          return `<div style="font-weight: bold; margin: 3px 0; color: #1a1a1a; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
         }
-        // Format lists - 11pt
+        // Format lists - 11pt with tight spacing
         else if (trimmedLine.match(/^\d+\./) || trimmedLine.startsWith('•') || trimmedLine.startsWith('- ')) {
-          return `<div style="margin-left: 25px; margin: 6px 0 6px 25px; line-height: 1.4; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
+          return `<div style="margin-left: 25px; margin: 3px 0 3px 25px; line-height: 1.2; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
         }
         // Format signature lines - 11pt
         else if (trimmedLine.startsWith('_____')) {
-          return `<div style="margin: 24px 0; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
+          return `<div style="margin: 6px 0; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
         }
         // Separator line
         else if (trimmedLine.includes('________________________________________________________________________________________')) {
-          return `<div style="margin: 24px 0; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
+          return `<div style="margin: 12px 0; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
         }
-        // Regular paragraphs - 11pt body text
+        // Regular paragraphs - 11pt body text with very tight spacing (0.5)
         else {
-          return `<div style="margin: 12px 0; line-height: 1.4; text-align: justify; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
+          return `<div style="margin: 3px 0; line-height: 1.2; text-align: justify; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
         }
       })
       .join('');
@@ -135,7 +135,23 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ content, formData, onCo
   const handleFontSizeChange = (delta: number) => {
     const newSize = Math.max(8, Math.min(72, fontSize + delta));
     setFontSize(newSize);
+    
+    // Update all elements with specific font sizes in the editor
     if (editorRef.current) {
+      const elements = editorRef.current.querySelectorAll('*');
+      elements.forEach((element: Element) => {
+        const el = element as HTMLElement;
+        const currentStyle = el.style.fontSize;
+        if (currentStyle) {
+          // Extract current font size and adjust it
+          const currentPt = parseFloat(currentStyle.replace('pt', ''));
+          if (!isNaN(currentPt)) {
+            el.style.fontSize = `${Math.max(6, currentPt + delta)}pt`;
+          }
+        }
+      });
+      
+      // Also set the container font size as fallback
       editorRef.current.style.fontSize = `${newSize}px`;
     }
   };
@@ -144,7 +160,54 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ content, formData, onCo
     setIsDownloading(prev => ({ ...prev, [format]: true }));
     
     try {
-      const textContent = editorRef.current?.innerText || editorRef.current?.textContent || '';
+      // Get the HTML content to preserve formatting, but clean it up for the backend
+      const htmlContent = editorRef.current?.innerHTML || '';
+      
+      // Convert HTML back to a format similar to the original content structure
+      // by extracting text but preserving the structural markers
+      let textContent = '';
+      
+      if (editorRef.current) {
+        // Create a temporary div to parse the HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
+        
+        // Process each element to rebuild the markdown-like structure
+        const processElement = (element: Element): string => {
+          const tagName = element.tagName.toLowerCase();
+          const textContent = element.textContent || '';
+          
+          if (!textContent.trim()) return '\n';
+          
+          // Handle headers (h1, h2) - add markdown-style markers
+          if (tagName === 'h1' || tagName === 'h2') {
+            return `**${textContent.trim()}**\n\n`;
+          }
+          
+          // Handle divs and paragraphs
+          if (tagName === 'div' || tagName === 'p') {
+            const text = textContent.trim();
+            if (text) {
+              return `${text}\n`;
+            }
+            return '\n';
+          }
+          
+          // For other elements, just return the text content
+          return textContent.trim() ? `${textContent.trim()}\n` : '';
+        };
+        
+        // Process all child elements
+        Array.from(tempDiv.children).forEach(child => {
+          textContent += processElement(child);
+        });
+        
+        // If no proper structure found, fall back to plain text
+        if (!textContent.trim()) {
+          textContent = editorRef.current.innerText || editorRef.current.textContent || '';
+        }
+      }
+      
       const endpoint = format === 'pdf' ? '/api/convert-to-pdf' : '/api/generate-docx';
       
       const response = await fetch(endpoint, {
@@ -353,12 +416,11 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ content, formData, onCo
             <Image
               src="/policyadvisorlogo.png"
               alt="PolicyAdvisor"
-              width={120}
-              height={40}
+              width={200}
+              height={67}
               className="h-auto"
             />
           </div>
-          <div className="text-sm text-gray-600 font-medium">Simple, Quick, Online Insurance</div>
         </div>
         
         {/* Editor Content */}
