@@ -82,7 +82,11 @@ const HomePage = () => {
             "parmeet@policyadvisor.com", "priyanka@policyadvisor.com", "reidc@policyadvisor.com",
             "ripenjeet@policyadvisor.com", "ruchita@policyadvisor.com", "ryanp@policyadvisor.com",
             "subir@policyadvisor.com", "ulkesha@policyadvisor.com", "vanessa@policyadvisor.com",
-            "visnu@policyadvisor.com", "pankaj@policyadvsior.com", "mayank@policyadvisor.com"
+            "visnu@policyadvisor.com", "pankaj@policyadvsior.com", "mayank@policyadvisor.com",
+            "siling@policyadvisor.com"
+        ];
+        const allowedEmails = [
+            "amitabh.bhatia@gmail.com", "jitenpuri@gmail.com", "heenabanka@gmail.com", "shivani.lpu71096@gmail.com","siling@policyadvisor.com"
         ];
 
         const mainTools = [
@@ -103,6 +107,12 @@ const HomePage = () => {
                 route: "/conversational",
                 description: "Talk to AI about insurance or more",
                 allowed: true
+            },
+            {
+                name: "Letter Generator",
+                route: "/lettergenerator",
+                description: "Generate policy replacement letters",
+                allowed: allowedEmails.includes(userEmail)
             }
         ];
 
