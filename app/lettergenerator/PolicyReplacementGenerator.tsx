@@ -8,7 +8,7 @@ import { Textarea } from "../components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Separator } from "../components/ui/separator";
-import { Loader2, Sparkles } from "lucide-react";
+import { Loader2, Sparkles, FileText } from "lucide-react";
 import { cn } from "../libs/utils";
 
 interface FormData {
@@ -21,6 +21,7 @@ interface FormData {
   date: string;
   existing_company: string;
   existing_policy_type: string;
+  existing_policy_number?: string;
   existing_coverage: string;
   existing_coverage_primary?: string;
   existing_coverage_spouse?: string;
@@ -202,7 +203,7 @@ const AnimatedInput: React.FC<{
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="h-12"
+        className="h-11 border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
       />
     </div>
   );
@@ -410,80 +411,75 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
     }
   };
 
-  const renderSection = (title: string, description: string, children: React.ReactNode) => (
-    <section className="p-6 rounded-lg border border-border bg-muted/50">
-      <h2 className="text-xl font-medium text-foreground mb-1.5">{title}</h2>
-      <p className="text-sm text-muted-foreground mb-6">{description}</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-5">
-        {children}
-      </div>
-    </section>
-  );
-
   return (
-    <div className="min-h-screen bg-muted/30 p-4">
+    <div className="min-h-screen bg-gray-50 p-4">
       <div className="max-w-4xl mx-auto">
-        <Card className="shadow-xl">
-          <CardHeader className="text-center border-b">
-            <div className="flex flex-col items-center">
-              <Image
-                src="/policyadvisorlogo.png"
-                alt="PolicyAdvisor"
-                width={100}
-                height={50}
-                className="mb-4"
-              />
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <Sparkles className="w-8 h-8 text-primary" />
-              </div>
-              <CardTitle className="text-2xl font-medium text-foreground tracking-tight">
-                Policy Replacement Generator
-              </CardTitle>
-              <CardDescription className="text-sm mt-1">
-                Create professional policy replacement documents with AI assistance.
-              </CardDescription>
-            </div>
-          </CardHeader>
-          
-          <CardContent className="p-6 sm:p-8 space-y-8">
-            {/* Policy Information Section */}
-            {renderSection("Policy Information", "Basic information about the policy and client", (
-              <>
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-foreground">
-                    Policy Type <span className="text-red-500">*</span>
-                  </Label>
-                  <Select value={formData.policy_category} onValueChange={(value) => updateFormData("policy_category", value)}>
-                    <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Select type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="individual">Individual</SelectItem>
-                      <SelectItem value="couple">Couple</SelectItem>
-                    </SelectContent>
-                  </Select>
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center mb-6">
+            <Image
+              src="/policyadvisorlogo.png"
+              alt="PolicyAdvisor"
+              width={160}
+              height={50}
+              className="h-auto"
+            />
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Policy Replacement Generator
+          </h1>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Create professional policy replacement documents with AI assistance
+          </p>
+        </div>
+
+        <Card className="shadow-sm border-gray-200">
+          <CardContent className="p-6 lg:p-8">
+            <div className="space-y-8">
+              {/* Policy Information */}
+              <section>
+                <div className="mb-6">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-1">Policy Information</h2>
+                  <p className="text-sm text-gray-500">Basic information about the policy and client</p>
                 </div>
                 
-                <AnimatedInput
-                  id="client_name"
-                  value={formData.client_name}
-                  onChange={(value) => updateFormData("client_name", value)}
-                  label="Primary Client Name"
-                  placeholder="Enter full name"
-                  required
-                />
-                
-                <AnimatedInput
-                  id="date"
-                  type="date"
-                  value={formData.date}
-                  onChange={(value) => updateFormData("date", value)}
-                  label="Date"
-                  required
-                />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-sm font-medium text-foreground">
+                      Policy Type <span className="text-red-500">*</span>
+                    </Label>
+                    <Select value={formData.policy_category} onValueChange={(value) => updateFormData("policy_category", value)}>
+                      <SelectTrigger className="h-11 border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                        <SelectValue placeholder="Select type" />
+                      </SelectTrigger>
+                      <SelectContent className="border-gray-200">
+                        <SelectItem value="individual" className="cursor-pointer">Individual</SelectItem>
+                        <SelectItem value="couple" className="cursor-pointer">Couple</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <AnimatedInput
+                    id="client_name"
+                    value={formData.client_name}
+                    onChange={(value) => updateFormData("client_name", value)}
+                    label="Primary Client Name"
+                    placeholder="Enter full name"
+                    required
+                  />
+                  
+                  <AnimatedInput
+                    id="date"
+                    type="date"
+                    value={formData.date}
+                    onChange={(value) => updateFormData("date", value)}
+                    label="Date"
+                    required
+                  />
+                </div>
 
                 {isCouple && (
-                  <>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                     <AnimatedInput
                       id="spouse_name"
                       value={formData.spouse_name || ""}
@@ -519,153 +515,153 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                         placeholder="e.g., $250,000"
                       />
                     </div>
-                  </>
+                  </div>
                 )}
-              </>
-            ))}
+              </section>
 
-            <Separator />
+              <Separator className="bg-gray-200" />
 
-            {/* Current Policy Section */}
-            {renderSection("Current Policy", "Details about the existing insurance policy", (
-              <>
-                <AnimatedInput
-                  id="existing_company"
-                  value={formData.existing_company}
-                  onChange={(value) => updateFormData("existing_company", value)}
-                  label="Insurance Company"
-                  placeholder="Current insurer"
-                  required
-                />
+              {/* Current Policy */}
+              <section>
+                <div className="mb-6">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-1">Current Policy</h2>
+                  <p className="text-sm text-gray-500">Details about the existing insurance policy</p>
+                </div>
                 
-                <AnimatedInput
-                  id="existing_policy_type"
-                  value={formData.existing_policy_type}
-                  onChange={(value) => updateFormData("existing_policy_type", value)}
-                  label="Policy Type"
-                  placeholder="Type of policy"
-                  required
-                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <AnimatedInput
+                    id="existing_company"
+                    value={formData.existing_company}
+                    onChange={(value) => updateFormData("existing_company", value)}
+                    label="Insurance Company"
+                    placeholder="Current insurer"
+                    required
+                  />
+                  
+                  <AnimatedInput
+                    id="existing_policy_type"
+                    value={formData.existing_policy_type}
+                    onChange={(value) => updateFormData("existing_policy_type", value)}
+                    label="Policy Type"
+                    placeholder="Type of policy"
+                    required
+                  />
 
-                {!isCouple ? (
-                  <>
+                  <div className="md:col-span-full">
                     <AnimatedInput
-                      id="existing_coverage"
-                      value={formData.existing_coverage}
-                      onChange={(value) => updateFormData("existing_coverage", value)}
-                      label="Coverage Amount"
-                      placeholder="e.g., $500,000"
-                      required
+                      id="existing_policy_number"
+                      value={formData.existing_policy_number || ""}
+                      onChange={(value) => updateFormData("existing_policy_number", value)}
+                      label="Current Policy Number (Optional)"
+                      placeholder="Enter policy number"
                     />
-                    
-                    <AnimatedInput
-                      id="existing_premium"
-                      value={formData.existing_premium}
-                      onChange={(value) => updateFormData("existing_premium", value)}
-                      label="Premium"
-                      placeholder="e.g., $150/month"
-                      required
-                    />
-                  </>
-                ) : (
-                  <>
-                    <AnimatedInput
-                      id="existing_coverage_primary"
-                      value={formData.existing_coverage_primary || ""}
-                      onChange={(value) => updateFormData("existing_coverage_primary", value)}
-                      label="Primary Coverage"
-                      placeholder="Primary coverage amount"
-                    />
-                    
-                    <AnimatedInput
-                      id="existing_coverage_spouse"
-                      value={formData.existing_coverage_spouse || ""}
-                      onChange={(value) => updateFormData("existing_coverage_spouse", value)}
-                      label="Spouse Coverage"
-                      placeholder="Spouse coverage amount"
-                    />
-                    
-                    <AnimatedInput
-                      id="existing_premium_primary"
-                      value={formData.existing_premium_primary || ""}
-                      onChange={(value) => updateFormData("existing_premium_primary", value)}
-                      label="Primary Premium"
-                      placeholder="Primary premium"
-                    />
-                    
-                    <AnimatedInput
-                      id="existing_premium_spouse"
-                      value={formData.existing_premium_spouse || ""}
-                      onChange={(value) => updateFormData("existing_premium_spouse", value)}
-                      label="Spouse Premium"
-                      placeholder="Spouse premium"
-                    />
-                  </>
-                )}
-              </>
-            ))}
+                  </div>
 
-            <Separator />
+                  {!isCouple ? (
+                    <>
+                      <AnimatedInput
+                        id="existing_coverage"
+                        value={formData.existing_coverage}
+                        onChange={(value) => updateFormData("existing_coverage", value)}
+                        label="Coverage Amount"
+                        placeholder="e.g., $500,000"
+                        required
+                      />
+                      
+                      <AnimatedInput
+                        id="existing_premium"
+                        value={formData.existing_premium}
+                        onChange={(value) => updateFormData("existing_premium", value)}
+                        label="Premium"
+                        placeholder="e.g., $150/month"
+                        required
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <AnimatedInput
+                        id="existing_coverage_primary"
+                        value={formData.existing_coverage_primary || ""}
+                        onChange={(value) => updateFormData("existing_coverage_primary", value)}
+                        label="Primary Coverage"
+                        placeholder="Primary coverage amount"
+                      />
+                      
+                      <AnimatedInput
+                        id="existing_coverage_spouse"
+                        value={formData.existing_coverage_spouse || ""}
+                        onChange={(value) => updateFormData("existing_coverage_spouse", value)}
+                        label="Spouse Coverage"
+                        placeholder="Spouse coverage amount"
+                      />
+                      
+                      <AnimatedInput
+                        id="existing_premium_primary"
+                        value={formData.existing_premium_primary || ""}
+                        onChange={(value) => updateFormData("existing_premium_primary", value)}
+                        label="Primary Premium"
+                        placeholder="Primary premium"
+                      />
+                      
+                      <AnimatedInput
+                        id="existing_premium_spouse"
+                        value={formData.existing_premium_spouse || ""}
+                        onChange={(value) => updateFormData("existing_premium_spouse", value)}
+                        label="Spouse Premium"
+                        placeholder="Spouse premium"
+                      />
+                    </>
+                  )}
+                </div>
+              </section>
 
-            {/* New Policy Section */}
-            {renderSection("New Policy", "Details about the replacement insurance policy", (
-              <>
-                <AnimatedInput
-                  id="new_company"
-                  value={formData.new_company}
-                  onChange={(value) => updateFormData("new_company", value)}
-                  label="Insurance Company"
-                  placeholder="New insurer"
-                  required
-                />
+              <Separator className="bg-gray-200" />
+
+              {/* New Policy */}
+              <section>
+                <div className="mb-6">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-1">New Policy</h2>
+                  <p className="text-sm text-gray-500">Details about the replacement insurance policy</p>
+                </div>
                 
-                <AnimatedInput
-                  id="new_policy_type"
-                  value={formData.new_policy_type}
-                  onChange={(value) => updateFormData("new_policy_type", value)}
-                  label="Policy Type"
-                  placeholder="Type of new policy"
-                  required
-                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <AnimatedInput
+                    id="new_company"
+                    value={formData.new_company}
+                    onChange={(value) => updateFormData("new_company", value)}
+                    label="Insurance Company"
+                    placeholder="New insurer"
+                    required
+                  />
+                  
+                  <AnimatedInput
+                    id="new_policy_type"
+                    value={formData.new_policy_type}
+                    onChange={(value) => updateFormData("new_policy_type", value)}
+                    label="Policy Type"
+                    placeholder="Type of new policy"
+                    required
+                  />
 
-                {!isCouple ? (
-                  <>
-                    <AnimatedInput
-                      id="new_coverage"
-                      value={formData.new_coverage}
-                      onChange={(value) => updateFormData("new_coverage", value)}
-                      label="Coverage Amount"
-                      placeholder="e.g., $500,000"
-                      required
-                    />
-                    
-                    <AnimatedInput
-                      id="new_premium"
-                      value={formData.new_premium}
-                      onChange={(value) => updateFormData("new_premium", value)}
-                      label="Premium"
-                      placeholder="e.g., $120/month"
-                      required
-                    />
-                  </>
-                ) : (
-                  <>
-                    <AnimatedInput
-                      id="new_coverage_primary"
-                      value={formData.new_coverage_primary || ""}
-                      onChange={(value) => updateFormData("new_coverage_primary", value)}
-                      label="Primary Coverage"
-                      placeholder="Primary coverage amount"
-                    />
-                    
-                    <AnimatedInput
-                      id="new_coverage_spouse"
-                      value={formData.new_coverage_spouse || ""}
-                      onChange={(value) => updateFormData("new_coverage_spouse", value)}
-                      label="Spouse Coverage"
-                      placeholder="Spouse coverage amount"
-                    />
+                  <AnimatedInput
+                    id="new_coverage"
+                    value={formData.new_coverage}
+                    onChange={(value) => updateFormData("new_coverage", value)}
+                    label="Coverage Amount"
+                    placeholder="e.g., $500,000"
+                    required
+                  />
+                  
+                  <AnimatedInput
+                    id="new_premium"
+                    value={formData.new_premium}
+                    onChange={(value) => updateFormData("new_premium", value)}
+                    label="Premium"
+                    placeholder="e.g., $120/month"
+                    required
+                  />
 
+                  {isCouple && (
                     <div className="md:col-span-full">
                       <AnimatedInput
                         id="new_premium_total"
@@ -675,86 +671,107 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                         placeholder="Total premium amount"
                       />
                     </div>
-                  </>
-                )}
-              </>
-            ))}
-
-            <Separator />
-
-            {/* AI-Powered Analysis Section */}
-            <section className="p-6 rounded-lg border border-border bg-muted/50">
-              <h2 className="text-xl font-medium text-foreground mb-1.5">AI-Powered Analysis</h2>
-              <p className="text-sm text-muted-foreground mb-6">Let AI help you articulate the replacement rationale</p>
-              <div className="space-y-6">
-                <AITextarea
-                  id="replacement_reason"
-                  value={formData.replacement_reason}
-                  onChange={(value) => updateFormData("replacement_reason", value)}
-                  label="Reason for Replacement"
-                  placeholder="Describe why the current policy is being replaced..."
-                  required
-                  rows={4}
-                  formData={formData}
-                  setError={setError}
-                />
-                
-                <AITextarea
-                  id="benefits_new"
-                  value={formData.benefits_new}
-                  onChange={(value) => updateFormData("benefits_new", value)}
-                  label="Benefits of New Policy"
-                  placeholder="Describe the benefits of the new policy..."
-                  required
-                  rows={4}
-                  formData={formData}
-                  setError={setError}
-                />
-                
-                <AITextarea
-                  id="disadvantages_old"
-                  value={formData.disadvantages_old}
-                  onChange={(value) => updateFormData("disadvantages_old", value)}
-                  label="Disadvantages of Current Policy"
-                  placeholder="Describe the disadvantages of the current policy..."
-                  rows={3}
-                  formData={formData}
-                  setError={setError}
-                />
-              </div>
-            </section>
-
-            <Separator />
-
-            {/* Agent Information Section */}
-            {renderSection("Agent Information", "Your professional details", (
-              <div className="lg:col-span-2">
-                <AnimatedInput
-                  id="agent_name"
-                  value={formData.agent_name}
-                  onChange={(value) => updateFormData("agent_name", value)}
-                  label="Agent Name"
-                  placeholder="Your full name"
-                  required
-                />
-              </div>
-            ))}
-
-            {/* Generate Button */}
-            <div className="flex flex-col items-center pt-6 border-t border-border">
-              {error && (
-                <div className="w-full sm:max-w-md mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-sm text-red-600 text-center">{error}</p>
+                  )}
                 </div>
-              )}
-              <HoverButton
-                onClick={handleGenerate}
-                isLoading={isGenerating}
-                className="w-full sm:w-auto px-12 py-4 text-lg"
-                disabled={isGenerating}
-              >
-                {isGenerating ? "Processing..." : "Generate Policy Replacement Document"}
-              </HoverButton>
+              </section>
+
+              <Separator className="bg-gray-200" />
+
+              {/* AI Analysis */}
+              <section>
+                <div className="mb-6">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-1">AI-Powered Analysis</h2>
+                  <p className="text-sm text-gray-500">Let AI help you articulate the replacement rationale</p>
+                </div>
+                
+                <div className="space-y-4">
+                  <AITextarea
+                    id="replacement_reason"
+                    value={formData.replacement_reason}
+                    onChange={(value) => updateFormData("replacement_reason", value)}
+                    label="Reason for Replacement"
+                    placeholder="Describe why the current policy is being replaced..."
+                    required
+                    rows={4}
+                    formData={formData}
+                    setError={setError}
+                  />
+                  
+                  <AITextarea
+                    id="benefits_new"
+                    value={formData.benefits_new}
+                    onChange={(value) => updateFormData("benefits_new", value)}
+                    label="Benefits of New Policy"
+                    placeholder="Describe the benefits of the new policy..."
+                    required
+                    rows={4}
+                    formData={formData}
+                    setError={setError}
+                  />
+                  
+                  <AITextarea
+                    id="disadvantages_old"
+                    value={formData.disadvantages_old}
+                    onChange={(value) => updateFormData("disadvantages_old", value)}
+                    label="Disadvantages of Current Policy"
+                    placeholder="Describe the disadvantages of the current policy..."
+                    rows={3}
+                    formData={formData}
+                    setError={setError}
+                  />
+                </div>
+              </section>
+
+              <Separator className="bg-gray-200" />
+
+              {/* Agent Information */}
+              <section>
+                <div className="mb-6">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-1">Agent Information</h2>
+                  <p className="text-sm text-gray-500">Your professional details</p>
+                </div>
+                
+                <div className="max-w-md">
+                  <AnimatedInput
+                    id="agent_name"
+                    value={formData.agent_name}
+                    onChange={(value) => updateFormData("agent_name", value)}
+                    label="Agent Name"
+                    placeholder="Your full name"
+                    required
+                  />
+                </div>
+              </section>
+
+              {/* Generate Button */}
+              <div className="pt-4 border-t border-gray-200">
+                {error && (
+                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-sm text-red-600">{error}</p>
+                  </div>
+                )}
+                
+                <div className="flex justify-center">
+                  <HoverButton
+                    onClick={handleGenerate}
+                    isLoading={isGenerating}
+                    className="px-8 py-3 text-base font-medium"
+                    disabled={isGenerating}
+                  >
+                    {isGenerating ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Processing...
+                      </>
+                    ) : (
+                      <>
+                        <FileText className="w-4 h-4 mr-2" />
+                        Generate Document
+                      </>
+                    )}
+                  </HoverButton>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>

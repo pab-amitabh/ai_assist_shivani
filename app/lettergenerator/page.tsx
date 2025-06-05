@@ -48,7 +48,11 @@ export default function LetterGeneratorPage() {
     "jitenpuri@gmail.com", 
     "heenabanka@gmail.com", 
     "shivani.lpu71096@gmail.com",
-    "siling@policyadvisor.com"
+    "siling@policyadvisor.com",
+    "amitabh@policyadvisor.com",
+    "jiten@policyadvisor.com",
+    "shivani@policyadvisor.com",
+    "heena@policyadvisor.com",
   ];
   const allowedDomain = "@policyadvisor.com";
 

@@ -149,18 +149,16 @@ If you have any questions about the policy or this document, please let me know.
 ${formData.agent_name}
 Advisor
 
-________________________________________________________________________________________
-
 I understand the explanation provided to me regarding the advantages and disadvantages of the Policy Replacement.
 
 ${formData.client_name}
 
-_____
+__________________________
 Date: 
 
 ${formData.spouse_name || ''}
 
-_____
+__________________________
 Date: 
 
 Make this sound professional, detailed, and personalized to the specific situation. Use insurance industry terminology and maintain the formal but approachable tone. Include specific dollar amounts and policy details. Write in paragraph form where indicated, not bullet points for the main content sections.
@@ -193,7 +191,7 @@ FOLLOW THIS EXACT STRUCTURE AND FORMAT:
 
 **Explanation of Advantages and Disadvantages of Policy Replacement**
 
-Client Name: ${formData.client_name}
+Client Name: ${formData.client_name}${formData.existing_policy_number ? `\nCurrent Policy Number: ${formData.existing_policy_number}` : ''}
 Existing Insurance Company: ${formData.existing_company}
 Company Issuing New Policy: ${formData.new_company}
 
@@ -243,19 +241,28 @@ If you have any questions about the policy or this document, please let me know.
 ${formData.agent_name}
 Advisor
 
-________________________________________________________________________________________
-
 I understand the explanation provided to me regarding the advantages and disadvantages of the Policy Replacement.
 
 ${formData.client_name}
 
-_____
+__________________________
 Date: 
 
 Make this sound professional, detailed, and personalized to the specific situation. Use insurance industry terminology and maintain the formal but approachable tone. Include specific dollar amounts and policy details. Write in paragraph form where indicated, not bullet points for the main content sections.
 
 IMPORTANT: This is an INDIVIDUAL POLICY replacement - focus on personal coverage needs, premium stability, individual underwriting, etc.`;
     }
+
+    // Create the document header with client and policy information
+    let headerInfo = `Client Name: ${formData.client_name}`;
+    if (formData.existing_policy_number) {
+      headerInfo += `\nCurrent Policy Number: ${formData.existing_policy_number}`;
+    }
+    headerInfo += `\nExisting Insurance Company: ${formData.existing_company}
+Company Issuing New Policy: ${formData.new_company}
+Date: ${formData.date}
+
+**Explanation of Advantages and Disadvantages of Policy Replacement**`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
