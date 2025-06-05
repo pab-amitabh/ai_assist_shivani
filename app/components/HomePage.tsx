@@ -86,7 +86,11 @@ const HomePage = () => {
             "siling@policyadvisor.com"
         ];
         const allowedEmails = [
-            "amitabh.bhatia@gmail.com", "jitenpuri@gmail.com", "heenabanka@gmail.com", "shivani.lpu71096@gmail.com","siling@policyadvisor.com"
+            "siling@policyadvisor.com",
+            "amitabh@policyadvisor.com",
+            "jiten@policyadvisor.com",
+            "shivani@policyadvisor.com",
+            "heena@policyadvisor.com",
         ];
 
         const mainTools = [
@@ -112,6 +116,12 @@ const HomePage = () => {
                 name: "Letter Generator",
                 route: "/lettergenerator",
                 description: "Generate policy replacement letters",
+                allowed: allowedEmails.includes(userEmail)
+            },
+            {
+                name: "Group Quote Comparison Tool",
+                route: "https://groupcompare.policyadvisor.ca/",
+                description: "Compare quotes for group insurance",
                 allowed: allowedEmails.includes(userEmail)
             }
         ];
