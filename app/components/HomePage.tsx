@@ -85,6 +85,9 @@ const HomePage = () => {
             "visnu@policyadvisor.com", "pankaj@policyadvsior.com", "mayank@policyadvisor.com",
             "siling@policyadvisor.com"
         ];
+        const allowedEmails = [
+            "amitabh.bhatia@gmail.com", "jitenpuri@gmail.com", "heenabanka@gmail.com", "shivani.lpu71096@gmail.com","siling@policyadvisor.com"
+        ];
 
         const mainTools = [
             {
@@ -109,7 +112,7 @@ const HomePage = () => {
                 name: "Letter Generator",
                 route: "/lettergenerator",
                 description: "Generate policy replacement letters",
-                allowed: true
+                allowed: allowedEmails.includes(userEmail)
             }
         ];
 

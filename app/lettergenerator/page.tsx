@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 import PolicyReplacementGenerator from './PolicyReplacementGenerator';
 import DocumentPreview from './DocumentPreview';
+import Header from '../components/header';
 
 interface FormData {
   policy_category: string;
@@ -35,10 +38,38 @@ interface FormData {
   agent_phone?: string;
 }
 
-export default function Home() {
+export default function LetterGeneratorPage() {
   const [generatedContent, setGeneratedContent] = useState<string>('');
   const [formData, setFormData] = useState<FormData>({} as FormData);
   const [showDocument, setShowDocument] = useState(false);
+
+  const allowedEmails = [
+    "amitabh.bhatia@gmail.com", 
+    "jitenpuri@gmail.com", 
+    "heenabanka@gmail.com", 
+    "shivani.lpu71096@gmail.com",
+    "siling@policyadvisor.com"
+  ];
+  const allowedDomain = "@policyadvisor.com";
+
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    const email = session?.user?.email || "";
+    const isUnauthorized = 
+      status === "unauthenticated" || 
+      (status === "authenticated" && 
+        !(
+          allowedEmails.includes(email) || 
+          email.endsWith(allowedDomain)
+        ));
+
+    if (isUnauthorized) {
+      const currentPath = window.location.pathname;
+      router.push(`/?callbackUrl=${encodeURIComponent(currentPath)}`);
+    }
+  }, [status, session, router, allowedEmails, allowedDomain]);
 
   const handleDocumentGenerated = (content: string, data: FormData) => {
     setGeneratedContent(content);
@@ -50,17 +81,32 @@ export default function Home() {
     setShowDocument(false);
   };
 
+  const email = session?.user?.email || "";
+  if (
+    status === "loading" || 
+    (status === "authenticated" && 
+      !(
+        allowedEmails.includes(email) || 
+        email.endsWith(allowedDomain)
+      ))
+  ) {
+    return null;
+  }
+
   return (
-    <main className="min-h-screen bg-background">
-      {!showDocument ? (
-        <PolicyReplacementGenerator onDocumentGenerated={handleDocumentGenerated} />
-      ) : (
-        <DocumentPreview 
-          content={generatedContent}
-          formData={formData}
-          onBack={handleBackToForm}
-        />
-      )}
-    </main>
+    <>
+      <Header />
+      <main className="min-h-screen bg-background">
+        {!showDocument ? (
+          <PolicyReplacementGenerator onDocumentGenerated={handleDocumentGenerated} />
+        ) : (
+          <DocumentPreview 
+            content={generatedContent}
+            formData={formData}
+            onBack={handleBackToForm}
+          />
+        )}
+      </main>
+    </>
   );
 }
