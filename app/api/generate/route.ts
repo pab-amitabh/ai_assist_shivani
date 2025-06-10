@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     let prompt: string;
     
     if (is_couple) {
-        // COUPLES PROMPT - Based on the sample document provided
+        // COUPLES PROMPT - Dynamic based on form data
         prompt = `Generate a professional insurance policy replacement explanation letter for a COUPLE with the EXACT structure and format as shown in the sample. Use the client information provided to create a detailed, personalized letter.
 
 IMPORTANT: This is a COUPLE/FAMILY POLICY replacement.
@@ -64,6 +64,7 @@ ${spouse_context}
 - Date: ${formData.date}
 - Agent Name: ${formData.agent_name}
 - Existing Insurance Company: ${formData.existing_company}
+- Existing Policy Type: ${formData.existing_policy_type || 'life insurance policy'}
 - Company Issuing New Policy: ${formData.new_company}
 - Primary Client Current Coverage: ${formData.existing_coverage_primary || formData.existing_coverage || ''}
 - Spouse Current Coverage: ${formData.existing_coverage_spouse || ''}
@@ -71,64 +72,61 @@ ${spouse_context}
 - Spouse Current Premium: ${formData.existing_premium_spouse || ''}
 - New Coverage Primary: ${formData.new_coverage_primary || formData.new_coverage || ''}
 - New Coverage Spouse: ${formData.new_coverage_spouse || ''}
+- New Policy Type: ${formData.new_policy_type || 'life insurance'}
 - Total New Premium: ${formData.new_premium_total || formData.new_premium || ''}
-- Current Line of Credit: ${formData.line_of_credit || '$250k'}
 - Replacement Reason: ${formData.replacement_reason}
+- Existing Policy Details/Issues: ${formData.disadvantages_old || ''}
+- New Policy Benefits: ${formData.benefits_new || ''}
 
 FOLLOW THIS EXACT STRUCTURE AND FORMAT:
 
 **Explanation of Advantages and Disadvantages of Policy Replacement**
 
-Client Name: ${formData.client_name}
+Client Name: ${formData.client_name}${formData.existing_policy_number ? `\nCurrent Policy Number: ${formData.existing_policy_number}` : ''}
 Existing Insurance Company: ${formData.existing_company}
 Company Issuing New Policy: ${formData.new_company}
 
 Dear ${formData.client_name ? formData.client_name.split()[0] : 'Client'},
 
-You have requested new life insurance coverage to potentially replace your existing Group Term Life Insurance policy issued by ${formData.existing_company || 'Canada Life'} through PIPSC. The analysis below is based on the information you have provided regarding your current policy and how it does not align with your coverage preferences. You have indicated that you are comfortable proceeding with the requested replacement based on the information you already have about the new policy. Below, I have outlined some key comparison points for your consideration as you make your decision.
+You have requested new ${formData.new_policy_type || 'life insurance'} coverage to potentially replace your existing ${formData.existing_policy_type || 'life insurance policy'} issued by ${formData.existing_company}. The analysis below is based on the information you have provided regarding your current policy and how it does not align with your coverage preferences. You have indicated that you are comfortable proceeding with the requested replacement based on the information you already have about the new policy. Below, I have outlined some key comparison points for your consideration as you make your decision.
 
 **Summary of policy replacement**
 
-You initially reached out to us to explore replacing your current life insurance coverage issued by ${formData.existing_company || 'Canada Life'} through PIPSC.
+You initially reached out to us to explore replacing your current ${formData.existing_policy_type || 'life insurance'} coverage issued by ${formData.existing_company}.
 
-Your existing coverage amounts with ${formData.existing_company || 'Canada Life'} / PIPSC are:
-• ${formData.client_name ? formData.client_name.split()[0] : 'Primary'}: ${formData.existing_coverage_primary || formData.existing_coverage || '$400,000'}
-• ${formData.spouse_name || (formData.client_name && formData.client_name.split().length > 1 ? formData.client_name.split().slice(-1)[0] : 'Spouse')}: ${formData.existing_coverage_spouse || '$200,000'}
+Your existing coverage amounts with ${formData.existing_company} are:
+• ${formData.client_name ? formData.client_name.split()[0] : 'Primary'}: ${formData.existing_coverage_primary || formData.existing_coverage || 'current coverage amount'}
+• ${formData.spouse_name || 'Spouse'}: ${formData.existing_coverage_spouse || 'current coverage amount'}
 
-The PIPSC plan is an age-banded plan, meaning that premiums increase as you age. Additionally, at age 65, the maximum available coverage under this plan reduces to $150,000. Given that ${formData.client_name ? formData.client_name.split()[0] : 'you are'} ${formData.client_age ? `is ${formData.client_age}` : 'are approaching this age'} and ${formData.spouse_name || 'your spouse'} ${formData.spouse_age ? `is ${formData.spouse_age}` : 'is also approaching retirement age'}, this upcoming reduction does not align with your ongoing coverage needs.
+[Write detailed explanation of why the existing policy doesn't meet their needs based on: ${formData.replacement_reason} and ${formData.disadvantages_old}. Include specific details about current premiums and policy features.]
 
-PIPSC Premiums: The current premiums being paid are as follows
-• ${formData.client_name ? formData.client_name.split()[0] : 'Primary'}: ${formData.existing_premium_primary || formData.existing_premium || '$228.80 per month'} for ${formData.existing_coverage_primary || formData.existing_coverage || '$400,000'}
-• ${formData.spouse_name || (formData.client_name && formData.client_name.split().length > 1 ? formData.client_name.split().slice(-1)[0] : 'Spouse')}: ${formData.existing_premium_spouse || '$58.96 per month'} for ${formData.existing_coverage_spouse || '$200,000'}
+Current Premiums: The current premiums being paid are as follows
+• ${formData.client_name ? formData.client_name.split()[0] : 'Primary'}: ${formData.existing_premium_primary || formData.existing_premium || 'current premium'} for ${formData.existing_coverage_primary || formData.existing_coverage || 'current coverage'}
+• ${formData.spouse_name || 'Spouse'}: ${formData.existing_premium_spouse || 'current premium'} for ${formData.existing_coverage_spouse || 'current coverage'}
 
-However these premiums will adjust at age-banded intervals as the premiums increase and/or coverage automatically reduces. You expressed a desire to replace your existing coverage with a fixed-rate term policy, locking in coverage for a longer period (15 years) at a level premium.
-
-During our discussions, we reviewed various options, including both term and permanent life insurance:
-• Term Life Insurance: Offers lower premiums but coverage is for a fixed period.
-• Permanent (Whole Life) Insurance: Provides lifetime coverage, estate planning benefits, and cash value accumulation for retirement.
-
-You indicated a preference for Term Life Insurance for a 15-year period.
+[Based on the replacement reason provided (${formData.replacement_reason}), explain the specific issues with the current policy and why the client expressed a desire to replace it.]
 
 Based on our discussions, you have chosen:
-• Term Life coverage of ${formData.new_coverage_primary || '$200,000'} each for 15 years.
+• ${formData.new_policy_type || 'New life insurance'} coverage of ${formData.new_coverage_primary || 'coverage amount'} for ${formData.client_name ? formData.client_name.split()[0] : 'primary insured'}
+• ${formData.new_policy_type || 'New life insurance'} coverage of ${formData.new_coverage_spouse || 'coverage amount'} for ${formData.spouse_name || 'spouse'}
 
 **Why doesn't the existing policy meet your needs?**
 
-The existing coverage through ${formData.existing_company || 'Canada Life'}/PIPSC does not meet your long-term needs because it is an age-banded plan, meaning premiums increase over time and coverage amounts decrease significantly as you approach age 65. With ${formData.client_name ? formData.client_name.split()[0] : 'the primary insured'} at ${formData.client_age || '64'} and ${formData.spouse_name || 'spouse'} at ${formData.spouse_age || '61'}, you are close to the point where the maximum available coverage will drop to $150,000, leaving you underinsured at a time when maintaining stable protection is important.
+[Write detailed explanation based on the specific issues provided: ${formData.disadvantages_old} and ${formData.replacement_reason}. Consider the ages if provided: primary at ${formData.client_age || 'current age'} and spouse at ${formData.spouse_age || 'current age'}.]
 
 **How does the new policy meet your needs?**
 
 To address your coverage needs, the following policies have been proposed:
 
-Term Life Insurance
+${formData.new_policy_type || 'Life Insurance'}
 
-• ${formData.client_name ? formData.client_name.split()[0] : 'Primary'}: ${formData.new_coverage_primary || '$200k'} coverage for a 15-year term
+• ${formData.client_name ? formData.client_name.split()[0] : 'Primary'}: ${formData.new_coverage_primary || formData.new_coverage || 'new coverage amount'}
 
-• ${formData.spouse_name || 'Spouse'}: ${formData.new_coverage_spouse || '$200k'} coverage for a 15-year term
+• ${formData.spouse_name || 'Spouse'}: ${formData.new_coverage_spouse || 'new coverage amount'}
 
-• Total proposed premium (as applied) of ${formData.new_premium_total || '$246.42 per month'}
+• Total proposed premium of ${formData.new_premium_total || formData.new_premium || 'new premium amount'}
 
-• This coverage is designed to protect your current line of credit of ${formData.line_of_credit || '$250k'} and provide family income replacement over the next 15 years as the line of credit is gradually paid down.
+[Write detailed explanation of how the new policy addresses their needs based on: ${formData.benefits_new}]
 
 **What are the risks associated with the proposed replacement?**
 
@@ -140,11 +138,11 @@ Life insurance policies typically include a two-year contestability and suicide 
 
 When you take a new policy with ${formData.new_company}, or any other insurer, this two-year period resets and will begin from the effective date of the new contract. It's important to keep this in mind when considering policy replacement.
 
-The total coverage at ${formData.new_coverage_primary || '$200k'} is lower than the ${formData.existing_coverage_primary || '$400k'} in coverage that ${formData.client_name ? formData.client_name.split()[0] : 'the primary insured'} currently has. However you are comfortable with the reduction in coverage amount as it fits your preferred budgetary allocation needs.
+[Compare coverage amounts ${formData.existing_coverage} vs ${formData.new_coverage} and premium amounts ${formData.existing_premium} vs ${formData.new_premium}. Note any reductions or increases and explain client's comfort level with the changes.]
 
 **More Information**
 
-If you have any questions about the policy or this document, please let me know. Our strong recommendation will be to not cancel your existing plan with PIPSC, until your new coverage has been approved.
+If you have any questions about the policy or this document, please let me know. Our strong recommendation will be to not cancel your existing ${formData.existing_company} policy, until your new coverage has been approved.
 
 ${formData.agent_name}
 Advisor
@@ -163,9 +161,12 @@ Date:
 
 Make this sound professional, detailed, and personalized to the specific situation. Use insurance industry terminology and maintain the formal but approachable tone. Include specific dollar amounts and policy details. Write in paragraph form where indicated, not bullet points for the main content sections.
 
-IMPORTANT: This is a COUPLE replacement - focus on family income replacement, line of credit protection, age-banded group plan limitations, coverage reductions at age 65, joint planning considerations, etc.`;
+IMPORTANT: 
+- This is a COUPLE replacement - focus on the specific reasons provided by the client for replacement and the benefits of the new policy as described in the form data.
+- DO NOT add any notes, brackets, or placeholder text about policy numbers. If a policy number is provided, use it exactly as given. If not provided, omit the policy number line entirely.
+- Keep all information clean and professional without explanatory notes.`;
     } else {
-        // INDIVIDUAL PROMPT - simpler structure with placeholders like Flask app
+        // INDIVIDUAL PROMPT - Dynamic based on form data
         prompt = `Generate a professional insurance policy replacement explanation letter with the EXACT structure and format as shown in examples. Use the client information provided to create a detailed, personalized letter.
 
 IMPORTANT: This is an INDIVIDUAL POLICY replacement.
@@ -197,31 +198,28 @@ Company Issuing New Policy: ${formData.new_company}
 
 Dear ${formData.client_name ? formData.client_name.split()[0] : 'Client'},
 
-You have reached out to us requesting for a ${formData.new_policy_type} policy to potentially replace your current ${formData.existing_policy_type} policy issued by ${formData.existing_company}. The analysis below is based on information you have shared with us regarding your existing policy and how your coverage preferences are not met in the existing coverage. You are comfortable with the life insurance replacement that you have requested based on the information you already have about the policy. I am enclosing below some comparison points that you should consider, as you decide on the replacement.
+You have reached out to us requesting for a ${formData.new_policy_type || 'new life insurance'} policy to potentially replace your current ${formData.existing_policy_type || 'life insurance'} policy issued by ${formData.existing_company}. The analysis below is based on information you have shared with us regarding your existing policy and how your coverage preferences are not met in the existing coverage. You are comfortable with the life insurance replacement that you have requested based on the information you already have about the policy. I am enclosing below some comparison points that you should consider, as you decide on the replacement.
 
 **Summary of policy replacement**
 
-You have reached out to us seeking a replacement of your current life insurance policy issued by ${formData.existing_company}.
+You have reached out to us seeking a replacement of your current ${formData.existing_policy_type || 'life insurance policy'} issued by ${formData.existing_company}.
 
-[Write a detailed paragraph about the current policy situation - coverage amount ${formData.existing_coverage}, premium ${formData.existing_premium}, and why client wants replacement based on: ${formData.replacement_reason}. ${formData.client_age ? `Consider the client's age of ${formData.client_age} in your analysis.` : ""}]
+[Write a detailed paragraph about the current policy situation - coverage amount ${formData.existing_coverage}, premium ${formData.existing_premium}, and why client wants replacement based on: ${formData.replacement_reason}. ${formData.client_age ? `Consider the client's age of ${formData.client_age} in your analysis.` : ""} Include specific details about the existing policy issues: ${formData.disadvantages_old}]
 
-You are therefore seeking a new policy in order to:
+You are therefore seeking a new ${formData.new_policy_type || 'policy'} in order to:
 • [Extract first main benefit from: ${formData.benefits_new}]
 • [Extract second main benefit from: ${formData.benefits_new}]
 
 **Why doesn't the existing policy meet your needs?**
 
-[Write detailed explanation based on: ${formData.disadvantages_old} and ${formData.replacement_reason}.]
+[Write detailed explanation based on: ${formData.disadvantages_old} and ${formData.replacement_reason}. Be specific about the policy type issues and why it doesn't work for the client's current situation.]
 
 **How does the new policy meet your needs?**
 
-[Write detailed explanation of new policy features and benefits, including coverage amount ${formData.new_coverage} and premium ${formData.new_premium}.]
+[Write detailed explanation of new ${formData.new_policy_type || 'policy'} features and benefits, including coverage amount ${formData.new_coverage} and premium ${formData.new_premium}. Base this on: ${formData.benefits_new}]
 
-The new proposed coverage has the following features which make it attractive to you:
-• [First benefit from new policy details]
-• [Second benefit] 
-• [Third benefit]
-• [Fourth benefit if applicable]
+The new proposed ${formData.new_policy_type || 'coverage'} has the following features which make it attractive to you:
+[Extract specific benefits from ${formData.benefits_new} and present as bullet points]
 
 **What are the risks associated with the proposed replacement?**
 
@@ -232,7 +230,7 @@ Life insurance policies typically include a two-year contestability and suicide 
 
 When you take a new policy with ${formData.new_company}, or any other insurer, this two-year period resets and will begin from the effective date of the new contract. It's important to keep this in mind when considering policy replacement.
 
-[Add any specific coverage reduction or risk considerations based on the coverage amounts and policy type]
+[Compare coverage amounts ${formData.existing_coverage} vs ${formData.new_coverage} and premium amounts ${formData.existing_premium} vs ${formData.new_premium}. Note any reductions or increases and explain client's comfort level with the changes.]
 
 **More Information**
 
@@ -250,7 +248,10 @@ Date:
 
 Make this sound professional, detailed, and personalized to the specific situation. Use insurance industry terminology and maintain the formal but approachable tone. Include specific dollar amounts and policy details. Write in paragraph form where indicated, not bullet points for the main content sections.
 
-IMPORTANT: This is an INDIVIDUAL POLICY replacement - focus on personal coverage needs, premium stability, individual underwriting, etc.`;
+IMPORTANT: 
+- This is an INDIVIDUAL POLICY replacement - focus on the specific reasons and benefits provided in the form data rather than generic scenarios.
+- DO NOT add any notes, brackets, or placeholder text about policy numbers. If a policy number is provided, use it exactly as given. If not provided, omit the policy number line entirely.
+- Keep all information clean and professional without explanatory notes.`;
     }
 
     // Create the document header with client and policy information

@@ -50,15 +50,32 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ content, formData, on
 
   const handleDownloadPDF = async () => {
     try {
-      const response = await fetch('/api/generate-pdf', {
+      // First generate the DOCX file
+      const docxResponse = await fetch('/api/generate-docx', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: editedContent, formData }),
       });
       
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
+      if (!docxResponse.ok) {
+        throw new Error('Failed to generate DOCX');
+      }
+
+      const docxBlob = await docxResponse.blob();
+      
+      // Create FormData for Adobe PDF Services
+      const uploadFormData = new FormData();
+      uploadFormData.append('file', docxBlob, 'document.docx');
+      
+      // Convert DOCX to PDF using Adobe PDF Services
+      const pdfResponse = await fetch('/api/convert-to-pdf', {
+        method: 'POST',
+        body: uploadFormData,
+      });
+      
+      if (pdfResponse.ok) {
+        const pdfBlob = await pdfResponse.blob();
+        const url = window.URL.createObjectURL(pdfBlob);
         const a = document.createElement('a');
         a.href = url;
         a.download = `Policy_Replacement_${formData.client_name.replace(/\s+/g, '_')}.pdf`;
@@ -66,9 +83,13 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ content, formData, on
         a.click();
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
+      } else {
+        throw new Error('Failed to convert to PDF');
       }
     } catch (error) {
       console.error('PDF download failed:', error);
+      // Fallback to DOCX if PDF conversion fails
+      handleDownloadDOCX();
     }
   };
 
@@ -128,18 +149,19 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ content, formData, on
           }
         }
         // Format client info headers - 11pt bold with tight spacing
-        else if (trimmedLine.startsWith('Client Name:') || trimmedLine.startsWith('Existing Insurance') || trimmedLine.startsWith('Company Issuing')) {
+        else if (trimmedLine.startsWith('Client Name:') || trimmedLine.startsWith('Current Policy Number:') || trimmedLine.startsWith('Existing Insurance') || trimmedLine.startsWith('Company Issuing')) {
           return (
             <div key={index} className="mb-1 text-gray-900" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', fontWeight: 'bold' }}>
               {trimmedLine}
             </div>
           );
         }
-        // Format lists - 11pt with tight spacing
-        else if (trimmedLine.match(/^\d+\./) || trimmedLine.startsWith('•') || trimmedLine.startsWith('- ')) {
+        // Format lists - 11pt with tight spacing, convert asterisks to proper bullets
+        else if (trimmedLine.match(/^\d+\./) || trimmedLine.startsWith('•') || trimmedLine.startsWith('- ') || trimmedLine.startsWith('* ')) {
+          const bulletText = trimmedLine.startsWith('* ') ? trimmedLine.replace(/^\* /, '• ') : trimmedLine;
           return (
             <div key={index} className="ml-8 mb-1 text-gray-700" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', lineHeight: '1.2' }}>
-              {trimmedLine}
+              {bulletText}
             </div>
           );
         }
@@ -159,10 +181,10 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ content, formData, on
             </div>
           );
         }
-        // Regular paragraphs - 11pt body text with tight spacing (0.5)
+        // Regular paragraphs - 11pt body text with tighter spacing
         else {
           return (
-            <p key={index} className="mb-1 text-gray-700 text-justify" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', lineHeight: '1.2' }}>
+            <p key={index} className="mb-0.5 text-gray-700 text-justify" style={{ fontFamily: 'Garamond, serif', fontSize: '11pt', lineHeight: '1.2' }}>
               {trimmedLine}
             </p>
           );
