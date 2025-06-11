@@ -1,446 +1,361 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from "../components/ui/button";
-import { Separator } from "../components/ui/separator";
-import Image from 'next/image';
+import { Card, CardContent } from "../components/ui/card";
+import { Input } from "../components/ui/input";
 import { 
-  Bold, 
-  Italic, 
-  Underline, 
-  AlignLeft, 
-  AlignCenter, 
-  AlignRight, 
-  AlignJustify, 
-  List, 
-  ListOrdered, 
-  Download, 
-  FileText, 
-  Undo, 
+  Bold,
+  Italic,
+  Underline,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  Type,
+  Palette,
+  Highlighter,
+  List,
+  ListOrdered,
+  Undo,
   Redo,
-  Minus,
-  Plus
+  Wand2,
+  Check,
+  Loader2
 } from "lucide-react";
-import { cn } from "../libs/utils";
 
-interface DocumentFormData {
-  client_name?: string;
-  policy_category?: string;
+interface FormData {
+  policy_category: string;
+  client_name: string;
   spouse_name?: string;
   client_age?: number;
   spouse_age?: number;
   line_of_credit?: string;
-  date?: string;
-  existing_company?: string;
-  existing_policy_type?: string;
-  existing_coverage?: string;
+  date: string;
+  existing_company: string;
+  existing_policy_type: string;
+  existing_policy_number: string;
+  existing_coverage: string;
   existing_coverage_primary?: string;
   existing_coverage_spouse?: string;
-  existing_premium?: string;
+  existing_premium: string;
   existing_premium_primary?: string;
   existing_premium_spouse?: string;
-  new_company?: string;
-  new_policy_type?: string;
-  new_coverage?: string;
+  new_company: string;
+  new_policy_type: string;
+  new_coverage: string;
   new_coverage_primary?: string;
   new_coverage_spouse?: string;
-  new_premium?: string;
+  new_premium: string;
   new_premium_total?: string;
-  replacement_reason?: string;
-  benefits_new?: string;
-  disadvantages_old?: string;
-  agent_name?: string;
+  replacement_reason: string;
+  benefits_new: string;
+  disadvantages_old: string;
+  agent_name: string;
   agent_license?: string;
   agent_phone?: string;
 }
 
 interface DocumentEditorProps {
   content: string;
-  formData: DocumentFormData;
+  formData: FormData;
   onContentChange: (content: string) => void;
 }
 
 const DocumentEditor: React.FC<DocumentEditorProps> = ({ content, formData, onContentChange }) => {
-  const [fontSize, setFontSize] = useState(12);
-  const [isDownloading, setIsDownloading] = useState({ pdf: false, docx: false });
+  const [editedContent, setEditedContent] = useState(content);
+  const [htmlContent, setHtmlContent] = useState('');
+  const [fontSize, setFontSize] = useState('12');
+  const [fontFamily, setFontFamily] = useState('Garamond');
   const editorRef = useRef<HTMLDivElement>(null);
 
-  // Initialize content only once
   useEffect(() => {
-    if (editorRef.current && !editorRef.current.innerHTML) {
-      editorRef.current.innerHTML = formatContent(content);
-    }
-  }, [content]);
+    setEditedContent(content);
+    setHtmlContent(convertToHTML(content));
+  }, [content, fontFamily, fontSize]);
 
-  const handleContentChange = () => {
-    if (editorRef.current) {
-      const textContent = editorRef.current.innerText || editorRef.current.textContent || '';
-      onContentChange(textContent);
-    }
-  };
-
-  const formatContent = (content: string) => {
-    return content
+  const convertToHTML = (text: string) => {
+    return text
       .split('\n')
       .map((line) => {
         const trimmedLine = line.trim();
-        if (!trimmedLine) return '<div style="margin: 3px 0;"><br></div>';
+        if (!trimmedLine) return '<div><br></div>';
         
-        // Format headers with proper hierarchy - using Garamond font and correct sizes
+        // Format headers
         if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**')) {
           const header = trimmedLine.replace(/\*\*/g, '');
           if (header.includes('Explanation of Advantages and Disadvantages')) {
-            return `<h1 style="text-align: center; font-weight: bold; font-size: 14pt; margin: 18px 0; color: #1a1a1a; font-family: Garamond, serif;">${header}</h1>`;
-          } else if (
-            header.includes('Summary of policy replacement') ||
-            header.includes('Why doesn\'t the existing policy meet your needs?') ||
-            header.includes('How does the new policy meet your needs?') ||
-            header.includes('What are the risks associated with the proposed replacement?') ||
-            header.includes('More Information')
-          ) {
-            // Subheadings - 14pt bold with appropriate spacing
-            return `<h2 style="font-weight: bold; font-size: 14pt; margin: 18px 0 6px 0; color: #2c2c2c; font-family: Garamond, serif;">${header}</h2>`;
+            return `<h1 style="text-align: center; margin: 24px 0; color: #1f2937; font-weight: bold; font-size: 18px; font-family: ${fontFamily}, serif;">${header}</h1>`;
+          } else {
+            return `<h2 style="margin: 20px 0 12px 0; color: #374151; font-weight: 600; font-size: 16px; font-family: ${fontFamily}, serif;">${header}</h2>`;
           }
         }
-        // Format client info headers - 11pt bold with tight spacing
-        else if (trimmedLine.startsWith('Client Name:') || trimmedLine.startsWith('Existing Insurance') || trimmedLine.startsWith('Company Issuing')) {
-          return `<div style="font-weight: bold; margin: 3px 0; color: #1a1a1a; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
+        // Format client info headers
+        else if (
+          trimmedLine.startsWith('Client Name:') || 
+          trimmedLine.startsWith('Current Policy Number:') || 
+          trimmedLine.startsWith('Existing Insurance') || 
+          trimmedLine.startsWith('Company Issuing')
+        ) {
+          return `<div style="margin: 8px 0; color: #1f2937; background-color: #f3f4f6; padding: 8px; border-radius: 4px; font-weight: bold; font-size: ${fontSize}pt; font-family: ${fontFamily}, serif;">${trimmedLine}</div>`;
         }
-        // Format lists - 11pt with tight spacing
-        else if (trimmedLine.match(/^\d+\./) || trimmedLine.startsWith('•') || trimmedLine.startsWith('- ')) {
-          return `<div style="margin-left: 25px; margin: 3px 0 3px 25px; line-height: 1.2; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
+        // Format lists
+        else if (trimmedLine.match(/^\d+\./) || trimmedLine.startsWith('•') || trimmedLine.startsWith('- ') || trimmedLine.startsWith('* ')) {
+          const bulletText = trimmedLine.startsWith('* ') ? trimmedLine.replace(/^\* /, '') : trimmedLine.replace(/^[•\-*]\s*/, '');
+          return `<div style="margin-left: 20px; margin-bottom: 8px; color: #374151; font-size: ${fontSize}pt; font-family: ${fontFamily}, serif; display: flex;"><span style="margin-right: 8px;">•</span><span>${bulletText}</span></div>`;
         }
-        // Format signature lines - 11pt
+        // Format signature lines
         else if (trimmedLine.startsWith('_____')) {
-          return `<div style="margin: 6px 0; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
+          return `<div style="margin: 16px 0; color: #374151; font-size: ${fontSize}pt; font-family: ${fontFamily}, serif;">${trimmedLine}</div>`;
         }
-        // Separator line
-        else if (trimmedLine.includes('________________________________________________________________________________________')) {
-          return `<div style="margin: 12px 0; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
-        }
-        // Regular paragraphs - 11pt body text with very tight spacing (0.5)
+        // Regular paragraphs
         else {
-          return `<div style="margin: 3px 0; line-height: 1.2; text-align: justify; font-size: 11pt; font-family: Garamond, serif;">${trimmedLine}</div>`;
+          return `<p style="margin-bottom: 8px; color: #374151; line-height: 1.6; font-size: ${fontSize}pt; font-family: ${fontFamily}, serif;">${trimmedLine}</p>`;
         }
       })
       .join('');
   };
 
-  const execCommand = (command: string, value?: string) => {
-    document.execCommand(command, false, value);
-    editorRef.current?.focus();
-  };
-
-  const handleFontSizeChange = (delta: number) => {
-    const newSize = Math.max(8, Math.min(72, fontSize + delta));
-    setFontSize(newSize);
+  const convertFromHTML = (html: string) => {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
     
-    // Update all elements with specific font sizes in the editor
-    if (editorRef.current) {
-      const elements = editorRef.current.querySelectorAll('*');
-      elements.forEach((element: Element) => {
-        const el = element as HTMLElement;
-        const currentStyle = el.style.fontSize;
-        if (currentStyle) {
-          // Extract current font size and adjust it
-          const currentPt = parseFloat(currentStyle.replace('pt', ''));
-          if (!isNaN(currentPt)) {
-            el.style.fontSize = `${Math.max(6, currentPt + delta)}pt`;
+    // Better HTML to text conversion that preserves structure
+    let text = '';
+    const walkNodes = (node: Node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        text += node.textContent || '';
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const element = node as Element;
+        const tagName = element.tagName.toLowerCase();
+        
+        if (tagName === 'h1' || tagName === 'h2') {
+          text += `**${element.textContent?.trim()}**\n\n`;
+        } else if (tagName === 'p') {
+          if (element.textContent?.trim()) {
+            text += `${element.textContent.trim()}\n`;
+          }
+        } else if (tagName === 'div') {
+          const content = element.textContent?.trim();
+          if (content) {
+            if (content.startsWith('•')) {
+              text += `• ${content.replace(/^•\s*/, '')}\n`;
+            } else {
+              text += `${content}\n`;
+            }
+          }
+        } else if (tagName === 'br') {
+          text += '\n';
+        } else {
+          // For other elements, walk their children
+          for (const child of Array.from(element.childNodes)) {
+            walkNodes(child);
           }
         }
-      });
-      
-      // Also set the container font size as fallback
-      editorRef.current.style.fontSize = `${newSize}px`;
+      }
+    };
+    
+    for (const child of Array.from(tempDiv.childNodes)) {
+      walkNodes(child);
+    }
+    
+    return text.trim();
+  };
+
+  const updateContent = () => {
+    if (editorRef.current) {
+      const html = editorRef.current.innerHTML;
+      const text = convertFromHTML(html);
+      setEditedContent(text);
+      onContentChange(text);
     }
   };
 
-  const downloadDocument = async (format: 'pdf' | 'docx') => {
-    setIsDownloading(prev => ({ ...prev, [format]: true }));
-    
+  const execCommand = (command: string, value?: string) => {
     try {
-      // Get the HTML content to preserve formatting, but clean it up for the backend
-      const htmlContent = editorRef.current?.innerHTML || '';
-      
-      // Convert HTML back to a format similar to the original content structure
-      // by extracting text but preserving the structural markers
-      let textContent = '';
-      
-      if (editorRef.current) {
-        // Create a temporary div to parse the HTML
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = htmlContent;
-        
-        // Process each element to rebuild the markdown-like structure
-        const processElement = (element: Element): string => {
-          const tagName = element.tagName.toLowerCase();
-          const textContent = element.textContent || '';
-          
-          if (!textContent.trim()) return '\n';
-          
-          // Handle headers (h1, h2) - add markdown-style markers
-          if (tagName === 'h1' || tagName === 'h2') {
-            return `**${textContent.trim()}**\n\n`;
-          }
-          
-          // Handle divs and paragraphs
-          if (tagName === 'div' || tagName === 'p') {
-            const text = textContent.trim();
-            if (text) {
-              return `${text}\n`;
-            }
-            return '\n';
-          }
-          
-          // For other elements, just return the text content
-          return textContent.trim() ? `${textContent.trim()}\n` : '';
-        };
-        
-        // Process all child elements
-        Array.from(tempDiv.children).forEach(child => {
-          textContent += processElement(child);
-        });
-        
-        // If no proper structure found, fall back to plain text
-        if (!textContent.trim()) {
-          textContent = editorRef.current.innerText || editorRef.current.textContent || '';
-        }
-      }
-      
-      const endpoint = format === 'pdf' ? '/api/convert-to-pdf' : '/api/generate-docx';
-      
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          content: textContent, 
-          formData 
-        }),
-      });
-      
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `Policy_Replacement_${formData.client_name?.replace(/\s+/g, '_') || 'Document'}.${format}`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
-      } else {
-        alert(`Failed to download ${format.toUpperCase()}. Please try again.`);
-      }
+      document.execCommand(command, false, value);
     } catch (error) {
-      console.error(`${format.toUpperCase()} download error:`, error);
-      alert(`Failed to download ${format.toUpperCase()}. Please try again.`);
-    } finally {
-      setIsDownloading(prev => ({ ...prev, [format]: false }));
+      console.error('Command failed:', command, error);
+    }
+  };
+
+  const handleFontSizeChange = (size: string) => {
+    setFontSize(size);
+    if (editorRef.current) {
+      const selection = window.getSelection();
+      if (selection && selection.rangeCount > 0 && !selection.isCollapsed) {
+        execCommand('fontSize', '7');
+        // Apply custom styling
+        setTimeout(() => {
+          const selectedElements = editorRef.current?.querySelectorAll('font[size="7"]');
+          selectedElements?.forEach(el => {
+            const span = document.createElement('span');
+            span.style.fontSize = size + 'pt';
+            span.innerHTML = el.innerHTML;
+            el.parentNode?.replaceChild(span, el);
+          });
+        }, 10);
+      } else {
+        // Update global font size by regenerating HTML content
+        setTimeout(() => {
+          setHtmlContent(convertToHTML(editedContent));
+        }, 10);
+      }
+    }
+  };
+
+  const handleFontFamilyChange = (family: string) => {
+    setFontFamily(family);
+    if (editorRef.current) {
+      const selection = window.getSelection();
+      if (selection && selection.rangeCount > 0 && !selection.isCollapsed) {
+        execCommand('fontName', family);
+      } else {
+        // Update global font family by regenerating HTML content
+        setTimeout(() => {
+          setHtmlContent(convertToHTML(editedContent));
+        }, 10);
+      }
     }
   };
 
   return (
-    <Card className="w-full max-w-5xl mx-auto shadow-xl">
-      <CardHeader className="border-b bg-muted/50">
-        <CardTitle className="text-lg font-medium">Document Editor</CardTitle>
-        
-        {/* Toolbar */}
-        <div className="flex flex-wrap items-center gap-1 pt-4">
-          {/* Undo/Redo */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => execCommand('undo')}
-            className="h-8 w-8 p-0"
-          >
-            <Undo className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => execCommand('redo')}
-            className="h-8 w-8 p-0"
-          >
-            <Redo className="h-4 w-4" />
-          </Button>
-          
-          <Separator orientation="vertical" className="h-6 mx-2" />
-          
-          {/* Font Size */}
-          <div className="flex items-center gap-1">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => handleFontSizeChange(-1)}
-              className="h-8 w-8 p-0"
-            >
-              <Minus className="h-3 w-3" />
+    <div className="h-full bg-gray-50">
+      <div className="flex flex-col h-full">
+        {/* Formatting Toolbar */}
+        <div className="bg-white border-b shadow-sm p-3">
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Undo/Redo */}
+            <Button variant="ghost" size="sm" onClick={() => execCommand('undo')} className="p-2">
+              <Undo className="h-4 w-4" />
             </Button>
-            <span className="text-sm min-w-[2rem] text-center">{fontSize}</span>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => handleFontSizeChange(1)}
-              className="h-8 w-8 p-0"
+            <Button variant="ghost" size="sm" onClick={() => execCommand('redo')} className="p-2">
+              <Redo className="h-4 w-4" />
+            </Button>
+
+            <div className="h-6 w-px bg-gray-300 mx-1" />
+
+            {/* Font Family */}
+            <select 
+              value={fontFamily}
+              onChange={(e) => handleFontFamilyChange(e.target.value)}
+              className="border rounded px-2 py-1 text-sm min-w-24"
             >
-              <Plus className="h-3 w-3" />
+              <option value="Garamond">Garamond</option>
+              <option value="Arial">Arial</option>
+              <option value="Times New Roman">Times New Roman</option>
+              <option value="Helvetica">Helvetica</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Verdana">Verdana</option>
+            </select>
+
+            {/* Font Size */}
+            <div className="flex items-center gap-1">
+              <Type className="h-4 w-4 text-gray-600" />
+              <select 
+                value={fontSize}
+                onChange={(e) => handleFontSizeChange(e.target.value)}
+                className="border rounded px-2 py-1 text-sm"
+              >
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="14">14</option>
+                <option value="16">16</option>
+                <option value="18">18</option>
+                <option value="20">20</option>
+                <option value="24">24</option>
+                <option value="28">28</option>
+                <option value="32">32</option>
+              </select>
+            </div>
+
+            <div className="h-6 w-px bg-gray-300 mx-1" />
+
+            {/* Text Formatting */}
+            <Button variant="ghost" size="sm" onClick={() => execCommand('bold')} className="p-2">
+              <Bold className="h-4 w-4" />
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => execCommand('italic')} className="p-2">
+              <Italic className="h-4 w-4" />
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => execCommand('underline')} className="p-2">
+              <Underline className="h-4 w-4" />
+            </Button>
+
+            <div className="h-6 w-px bg-gray-300 mx-1" />
+
+            {/* Text Color */}
+            <div className="flex items-center gap-1">
+              <Palette className="h-4 w-4 text-gray-600" />
+              <input
+                type="color"
+                onChange={(e) => execCommand('foreColor', e.target.value)}
+                className="w-8 h-6 border rounded cursor-pointer"
+                title="Text Color"
+              />
+            </div>
+
+            {/* Highlight Color */}
+            <div className="flex items-center gap-1">
+              <Highlighter className="h-4 w-4 text-gray-600" />
+              <input
+                type="color"
+                onChange={(e) => execCommand('backColor', e.target.value)}
+                className="w-8 h-6 border rounded cursor-pointer"
+                title="Highlight Color"
+              />
+            </div>
+
+            <div className="h-6 w-px bg-gray-300 mx-1" />
+
+            {/* Alignment */}
+            <Button variant="ghost" size="sm" onClick={() => execCommand('justifyLeft')} className="p-2">
+              <AlignLeft className="h-4 w-4" />
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => execCommand('justifyCenter')} className="p-2">
+              <AlignCenter className="h-4 w-4" />
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => execCommand('justifyRight')} className="p-2">
+              <AlignRight className="h-4 w-4" />
+            </Button>
+
+            <div className="h-6 w-px bg-gray-300 mx-1" />
+
+            {/* Lists */}
+            <Button variant="ghost" size="sm" onClick={() => execCommand('insertUnorderedList')} className="p-2">
+              <List className="h-4 w-4" />
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => execCommand('insertOrderedList')} className="p-2">
+              <ListOrdered className="h-4 w-4" />
             </Button>
           </div>
-          
-          <Separator orientation="vertical" className="h-6 mx-2" />
-          
-          {/* Text Formatting */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => execCommand('bold')}
-            className="h-8 w-8 p-0"
-          >
-            <Bold className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => execCommand('italic')}
-            className="h-8 w-8 p-0"
-          >
-            <Italic className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => execCommand('underline')}
-            className="h-8 w-8 p-0"
-          >
-            <Underline className="h-4 w-4" />
-          </Button>
-          
-          <Separator orientation="vertical" className="h-6 mx-2" />
-          
-          {/* Alignment */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => execCommand('justifyLeft')}
-            className="h-8 w-8 p-0"
-          >
-            <AlignLeft className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => execCommand('justifyCenter')}
-            className="h-8 w-8 p-0"
-          >
-            <AlignCenter className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => execCommand('justifyRight')}
-            className="h-8 w-8 p-0"
-          >
-            <AlignRight className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => execCommand('justifyFull')}
-            className="h-8 w-8 p-0"
-          >
-            <AlignJustify className="h-4 w-4" />
-          </Button>
-          
-          <Separator orientation="vertical" className="h-6 mx-2" />
-          
-          {/* Lists */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => execCommand('insertUnorderedList')}
-            className="h-8 w-8 p-0"
-          >
-            <List className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => execCommand('insertOrderedList')}
-            className="h-8 w-8 p-0"
-          >
-            <ListOrdered className="h-4 w-4" />
-          </Button>
-          
-          <Separator orientation="vertical" className="h-6 mx-2" />
-          
-          {/* Download Buttons */}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => downloadDocument('pdf')}
-            disabled={isDownloading.pdf}
-            className="ml-auto"
-          >
-            {isDownloading.pdf ? (
-              <>Processing...</>
-            ) : (
-              <>
-                <Download className="w-4 h-4 mr-2" />
-                PDF
-              </>
-            )}
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => downloadDocument('docx')}
-            disabled={isDownloading.docx}
-          >
-            {isDownloading.docx ? (
-              <>Processing...</>
-            ) : (
-              <>
-                <FileText className="w-4 h-4 mr-2" />
-                DOCX
-              </>
-            )}
-          </Button>
         </div>
-      </CardHeader>
-      
-      <CardContent className="p-0">
-        {/* Document Header with Logo */}
-        <div className="text-center py-6 px-8 border-b bg-gray-50">
-          <div className="flex items-center justify-center mb-3">
-            <Image
-              src="/policyadvisorlogo.png"
-              alt="PolicyAdvisor"
-              width={200}
-              height={67}
-              className="h-auto"
-            />
-          </div>
-        </div>
-        
+
         {/* Editor Content */}
-        <div
-          ref={editorRef}
-          contentEditable
-          suppressContentEditableWarning={true}
-          onInput={handleContentChange}
-          className={cn(
-            "min-h-[600px] p-8 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset",
-            "prose prose-sm max-w-none text-gray-900 leading-relaxed"
-          )}
-          style={{ 
-            fontSize: `${fontSize}px`,
-            lineHeight: '1.7',
-            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
-          }}
-        />
-      </CardContent>
-    </Card>
+        <div className="flex-1 p-6 overflow-auto">
+          <Card className="max-w-4xl mx-auto min-h-[600px] relative bg-white">
+            <CardContent className="p-8">
+              <div
+                ref={editorRef}
+                contentEditable
+                suppressContentEditableWarning={true}
+                onBlur={updateContent}
+                className="min-h-[500px] focus:outline-none"
+                style={{ 
+                  fontFamily: `${fontFamily}, serif`,
+                  fontSize: `${fontSize}pt`,
+                  lineHeight: '1.6',
+                  color: '#374151'
+                }}
+                dangerouslySetInnerHTML={{ __html: htmlContent }}
+              />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
   );
 };
 

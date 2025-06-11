@@ -82,7 +82,8 @@ FOLLOW THIS EXACT STRUCTURE AND FORMAT:
 
 **Explanation of Advantages and Disadvantages of Policy Replacement**
 
-Client Name: ${formData.client_name}${formData.existing_policy_number ? `\nCurrent Policy Number: ${formData.existing_policy_number}` : ''}
+Client Name: ${formData.client_name}
+Current Policy Number: ${formData.existing_policy_number}
 Existing Insurance Company: ${formData.existing_company}
 Company Issuing New Policy: ${formData.new_company}
 
@@ -163,7 +164,7 @@ Make this sound professional, detailed, and personalized to the specific situati
 
 IMPORTANT: 
 - This is a COUPLE replacement - focus on the specific reasons provided by the client for replacement and the benefits of the new policy as described in the form data.
-- DO NOT add any notes, brackets, or placeholder text about policy numbers. If a policy number is provided, use it exactly as given. If not provided, omit the policy number line entirely.
+- ALWAYS include the policy number line exactly as shown: "Current Policy Number: ${formData.existing_policy_number}"
 - Keep all information clean and professional without explanatory notes.`;
     } else {
         // INDIVIDUAL PROMPT - Dynamic based on form data
@@ -192,7 +193,8 @@ FOLLOW THIS EXACT STRUCTURE AND FORMAT:
 
 **Explanation of Advantages and Disadvantages of Policy Replacement**
 
-Client Name: ${formData.client_name}${formData.existing_policy_number ? `\nCurrent Policy Number: ${formData.existing_policy_number}` : ''}
+Client Name: ${formData.client_name}
+Current Policy Number: ${formData.existing_policy_number}
 Existing Insurance Company: ${formData.existing_company}
 Company Issuing New Policy: ${formData.new_company}
 
@@ -250,16 +252,14 @@ Make this sound professional, detailed, and personalized to the specific situati
 
 IMPORTANT: 
 - This is an INDIVIDUAL POLICY replacement - focus on the specific reasons and benefits provided in the form data rather than generic scenarios.
-- DO NOT add any notes, brackets, or placeholder text about policy numbers. If a policy number is provided, use it exactly as given. If not provided, omit the policy number line entirely.
+- ALWAYS include the policy number line exactly as shown: "Current Policy Number: ${formData.existing_policy_number}"
 - Keep all information clean and professional without explanatory notes.`;
     }
 
     // Create the document header with client and policy information
-    let headerInfo = `Client Name: ${formData.client_name}`;
-    if (formData.existing_policy_number) {
-      headerInfo += `\nCurrent Policy Number: ${formData.existing_policy_number}`;
-    }
-    headerInfo += `\nExisting Insurance Company: ${formData.existing_company}
+    let headerInfo = `Client Name: ${formData.client_name}
+Current Policy Number: ${formData.existing_policy_number}
+Existing Insurance Company: ${formData.existing_company}
 Company Issuing New Policy: ${formData.new_company}
 Date: ${formData.date}
 
