@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import PolicyReplacementGenerator from './PolicyReplacementGenerator';
@@ -48,7 +48,7 @@ const LetterGeneratorPage: React.FC = () => {
   const [generatedContent, setGeneratedContent] = useState<string>('');
   const [savedFormData, setSavedFormData] = useState<FormData | null>(null);
 
-  const allowedEmails = [
+  const allowedEmails = useMemo(() => [
     "amitabh.bhatia@gmail.com", 
     "jitenpuri@gmail.com", 
     "heenabanka@gmail.com", 
@@ -58,7 +58,7 @@ const LetterGeneratorPage: React.FC = () => {
     "jiten@policyadvisor.com",
     "shivani@policyadvisor.com",
     "heena@policyadvisor.com",
-  ];
+  ], []);
   const allowedDomain = "@policyadvisor.com";
 
   const { data: session, status } = useSession();
@@ -78,7 +78,7 @@ const LetterGeneratorPage: React.FC = () => {
       const currentPath = window.location.pathname;
       router.push(`/?callbackUrl=${encodeURIComponent(currentPath)}`);
     }
-  }, [status, session, router]);
+  }, [status, session, router, allowedEmails]);
 
   const handleDocumentGenerated = (content: string, data: FormData) => {
     setGeneratedContent(content);

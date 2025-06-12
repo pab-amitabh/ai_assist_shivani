@@ -102,6 +102,42 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ content, formData, on
     };
   }, []);
 
+  const handleDownloadDOCX = useCallback(async () => {
+    const cleanup = simulateProgress('docx');
+    
+    try {
+      const response = await fetch('/api/generate-docx', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: editedContent, formData }),
+      });
+      
+      setDownloadProgress(prev => ({ ...prev, progress: 70 }));
+      
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Policy_Replacement_${formData.client_name.replace(/\s+/g, '_')}.docx`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        
+        setDownloadProgress(prev => ({ ...prev, progress: 100 }));
+        setTimeout(cleanup, 1000);
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to generate DOCX');
+      }
+    } catch (error) {
+      console.error('DOCX download failed:', error);
+      cleanup();
+      alert(error instanceof Error ? error.message : 'DOCX download failed. Please try again.');
+    }
+  }, [editedContent, formData, simulateProgress]);
+
   const handleDownloadPDF = useCallback(async () => {
     const cleanup = simulateProgress('pdf');
     
@@ -161,43 +197,7 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({ content, formData, on
       // Fallback to DOCX if PDF conversion fails
       handleDownloadDOCX();
     }
-  }, [editedContent, formData, simulateProgress]);
-
-  const handleDownloadDOCX = useCallback(async () => {
-    const cleanup = simulateProgress('docx');
-    
-    try {
-      const response = await fetch('/api/generate-docx', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: editedContent, formData }),
-      });
-      
-      setDownloadProgress(prev => ({ ...prev, progress: 70 }));
-      
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `Policy_Replacement_${formData.client_name.replace(/\s+/g, '_')}.docx`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-        
-        setDownloadProgress(prev => ({ ...prev, progress: 100 }));
-        setTimeout(cleanup, 1000);
-      } else {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Failed to generate DOCX');
-      }
-    } catch (error) {
-      console.error('DOCX download failed:', error);
-      cleanup();
-      alert(error instanceof Error ? error.message : 'DOCX download failed. Please try again.');
-    }
-  }, [editedContent, formData, simulateProgress]);
+  }, [editedContent, formData, simulateProgress, handleDownloadDOCX]);
 
   const renderPreviewContent = (content: string) => {
     return content

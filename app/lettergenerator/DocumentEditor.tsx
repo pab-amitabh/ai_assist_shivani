@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { Input } from "../components/ui/input";
@@ -68,12 +68,7 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ content, formData, onCo
   const [fontFamily, setFontFamily] = useState('Garamond');
   const editorRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setEditedContent(content);
-    setHtmlContent(convertToHTML(content));
-  }, [content, fontFamily, fontSize]);
-
-  const convertToHTML = (text: string) => {
+  const convertToHTML = useCallback((text: string) => {
     return text
       .split('\n')
       .map((line) => {
@@ -113,7 +108,12 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ content, formData, onCo
         }
       })
       .join('');
-  };
+  }, [fontFamily, fontSize]);
+
+  useEffect(() => {
+    setEditedContent(content);
+    setHtmlContent(convertToHTML(content));
+  }, [content, fontFamily, fontSize, convertToHTML]);
 
   const convertFromHTML = (html: string) => {
     const tempDiv = document.createElement('div');
