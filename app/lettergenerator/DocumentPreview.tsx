@@ -16,7 +16,6 @@ interface FormData {
   spouse_name?: string;
   client_age?: number;
   spouse_age?: number;
-  line_of_credit?: string;
   date: string;
   existing_company: string;
   existing_policy_type: string;
@@ -33,7 +32,14 @@ interface FormData {
   new_coverage_primary?: string;
   new_coverage_spouse?: string;
   new_premium: string;
-  new_premium_total?: string;
+  new_premium_primary?: string;
+  new_premium_spouse?: string;
+  existing_premium_frequency?: string;
+  existing_premium_primary_frequency?: string;
+  existing_premium_spouse_frequency?: string;
+  new_premium_frequency?: string;
+  new_premium_primary_frequency?: string;
+  new_premium_spouse_frequency?: string;
   replacement_reason: string;
   benefits_new: string;
   disadvantages_old: string;

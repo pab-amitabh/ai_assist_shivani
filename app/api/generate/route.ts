@@ -66,14 +66,15 @@ ${spouse_context}
 - Existing Insurance Company: ${formData.existing_company}
 - Existing Policy Type: ${formData.existing_policy_type || 'life insurance policy'}
 - Company Issuing New Policy: ${formData.new_company}
-- Primary Client Current Coverage: ${formData.existing_coverage_primary || formData.existing_coverage || ''}
-- Spouse Current Coverage: ${formData.existing_coverage_spouse || ''}
-- Primary Client Current Premium: ${formData.existing_premium_primary || formData.existing_premium || ''}
-- Spouse Current Premium: ${formData.existing_premium_spouse || ''}
-- New Coverage Primary: ${formData.new_coverage_primary || formData.new_coverage || ''}
-- New Coverage Spouse: ${formData.new_coverage_spouse || ''}
+- Primary Client Current Coverage: $${formData.existing_coverage_primary || formData.existing_coverage || ''}
+- Spouse Current Coverage: $${formData.existing_coverage_spouse || ''}
+- Primary Client Current Premium: $${formData.existing_premium_primary || formData.existing_premium || ''}${formData.existing_premium_primary_frequency || formData.existing_premium_frequency || '/month'}
+- Spouse Current Premium: $${formData.existing_premium_spouse || ''}${formData.existing_premium_spouse_frequency || '/month'}
+- New Coverage Primary: $${formData.new_coverage_primary || formData.new_coverage || ''}
+- New Coverage Spouse: $${formData.new_coverage_spouse || ''}
+- New Premium Primary: $${formData.new_premium_primary || formData.new_premium || ''}${formData.new_premium_primary_frequency || formData.new_premium_frequency || '/month'}
+- New Premium Spouse: $${formData.new_premium_spouse || ''}${formData.new_premium_spouse_frequency || '/month'}
 - New Policy Type: ${formData.new_policy_type || 'life insurance'}
-- Total New Premium: ${formData.new_premium_total || formData.new_premium || ''}
 - Replacement Reason: ${formData.replacement_reason}
 - Existing Policy Details/Issues: ${formData.disadvantages_old || ''}
 - New Policy Benefits: ${formData.benefits_new || ''}
@@ -102,8 +103,8 @@ Your existing coverage amounts with ${formData.existing_company} are:
 [Write detailed explanation of why the existing policy doesn't meet their needs based on: ${formData.replacement_reason} and ${formData.disadvantages_old}. Include specific details about current premiums and policy features.]
 
 Current Premiums: The current premiums being paid are as follows
-• ${formData.client_name ? formData.client_name.split()[0] : 'Primary'}: ${formData.existing_premium_primary || formData.existing_premium || 'current premium'} for ${formData.existing_coverage_primary || formData.existing_coverage || 'current coverage'}
-• ${formData.spouse_name || 'Spouse'}: ${formData.existing_premium_spouse || 'current premium'} for ${formData.existing_coverage_spouse || 'current coverage'}
+• ${formData.client_name ? formData.client_name.split()[0] : 'Primary'}: $${formData.existing_premium_primary || formData.existing_premium || 'current premium'}${formData.existing_premium_primary_frequency || formData.existing_premium_frequency || '/month'} for $${formData.existing_coverage_primary || formData.existing_coverage || 'current coverage'}
+• ${formData.spouse_name || 'Spouse'}: $${formData.existing_premium_spouse || 'current premium'}${formData.existing_premium_spouse_frequency || '/month'} for $${formData.existing_coverage_spouse || 'current coverage'}
 
 [Based on the replacement reason provided (${formData.replacement_reason}), explain the specific issues with the current policy and why the client expressed a desire to replace it.]
 
@@ -121,11 +122,9 @@ To address your coverage needs, the following policies have been proposed:
 
 ${formData.new_policy_type || 'Life Insurance'}
 
-• ${formData.client_name ? formData.client_name.split()[0] : 'Primary'}: ${formData.new_coverage_primary || formData.new_coverage || 'new coverage amount'}
+• ${formData.client_name ? formData.client_name.split()[0] : 'Primary'}: $${formData.new_coverage_primary || formData.new_coverage || 'new coverage amount'} at $${formData.new_premium_primary || formData.new_premium || 'premium amount'}${formData.new_premium_primary_frequency || formData.new_premium_frequency || '/month'}
 
-• ${formData.spouse_name || 'Spouse'}: ${formData.new_coverage_spouse || 'new coverage amount'}
-
-• Total proposed premium of ${formData.new_premium_total || formData.new_premium || 'new premium amount'}
+• ${formData.spouse_name || 'Spouse'}: $${formData.new_coverage_spouse || 'new coverage amount'} at $${formData.new_premium_spouse || 'premium amount'}${formData.new_premium_spouse_frequency || '/month'}
 
 [Write detailed explanation of how the new policy addresses their needs based on: ${formData.benefits_new}]
 
@@ -139,7 +138,7 @@ Life insurance policies typically include a two-year contestability and suicide 
 
 When you take a new policy with ${formData.new_company}, or any other insurer, this two-year period resets and will begin from the effective date of the new contract. It's important to keep this in mind when considering policy replacement.
 
-[Compare coverage amounts ${formData.existing_coverage} vs ${formData.new_coverage} and premium amounts ${formData.existing_premium} vs ${formData.new_premium}. Note any reductions or increases and explain client's comfort level with the changes.]
+[Compare the existing and new policies for both individuals. Note any coverage or premium changes and explain the client's comfort level with these changes.]
 
 **More Information**
 
@@ -179,12 +178,12 @@ ${age_context}
 - Agent Name: ${formData.agent_name}
 - Existing Company: ${formData.existing_company}
 - Existing Policy Type: ${formData.existing_policy_type}
-- Existing Coverage: ${formData.existing_coverage}
-- Existing Premium: ${formData.existing_premium}
+- Existing Coverage: $${formData.existing_coverage}
+- Existing Premium: $${formData.existing_premium}${formData.existing_premium_frequency || '/month'}
 - New Company: ${formData.new_company}
 - New Policy Type: ${formData.new_policy_type}
-- New Coverage: ${formData.new_coverage}
-- New Premium: ${formData.new_premium}
+- New Coverage: $${formData.new_coverage}
+- New Premium: $${formData.new_premium}${formData.new_premium_frequency || '/month'}
 - Replacement Reason: ${formData.replacement_reason}
 - Benefits of New Policy: ${formData.benefits_new}
 - Disadvantages of Old Policy: ${formData.disadvantages_old}
@@ -206,7 +205,7 @@ You have reached out to us requesting for a ${formData.new_policy_type || 'new l
 
 You have reached out to us seeking a replacement of your current ${formData.existing_policy_type || 'life insurance policy'} issued by ${formData.existing_company}.
 
-[Write a detailed paragraph about the current policy situation - coverage amount ${formData.existing_coverage}, premium ${formData.existing_premium}, and why client wants replacement based on: ${formData.replacement_reason}. ${formData.client_age ? `Consider the client's age of ${formData.client_age} in your analysis.` : ""} Include specific details about the existing policy issues: ${formData.disadvantages_old}]
+[Write a detailed paragraph about the current policy situation - coverage amount $${formData.existing_coverage}, premium $${formData.existing_premium}${formData.existing_premium_frequency || '/month'}, and why client wants replacement based on: ${formData.replacement_reason}. ${formData.client_age ? `Consider the client's age of ${formData.client_age} in your analysis.` : ""} Include specific details about the existing policy issues: ${formData.disadvantages_old}]
 
 You are therefore seeking a new ${formData.new_policy_type || 'policy'} in order to:
 • [Extract first main benefit from: ${formData.benefits_new}]
@@ -218,7 +217,7 @@ You are therefore seeking a new ${formData.new_policy_type || 'policy'} in order
 
 **How does the new policy meet your needs?**
 
-[Write detailed explanation of new ${formData.new_policy_type || 'policy'} features and benefits, including coverage amount ${formData.new_coverage} and premium ${formData.new_premium}. Base this on: ${formData.benefits_new}]
+[Write detailed explanation of new ${formData.new_policy_type || 'policy'} features and benefits, including coverage amount $${formData.new_coverage} and premium $${formData.new_premium}${formData.new_premium_frequency || '/month'}. Base this on: ${formData.benefits_new}]
 
 The new proposed ${formData.new_policy_type || 'coverage'} has the following features which make it attractive to you:
 [Extract specific benefits from ${formData.benefits_new} and present as bullet points]
@@ -232,7 +231,7 @@ Life insurance policies typically include a two-year contestability and suicide 
 
 When you take a new policy with ${formData.new_company}, or any other insurer, this two-year period resets and will begin from the effective date of the new contract. It's important to keep this in mind when considering policy replacement.
 
-[Compare coverage amounts ${formData.existing_coverage} vs ${formData.new_coverage} and premium amounts ${formData.existing_premium} vs ${formData.new_premium}. Note any reductions or increases and explain client's comfort level with the changes.]
+[Compare coverage amounts $${formData.existing_coverage} vs $${formData.new_coverage} and premium amounts $${formData.existing_premium}${formData.existing_premium_frequency || '/month'} vs $${formData.new_premium}${formData.new_premium_frequency || '/month'}. Note any reductions or increases and explain client's comfort level with the changes.]
 
 **More Information**
 

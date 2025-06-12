@@ -17,7 +17,6 @@ interface FormData {
   spouse_name?: string;
   client_age?: number;
   spouse_age?: number;
-  line_of_credit?: string;
   date: string;
   existing_company: string;
   existing_policy_type: string;
@@ -34,7 +33,14 @@ interface FormData {
   new_coverage_primary?: string;
   new_coverage_spouse?: string;
   new_premium: string;
-  new_premium_total?: string;
+  new_premium_primary?: string;
+  new_premium_spouse?: string;
+  existing_premium_frequency?: string;
+  existing_premium_primary_frequency?: string;
+  existing_premium_spouse_frequency?: string;
+  new_premium_frequency?: string;
+  new_premium_primary_frequency?: string;
+  new_premium_spouse_frequency?: string;
   replacement_reason: string;
   benefits_new: string;
   disadvantages_old: string;
@@ -161,8 +167,8 @@ const LetterGeneratorPage: React.FC = () => {
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
         {/* Progress Indicator */}
         <div className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b">
-          <div className="max-w-4xl mx-auto px-4 py-4">
-            <div className="flex items-center justify-between">
+          <div className="max-w-6xl mx-auto px-4 py-4">
+            <div className="flex items-center justify-center">
               <div className="flex items-center gap-8">
                 {/* Form Step */}
                 <div className="flex items-center gap-3">
@@ -218,7 +224,7 @@ const LetterGeneratorPage: React.FC = () => {
                   onClick={handleNewForm}
                   variant="outline"
                   size="sm"
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 ml-8"
                 >
                   <Plus className="w-4 h-4" />
                   New Form
