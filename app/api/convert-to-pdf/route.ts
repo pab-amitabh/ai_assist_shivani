@@ -156,7 +156,6 @@ export async function POST(request: NextRequest) {
   try {
     // Check for required environment variables
     if (!ADOBE_CLIENT_ID || !ADOBE_CLIENT_SECRET || !ADOBE_ORG_ID) {
-      console.error('Missing Adobe PDF Services API credentials in environment variables');
       return NextResponse.json({
         error: 'Adobe PDF Services API not configured. Please contact support.'
       }, { status: 500 });
@@ -176,25 +175,33 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
+    // Validate file type
+    if (!file.type.includes('wordprocessingml') && !file.name.endsWith('.docx')) {
+      return NextResponse.json({
+        error: 'Invalid file type. Only DOCX files are supported.'
+      }, { status: 400 });
+    }
+
+    // Validate file size (limit to 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      return NextResponse.json({
+        error: 'File too large. Maximum size is 10MB.'
+      }, { status: 400 });
+    }
+
     // Convert file to buffer
     const fileBuffer = Buffer.from(await file.arrayBuffer());
 
-    console.log('Starting PDF conversion process...');
-
     // Step 1: Get access token
-    console.log('Getting access token...');
     const accessToken = await getAccessToken(clientId, clientSecret);
 
     // Step 2: Upload asset
-    console.log('Uploading document...');
     const uploadResult = await uploadAsset(accessToken, fileBuffer, clientId);
 
     // Step 3: Create conversion job
-    console.log('Creating conversion job...');
     const jobLocation = await createConversionJob(accessToken, uploadResult.assetID, clientId);
 
     // Step 4: Poll for job completion
-    console.log('Waiting for conversion to complete...');
     const jobResult = await pollJobStatus(accessToken, jobLocation, clientId);
 
     if (jobResult.status === 'failed') {
@@ -206,8 +213,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Step 5: Download the converted PDF
-    console.log('Downloading converted PDF...');
     const pdfBuffer = await downloadPDF(jobResult.asset.downloadUri);
+
+    // Validate PDF buffer
+    if (!pdfBuffer || pdfBuffer.length === 0) {
+      throw new Error('Generated PDF is empty');
+    }
 
     // Return the PDF as a response
     return new NextResponse(pdfBuffer, {
@@ -215,14 +226,41 @@ export async function POST(request: NextRequest) {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': 'attachment; filename="converted-document.pdf"',
+        'Content-Length': pdfBuffer.length.toString(),
       },
     });
 
   } catch (error) {
     console.error('PDF conversion error:', error);
+    
+    // Return appropriate error based on the error type
+    if (error instanceof Error) {
+      if (error.message.includes('access token')) {
+        return NextResponse.json({
+          error: 'Authentication failed with Adobe services'
+        }, { status: 503 });
+      }
+      
+      if (error.message.includes('timeout')) {
+        return NextResponse.json({
+          error: 'PDF conversion timed out. Please try again.'
+        }, { status: 504 });
+      }
+      
+      if (error.message.includes('upload')) {
+        return NextResponse.json({
+          error: 'Failed to upload document for conversion'
+        }, { status: 500 });
+      }
+      
+      return NextResponse.json({
+        error: 'PDF conversion failed',
+        details: error.message
+      }, { status: 500 });
+    }
+    
     return NextResponse.json({
-      error: 'Failed to convert document to PDF',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      error: 'Failed to convert document to PDF'
     }, { status: 500 });
   }
 } 

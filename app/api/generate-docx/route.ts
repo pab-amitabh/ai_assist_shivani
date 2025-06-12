@@ -5,9 +5,17 @@ import path from 'path';
 
 export async function POST(request: NextRequest) {
   try {
-    const { content, formData } = await request.json();
+    const body = await request.json();
+    const { content, formData } = body;
     
-    console.log('DOCX Generation - Creating document with uniform spacing...');
+    // Validate required fields
+    if (!content || typeof content !== 'string') {
+      return NextResponse.json({ error: 'Content is required and must be a string' }, { status: 400 });
+    }
+    
+    if (!formData || typeof formData !== 'object') {
+      return NextResponse.json({ error: 'Form data is required' }, { status: 400 });
+    }
     
     // Process content line by line
     const lines = content.split('\n');
@@ -39,7 +47,7 @@ export async function POST(request: NextRequest) {
         }));
       }
     } catch (error) {
-      console.log('Logo not found for header');
+      // Logo is optional, continue without it
     }
 
     for (let i = 0; i < lines.length; i++) {
@@ -55,13 +63,10 @@ export async function POST(request: NextRequest) {
         continue;
       }
 
-      console.log(`Processing line ${i}: "${trimmedLine.substring(0, 50)}..."`);
-
       // Handle different formatting based on content
       if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**')) {
         // Bold headers
         const header = trimmedLine.replace(/\*\*/g, '');
-        console.log(`Found header: "${header}"`);
         
         if (header.includes('Explanation of Advantages and Disadvantages')) {
           // Main title
@@ -86,7 +91,6 @@ export async function POST(request: NextRequest) {
           header.includes('More Information')
         ) {
           // Subheadings - 14pt bold with SAME spacing as body text
-          console.log(`Found subheading: "${header}"`);
           children.push(new Paragraph({
             children: [
               new TextRun({
@@ -219,7 +223,10 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    console.log(`Generated ${children.length} paragraphs for DOCX`);
+    // Validate that we have content to generate
+    if (children.length === 0) {
+      return NextResponse.json({ error: 'No content to generate document' }, { status: 400 });
+    }
 
     // Create a new document with header and uniform spacing
     const doc = new Document({
@@ -246,18 +253,34 @@ export async function POST(request: NextRequest) {
     // Generate the DOCX buffer
     const buffer = await Packer.toBuffer(doc);
     
-    // Set the filename
-    const filename = `Policy_Replacement_${formData.client_name?.replace(/\s+/g, '_') || 'Document'}.docx`;
+    // Validate buffer was created
+    if (!buffer || buffer.length === 0) {
+      throw new Error('Failed to generate document buffer');
+    }
+    
+    // Set the filename with safe characters
+    const safeName = formData.client_name?.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '_') || 'Document';
+    const filename = `Policy_Replacement_${safeName}.docx`;
     
     return new NextResponse(buffer, {
       status: 200,
       headers: {
         'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         'Content-Disposition': `attachment; filename="${filename}"`,
+        'Content-Length': buffer.length.toString(),
       },
     });
   } catch (error) {
     console.error('DOCX generation error:', error);
-    return NextResponse.json({ error: 'Failed to generate DOCX' }, { status: 500 });
+    
+    // Return different errors based on the type
+    if (error instanceof Error) {
+      if (error.message.includes('JSON')) {
+        return NextResponse.json({ error: 'Invalid request format' }, { status: 400 });
+      }
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    
+    return NextResponse.json({ error: 'Failed to generate DOCX document' }, { status: 500 });
   }
 } 

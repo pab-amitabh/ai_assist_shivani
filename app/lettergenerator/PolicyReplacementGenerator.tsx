@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import Image from 'next/image';
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -21,7 +21,7 @@ interface FormData {
   date: string;
   existing_company: string;
   existing_policy_type: string;
-  existing_policy_number?: string;
+  existing_policy_number: string;
   existing_coverage: string;
   existing_coverage_primary?: string;
   existing_coverage_spouse?: string;
@@ -230,7 +230,7 @@ const HoverButton = React.forwardRef<
   // Combine internal ref with forwarded ref
   React.useImperativeHandle(ref, () => buttonRef.current!);
 
-  const createCircle = React.useCallback((x: number, y: number) => {
+  const createCircle = useCallback((x: number, y: number) => {
     const buttonWidth = buttonRef.current?.offsetWidth || 0;
     const xPos = x / buttonWidth;
     const color = `linear-gradient(to right, hsl(var(--primary)) ${xPos * 100}%, hsl(var(--primary)/0.8) ${xPos * 100}%)`;
@@ -241,7 +241,7 @@ const HoverButton = React.forwardRef<
     ]);
   }, []);
 
-  const handlePointerMove = React.useCallback(
+  const handlePointerMove = useCallback(
     (event: React.PointerEvent<HTMLButtonElement>) => {
       if (!isListening) return;
       
@@ -257,38 +257,44 @@ const HoverButton = React.forwardRef<
     [isListening, createCircle]
   );
 
-  const handlePointerEnter = React.useCallback(() => {
+  const handlePointerEnter = useCallback(() => {
     setIsListening(true);
   }, []);
 
-  const handlePointerLeave = React.useCallback(() => {
+  const handlePointerLeave = useCallback(() => {
     setIsListening(false);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    const timers: NodeJS.Timeout[] = [];
+    
     circles.forEach((circle) => {
       if (!circle.fadeState) {
-        setTimeout(() => {
+        timers.push(setTimeout(() => {
           setCircles((prev) =>
             prev.map((c) =>
               c.id === circle.id ? { ...c, fadeState: "in" } : c
             )
           );
-        }, 0);
+        }, 0));
 
-        setTimeout(() => {
+        timers.push(setTimeout(() => {
           setCircles((prev) =>
             prev.map((c) =>
               c.id === circle.id ? { ...c, fadeState: "out" } : c
             )
           );
-        }, 1000);
+        }, 1000));
 
-        setTimeout(() => {
+        timers.push(setTimeout(() => {
           setCircles((prev) => prev.filter((c) => c.id !== circle.id));
-        }, 2200);
+        }, 2200));
       }
     });
+
+    return () => {
+      timers.forEach(timer => clearTimeout(timer));
+    };
   }, [circles]);
 
   return (
@@ -338,47 +344,60 @@ HoverButton.displayName = "HoverButton";
 
 interface PolicyReplacementGeneratorProps {
   onDocumentGenerated: (content: string, data: FormData) => void;
+  initialFormData?: FormData | null;
 }
 
-const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({ onDocumentGenerated }) => {
-  const [formData, setFormData] = useState<FormData>({
-    policy_category: '',
-    client_name: '',
-    date: new Date().toISOString().split('T')[0],
-    existing_company: '',
-    existing_policy_type: '',
-    existing_coverage: '',
-    existing_premium: '',
-    new_company: '',
-    new_policy_type: '',
-    new_coverage: '',
-    new_premium: '',
-    replacement_reason: '',
-    benefits_new: '',
-    disadvantages_old: '',
-    agent_name: ''
+const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({ onDocumentGenerated, initialFormData }) => {
+  const [formData, setFormData] = useState<FormData>(() => {
+    // Initialize with provided data or defaults
+    if (initialFormData) {
+      return initialFormData;
+    }
+    return {
+      policy_category: '',
+      client_name: '',
+      date: new Date().toISOString().split('T')[0],
+      existing_company: '',
+      existing_policy_type: '',
+      existing_policy_number: '',
+      existing_coverage: '',
+      existing_premium: '',
+      new_company: '',
+      new_policy_type: '',
+      new_coverage: '',
+      new_premium: '',
+      replacement_reason: '',
+      benefits_new: '',
+      disadvantages_old: '',
+      agent_name: ''
+    };
   });
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [isCouple, setIsCouple] = useState(false);
   const [error, setError] = useState<string>('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsCouple(formData.policy_category === 'couple');
   }, [formData.policy_category]);
 
-  const updateFormData = (field: keyof FormData, value: string | number) => {
+  const updateFormData = useCallback((field: keyof FormData, value: string | number) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (error) setError('');
-  };
+  }, [error]);
 
-  const handleGenerate = async () => {
-    if (!formData.client_name.trim()) {
-      setError('Client name is required');
-      return;
-    }
-    if (!formData.agent_name.trim()) {
-      setError('Agent name is required');
+  const handleGenerate = useCallback(async () => {
+    // Validation
+    const errors: string[] = [];
+    if (!formData.client_name.trim()) errors.push('Client name is required');
+    if (!formData.agent_name.trim()) errors.push('Agent name is required');
+    if (!formData.existing_company.trim()) errors.push('Existing company is required');
+    if (!formData.existing_policy_number.trim()) errors.push('Current policy number is required');
+    if (!formData.new_company.trim()) errors.push('New company is required');
+    if (!formData.replacement_reason.trim()) errors.push('Replacement reason is required');
+    
+    if (errors.length > 0) {
+      setError(errors[0]);
       return;
     }
     
@@ -392,24 +411,25 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
         body: JSON.stringify(formData),
       });
       
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      }
+      
       const result = await response.json();
       
-      if (response.ok) {
-        if (result.status === 'success') {
-          onDocumentGenerated(result.content, formData);
-        } else {
-          setError(result.message || 'Failed to generate document');
-        }
+      if (result.status === 'success') {
+        onDocumentGenerated(result.content, formData);
       } else {
-        setError(result.message || 'Failed to generate document. Please try again.');
+        setError(result.message || 'Failed to generate document');
       }
     } catch (error) {
       console.error('Generation failed:', error);
-      setError('Network error. Please check your connection and try again.');
+      setError(error instanceof Error ? error.message : 'Network error. Please check your connection and try again.');
     } finally {
       setIsGenerating(false);
     }
-  };
+  }, [formData, onDocumentGenerated]);
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
@@ -552,8 +572,9 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                       id="existing_policy_number"
                       value={formData.existing_policy_number || ""}
                       onChange={(value) => updateFormData("existing_policy_number", value)}
-                      label="Current Policy Number (Optional)"
+                      label="Current Policy Number"
                       placeholder="Enter policy number"
+                      required
                     />
                   </div>
 
