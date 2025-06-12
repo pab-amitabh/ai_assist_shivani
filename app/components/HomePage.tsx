@@ -113,7 +113,7 @@ const HomePage = () => {
                 allowed: true
             },
             {
-                name: "Letter Generator",
+                name: "LIRD Generator",
                 route: "/lettergenerator",
                 description: "Generate policy replacement letters",
                 allowed: allowedEmails.includes(userEmail)
