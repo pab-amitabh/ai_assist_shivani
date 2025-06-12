@@ -497,7 +497,7 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
     if (!formData.client_name.trim()) errors.push('Client name is required');
     if (!formData.agent_name.trim()) errors.push('Agent name is required');
     if (!formData.existing_company.trim()) errors.push('Existing company is required');
-    if (!isCouple && !formData.existing_policy_number.trim()) errors.push('Current policy number is required');
+
     if (!formData.new_company.trim()) errors.push('New company is required');
     if (!formData.replacement_reason.trim()) errors.push('Replacement reason is required');
     
@@ -551,7 +551,7 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
             />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Policy Replacement Generator
+            LIRD Generator
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Create professional policy replacement documents with AI assistance
@@ -674,9 +674,8 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                       id="existing_policy_number"
                       value={formData.existing_policy_number || ""}
                       onChange={(value) => updateFormData("existing_policy_number", value)}
-                      label="Current Policy Number"
+                      label="Current Policy Number (Optional)"
                       placeholder="Enter policy number"
-                      required={!isCouple}
                     />
                   </div>
 
@@ -698,9 +697,8 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                         onChange={(value) => updateFormData("existing_premium", value)}
                         frequencyValue={formData.existing_premium_frequency || '/month'}
                         onFrequencyChange={(value) => updateFormData("existing_premium_frequency", value)}
-                        label="Premium"
+                        label="Premium (Optional)"
                         placeholder="150"
-                        required
                       />
                     </>
                   ) : (
@@ -865,6 +863,17 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                   />
                   
                   <AITextarea
+                    id="disadvantages_old"
+                    value={formData.disadvantages_old}
+                    onChange={(value) => updateFormData("disadvantages_old", value)}
+                    label="Disadvantages of Current Policy"
+                    placeholder="Describe the disadvantages of the current policy..."
+                    rows={3}
+                    formData={formData}
+                    setError={setError}
+                  />
+                  
+                  <AITextarea
                     id="benefits_new"
                     value={formData.benefits_new}
                     onChange={(value) => updateFormData("benefits_new", value)}
@@ -872,17 +881,6 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                     placeholder="Describe the benefits of the new policy..."
                     required
                     rows={4}
-                    formData={formData}
-                    setError={setError}
-                  />
-                  
-                  <AITextarea
-                    id="disadvantages_old"
-                    value={formData.disadvantages_old}
-                    onChange={(value) => updateFormData("disadvantages_old", value)}
-                    label="Disadvantages of Current Policy"
-                    placeholder="Describe the disadvantages of the current policy..."
-                    rows={3}
                     formData={formData}
                     setError={setError}
                   />
