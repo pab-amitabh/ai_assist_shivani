@@ -17,7 +17,6 @@ interface FormData {
   spouse_name?: string;
   client_age?: number;
   spouse_age?: number;
-  line_of_credit?: string;
   date: string;
   existing_company: string;
   existing_policy_type: string;
@@ -34,7 +33,14 @@ interface FormData {
   new_coverage_primary?: string;
   new_coverage_spouse?: string;
   new_premium: string;
-  new_premium_total?: string;
+  new_premium_primary?: string;
+  new_premium_spouse?: string;
+  existing_premium_frequency?: string;
+  existing_premium_primary_frequency?: string;
+  existing_premium_spouse_frequency?: string;
+  new_premium_frequency?: string;
+  new_premium_primary_frequency?: string;
+  new_premium_spouse_frequency?: string;
   replacement_reason: string;
   benefits_new: string;
   disadvantages_old: string;
@@ -182,6 +188,64 @@ Improved text:`;
   );
 };
 
+const PremiumInput: React.FC<{
+  id: string;
+  value: string;
+  onChange: (value: string) => void;
+  frequencyValue: string;
+  onFrequencyChange: (value: string) => void;
+  label: string;
+  placeholder?: string;
+  required?: boolean;
+}> = ({ id, value, onChange, frequencyValue, onFrequencyChange, label, placeholder = "", required = false }) => {
+  const formatCurrency = (value: string) => {
+    const numericValue = value.replace(/[^0-9.]/g, '');
+    const parts = numericValue.split('.');
+    if (parts[0]) {
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return parts.length > 1 ? `${parts[0]}.${parts[1].slice(0, 2)}` : parts[0];
+  };
+
+  const handleCurrencyChange = (inputValue: string) => {
+    const formatted = formatCurrency(inputValue);
+    onChange(formatted);
+  };
+
+  return (
+    <div className="space-y-2">
+      <Label htmlFor={id} className="text-sm font-medium text-foreground">
+        {label}
+        {required && <span className="text-red-500 ml-1">*</span>}
+      </Label>
+      <div className="flex gap-2">
+        <div className="relative flex-1">
+          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm font-medium">
+            $
+          </span>
+          <Input
+            id={id}
+            type="text"
+            value={value}
+            onChange={(e) => handleCurrencyChange(e.target.value)}
+            placeholder={placeholder}
+            className="h-11 border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors pl-8"
+          />
+        </div>
+        <Select value={frequencyValue} onValueChange={onFrequencyChange}>
+          <SelectTrigger className="h-11 w-32 border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+            <SelectValue placeholder="Frequency" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="/month">per month</SelectItem>
+            <SelectItem value="/year">per year</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+  );
+};
+
 const AnimatedInput: React.FC<{
   id: string;
   type?: string;
@@ -190,21 +254,56 @@ const AnimatedInput: React.FC<{
   label: string;
   required?: boolean;
   placeholder?: string;
-}> = ({ id, type = "text", value, onChange, label, required = false, placeholder = "" }) => {
+  isCurrency?: boolean;
+}> = ({ id, type = "text", value, onChange, label, required = false, placeholder = "", isCurrency = false }) => {
+  const formatCurrency = (value: string) => {
+    // Remove all non-numeric characters except decimal point
+    const numericValue = value.replace(/[^0-9.]/g, '');
+    
+    // Split by decimal point
+    const parts = numericValue.split('.');
+    
+    // Format the integer part with commas
+    if (parts[0]) {
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    
+    // Return formatted value (limit to 2 decimal places)
+    return parts.length > 1 ? `${parts[0]}.${parts[1].slice(0, 2)}` : parts[0];
+  };
+
+  const handleCurrencyChange = (inputValue: string) => {
+    if (isCurrency) {
+      const formatted = formatCurrency(inputValue);
+      onChange(formatted);
+    } else {
+      onChange(inputValue);
+    }
+  };
+
   return (
     <div className="space-y-2">
       <Label htmlFor={id} className="text-sm font-medium text-foreground">
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
       </Label>
-      <Input
-        id={id}
-        type={type}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        className="h-11 border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-      />
+      <div className="relative">
+        {isCurrency && (
+          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm font-medium">
+            $
+          </span>
+        )}
+        <Input
+          id={id}
+          type={type}
+          value={value}
+          onChange={(e) => handleCurrencyChange(e.target.value)}
+          placeholder={placeholder}
+          className={`h-11 border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors ${
+            isCurrency ? 'pl-8' : ''
+          }`}
+        />
+      </div>
     </div>
   );
 };
@@ -362,10 +461,16 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
       existing_policy_number: '',
       existing_coverage: '',
       existing_premium: '',
+      existing_premium_frequency: '/month',
+      existing_premium_primary_frequency: '/month',
+      existing_premium_spouse_frequency: '/month',
       new_company: '',
       new_policy_type: '',
       new_coverage: '',
       new_premium: '',
+      new_premium_frequency: '/month',
+      new_premium_primary_frequency: '/month',
+      new_premium_spouse_frequency: '/month',
       replacement_reason: '',
       benefits_new: '',
       disadvantages_old: '',
@@ -392,7 +497,7 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
     if (!formData.client_name.trim()) errors.push('Client name is required');
     if (!formData.agent_name.trim()) errors.push('Agent name is required');
     if (!formData.existing_company.trim()) errors.push('Existing company is required');
-    if (!formData.existing_policy_number.trim()) errors.push('Current policy number is required');
+    if (!isCouple && !formData.existing_policy_number.trim()) errors.push('Current policy number is required');
     if (!formData.new_company.trim()) errors.push('New company is required');
     if (!formData.replacement_reason.trim()) errors.push('Replacement reason is required');
     
@@ -463,7 +568,8 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                   <p className="text-sm text-gray-500">Basic information about the policy and client</p>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Row 1: Policy Type and Date */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label className="text-sm font-medium text-foreground">
                       Policy Type <span className="text-red-500">*</span>
@@ -480,15 +586,6 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                   </div>
                   
                   <AnimatedInput
-                    id="client_name"
-                    value={formData.client_name}
-                    onChange={(value) => updateFormData("client_name", value)}
-                    label="Primary Client Name"
-                    placeholder="Enter full name"
-                    required
-                  />
-                  
-                  <AnimatedInput
                     id="date"
                     type="date"
                     value={formData.date}
@@ -498,16 +595,18 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                   />
                 </div>
 
-                {isCouple && (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                    <AnimatedInput
-                      id="spouse_name"
-                      value={formData.spouse_name || ""}
-                      onChange={(value) => updateFormData("spouse_name", value)}
-                      label="Spouse Name"
-                      placeholder="Enter spouse name"
-                    />
-                    
+                {/* Row 2: Primary Client Info */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <AnimatedInput
+                    id="client_name"
+                    value={formData.client_name}
+                    onChange={(value) => updateFormData("client_name", value)}
+                    label="Primary Client Name"
+                    placeholder="Enter full name"
+                    required
+                  />
+                  
+                  {isCouple && (
                     <AnimatedInput
                       id="client_age"
                       type="number"
@@ -515,6 +614,19 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                       onChange={(value) => updateFormData("client_age", parseInt(value) || 0)}
                       label="Primary Age"
                       placeholder="Age"
+                    />
+                  )}
+                </div>
+
+                {/* Row 3: Spouse Info (couples only) */}
+                {isCouple && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <AnimatedInput
+                      id="spouse_name"
+                      value={formData.spouse_name || ""}
+                      onChange={(value) => updateFormData("spouse_name", value)}
+                      label="Spouse Name"
+                      placeholder="Enter spouse name"
                     />
                     
                     <AnimatedInput
@@ -525,16 +637,6 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                       label="Spouse Age"
                       placeholder="Age"
                     />
-
-                    <div className="md:col-span-full">
-                      <AnimatedInput
-                        id="line_of_credit"
-                        value={formData.line_of_credit || ""}
-                        onChange={(value) => updateFormData("line_of_credit", value)}
-                        label="Current Line of Credit (Optional)"
-                        placeholder="e.g., $250,000"
-                      />
-                    </div>
                   </div>
                 )}
               </section>
@@ -544,8 +646,8 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
               {/* Current Policy */}
               <section>
                 <div className="mb-6">
-                  <h2 className="text-lg font-semibold text-gray-900 mb-1">Current Policy</h2>
-                  <p className="text-sm text-gray-500">Details about the existing insurance policy</p>
+                  <h2 className="text-lg font-semibold text-gray-900 mb-1">Current Policy (Policy to be replaced)</h2>
+                  <p className="text-sm text-gray-500">Details about the existing insurance policy to be replaced</p>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -574,7 +676,7 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                       onChange={(value) => updateFormData("existing_policy_number", value)}
                       label="Current Policy Number"
                       placeholder="Enter policy number"
-                      required
+                      required={!isCouple}
                     />
                   </div>
 
@@ -585,16 +687,19 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                         value={formData.existing_coverage}
                         onChange={(value) => updateFormData("existing_coverage", value)}
                         label="Coverage Amount"
-                        placeholder="e.g., $500,000"
+                        placeholder="500,000"
                         required
+                        isCurrency={true}
                       />
                       
-                      <AnimatedInput
+                      <PremiumInput
                         id="existing_premium"
                         value={formData.existing_premium}
                         onChange={(value) => updateFormData("existing_premium", value)}
+                        frequencyValue={formData.existing_premium_frequency || '/month'}
+                        onFrequencyChange={(value) => updateFormData("existing_premium_frequency", value)}
                         label="Premium"
-                        placeholder="e.g., $150/month"
+                        placeholder="150"
                         required
                       />
                     </>
@@ -604,32 +709,38 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                         id="existing_coverage_primary"
                         value={formData.existing_coverage_primary || ""}
                         onChange={(value) => updateFormData("existing_coverage_primary", value)}
-                        label="Primary Coverage"
-                        placeholder="Primary coverage amount"
+                        label={`${formData.client_name || 'Primary'} Coverage`}
+                        placeholder="500,000"
+                        isCurrency={true}
                       />
                       
                       <AnimatedInput
                         id="existing_coverage_spouse"
                         value={formData.existing_coverage_spouse || ""}
                         onChange={(value) => updateFormData("existing_coverage_spouse", value)}
-                        label="Spouse Coverage"
-                        placeholder="Spouse coverage amount"
+                        label={`${formData.spouse_name || 'Spouse'} Coverage`}
+                        placeholder="500,000"
+                        isCurrency={true}
                       />
                       
-                      <AnimatedInput
+                      <PremiumInput
                         id="existing_premium_primary"
                         value={formData.existing_premium_primary || ""}
                         onChange={(value) => updateFormData("existing_premium_primary", value)}
-                        label="Primary Premium"
-                        placeholder="Primary premium"
+                        frequencyValue={formData.existing_premium_primary_frequency || '/month'}
+                        onFrequencyChange={(value) => updateFormData("existing_premium_primary_frequency", value)}
+                        label={`${formData.client_name || 'Primary'} Premium`}
+                        placeholder="150"
                       />
                       
-                      <AnimatedInput
+                      <PremiumInput
                         id="existing_premium_spouse"
                         value={formData.existing_premium_spouse || ""}
                         onChange={(value) => updateFormData("existing_premium_spouse", value)}
-                        label="Spouse Premium"
-                        placeholder="Spouse premium"
+                        frequencyValue={formData.existing_premium_spouse_frequency || '/month'}
+                        onFrequencyChange={(value) => updateFormData("existing_premium_spouse_frequency", value)}
+                        label={`${formData.spouse_name || 'Spouse'} Premium`}
+                        placeholder="150"
                       />
                     </>
                   )}
@@ -642,7 +753,7 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
               <section>
                 <div className="mb-6">
                   <h2 className="text-lg font-semibold text-gray-900 mb-1">New Policy</h2>
-                  <p className="text-sm text-gray-500">Details about the replacement insurance policy</p>
+                  <p className="text-sm text-gray-500">Details about the replacement (new) insurance policy</p>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -664,34 +775,69 @@ const PolicyReplacementGenerator: React.FC<PolicyReplacementGeneratorProps> = ({
                     required
                   />
 
-                  <AnimatedInput
-                    id="new_coverage"
-                    value={formData.new_coverage}
-                    onChange={(value) => updateFormData("new_coverage", value)}
-                    label="Coverage Amount"
-                    placeholder="e.g., $500,000"
-                    required
-                  />
-                  
-                  <AnimatedInput
-                    id="new_premium"
-                    value={formData.new_premium}
-                    onChange={(value) => updateFormData("new_premium", value)}
-                    label="Premium"
-                    placeholder="e.g., $120/month"
-                    required
-                  />
-
-                  {isCouple && (
-                    <div className="md:col-span-full">
+                  {!isCouple ? (
+                    <>
                       <AnimatedInput
-                        id="new_premium_total"
-                        value={formData.new_premium_total || ""}
-                        onChange={(value) => updateFormData("new_premium_total", value)}
-                        label="Total Premium (Combined)"
-                        placeholder="Total premium amount"
+                        id="new_coverage"
+                        value={formData.new_coverage}
+                        onChange={(value) => updateFormData("new_coverage", value)}
+                        label="Coverage Amount"
+                        placeholder="500,000"
+                        required
+                        isCurrency={true}
                       />
-                    </div>
+                      
+                      <PremiumInput
+                        id="new_premium"
+                        value={formData.new_premium}
+                        onChange={(value) => updateFormData("new_premium", value)}
+                        frequencyValue={formData.new_premium_frequency || '/month'}
+                        onFrequencyChange={(value) => updateFormData("new_premium_frequency", value)}
+                        label="Premium"
+                        placeholder="120"
+                        required
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <AnimatedInput
+                        id="new_coverage_primary"
+                        value={formData.new_coverage_primary || ""}
+                        onChange={(value) => updateFormData("new_coverage_primary", value)}
+                        label={`${formData.client_name || 'Primary'} Coverage`}
+                        placeholder="500,000"
+                        isCurrency={true}
+                      />
+                      
+                      <AnimatedInput
+                        id="new_coverage_spouse"
+                        value={formData.new_coverage_spouse || ""}
+                        onChange={(value) => updateFormData("new_coverage_spouse", value)}
+                        label={`${formData.spouse_name || 'Spouse'} Coverage`}
+                        placeholder="500,000"
+                        isCurrency={true}
+                      />
+                      
+                      <PremiumInput
+                        id="new_premium_primary"
+                        value={formData.new_premium_primary || ""}
+                        onChange={(value) => updateFormData("new_premium_primary", value)}
+                        frequencyValue={formData.new_premium_primary_frequency || '/month'}
+                        onFrequencyChange={(value) => updateFormData("new_premium_primary_frequency", value)}
+                        label={`${formData.client_name || 'Primary'} Premium`}
+                        placeholder="120"
+                      />
+                      
+                      <PremiumInput
+                        id="new_premium_spouse"
+                        value={formData.new_premium_spouse || ""}
+                        onChange={(value) => updateFormData("new_premium_spouse", value)}
+                        frequencyValue={formData.new_premium_spouse_frequency || '/month'}
+                        onFrequencyChange={(value) => updateFormData("new_premium_spouse_frequency", value)}
+                        label={`${formData.spouse_name || 'Spouse'} Premium`}
+                        placeholder="120"
+                      />
+                    </>
                   )}
                 </div>
               </section>
